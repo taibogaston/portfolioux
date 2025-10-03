@@ -83,19 +83,19 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      value: "gasto@example.com",
-      href: "mailto:gasto@example.com"
+      value: "maitenanl@gmail.com",
+      href: "mailto:maitenanl@gmail.com"
     },
     {
       icon: Phone,
       title: "Teléfono",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567"
+      value: "+54 3513964977",
+      href: "tel:+543513964977"
     },
     {
       icon: MapPin,
       title: "Ubicación",
-      value: "Madrid, España",
+      value: "Córdoba, Argentina",
       href: "#"
     }
   ];
@@ -125,10 +125,8 @@ const Contact = () => {
     <section
       id="contact"
       ref={ref}
-      className="py-20 bg-background relative overflow-hidden"
+      className="py-20 relative overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
       
       <motion.div
         variants={containerVariants}
@@ -142,7 +140,7 @@ const Contact = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+            className="inline-flex items-center px-4 py-2 rounded-full tech-badge text-primary text-sm font-medium mb-6 relative z-10"
           >
             <MessageCircle className="w-4 h-4 mr-2" />
             Contacto
@@ -308,21 +306,28 @@ const Contact = () => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    boxShadow: "0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.3)"
+                  }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 glow flex items-center justify-center"
+                  className="w-full px-8 py-4 bg-gradient-to-r from-primary via-blue-500 to-purple-600 text-white rounded-lg font-semibold text-lg hover:from-blue-500 hover:via-purple-600 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-500 relative overflow-hidden group"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin mr-2" />
-                      Enviando...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5 mr-2" />
-                      Enviar mensaje
-                    </>
-                  )}
+                  {/* Tech effect overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+                  <div className="relative z-10 flex items-center justify-center">
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5 mr-2" />
+                        Enviar mensaje
+                      </>
+                    )}
+                  </div>
                 </motion.button>
               </form>
             )}

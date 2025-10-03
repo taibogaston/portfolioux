@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ExternalLink, Github, Eye, Calendar, Users, Zap } from "lucide-react";
+import { ExternalLink, Github, Eye, Calendar, Users, Zap, Play } from "lucide-react";
+import HorizontalScroller from "./HorizontalScroller";
+import HoverRevealCard from "./HoverRevealCard";
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -101,17 +103,51 @@ const Projects = () => {
         satisfaction: "+30%",
         rating: "4.6/5"
       }
+    },
+    {
+      id: 5,
+      title: "E-commerce Platform",
+      description: "Plataforma completa de e-commerce con diseño moderno y funcionalidades avanzadas.",
+      image: "/api/placeholder/600/400",
+      category: "Web App",
+      year: "2024",
+      technologies: ["Figma", "React", "Node.js"],
+      features: ["E-commerce Design", "Payment Integration", "Admin Dashboard"],
+      liveUrl: "#",
+      githubUrl: "#",
+      stats: {
+        users: "25K+",
+        conversion: "+45%",
+        rating: "4.8/5"
+      }
+    },
+    {
+      id: 6,
+      title: "Social Media App",
+      description: "Aplicación de redes sociales con interfaz intuitiva y características innovadoras.",
+      image: "/api/placeholder/600/400",
+      category: "Mobile App",
+      year: "2024",
+      technologies: ["Figma", "React Native", "Firebase"],
+      features: ["Social Features", "Real-time Chat", "Content Sharing"],
+      liveUrl: "#",
+      githubUrl: "#",
+      stats: {
+        users: "50K+",
+        engagement: "+60%",
+        rating: "4.7/5"
+      }
     }
   ];
 
   return (
-    <section
-      id="projects"
-      ref={ref}
-      className="py-20 bg-muted/30 relative overflow-hidden"
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 tech-grid opacity-20" />
+     <section
+       id="projects"
+       ref={ref}
+       className="py-20 relative overflow-hidden"
+     >
+       {/* Fondo negro borroso como en About */}
+       <div className="absolute inset-0 bg-black/80 backdrop-blur-2xl z-0" style={{ zIndex: -1 }} />
       
       <motion.div
         variants={containerVariants}
@@ -125,7 +161,7 @@ const Projects = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+             className="inline-flex items-center px-4 py-2 rounded-full tech-badge text-primary text-sm font-medium mb-6 relative z-10"
           >
             <Eye className="w-4 h-4 mr-2" />
             Proyectos
@@ -141,120 +177,77 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
+        {/* Scroll Indicator */}
+        <motion.div 
+          variants={itemVariants}
+          className="text-center mb-8"
+        >
+          <div className="inline-flex items-center space-x-2 text-sm text-muted-foreground">
+            <span>Desplázate para ver más proyectos</span>
             <motion.div
-              key={project.id}
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              className="group bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 transition-all duration-300"
+              animate={{ x: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              className="w-4 h-4"
             >
-              {/* Project Image */}
-              <div className="relative h-48 bg-gradient-to-br from-primary/10 to-accent/10 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute top-4 left-4 flex space-x-2">
-                  <span className="px-3 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full backdrop-blur-sm">
-                    {project.category}
-                  </span>
-                  <span className="px-3 py-1 bg-muted/50 text-muted-foreground text-xs font-medium rounded-full backdrop-blur-sm">
-                    {project.year}
-                  </span>
-                </div>
-                <div className="absolute bottom-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <motion.a
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    href={project.liveUrl}
-                    className="p-2 bg-primary/20 text-primary rounded-lg backdrop-blur-sm hover:bg-primary/30 transition-colors"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                  </motion.a>
-                  <motion.a
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    href={project.githubUrl}
-                    className="p-2 bg-muted/50 text-muted-foreground rounded-lg backdrop-blur-sm hover:bg-primary/20 hover:text-primary transition-colors"
-                  >
-                    <Github className="w-4 h-4" />
-                  </motion.a>
-                </div>
+              →
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Horizontal Scrolling Projects */}
+        <HorizontalScroller className="py-8 pb-16">
+          {projects.map((project, index) => (
+            <HoverRevealCard
+              key={project.id}
+              image={index === 0 ? "https://img.freepik.com/foto-gratis/paisaje-avion-volando-cielo_23-2149151921.jpg?w=600&h=500&fit=crop&crop=center" : project.image}
+              title={project.title}
+              description={project.description}
+              labels={project.technologies}
+              className="w-[400px] min-w-[400px] h-[500px] flex-shrink-0"
+            >
+              {/* Project badges */}
+              <div className="flex space-x-2 mb-4">
+                <span className="px-3 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full">
+                  {project.category}
+                </span>
+                <span className="px-3 py-1 bg-muted/50 text-muted-foreground text-xs font-medium rounded-full">
+                  {project.year}
+                </span>
               </div>
 
-              {/* Project Content */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {project.year}
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Stats */}
+              <div className="mt-4 pt-4 border-t border-white/10">
+                <div className="flex justify-between text-sm">
+                  <div className="flex items-center text-muted-foreground">
+                    <Users className="w-4 h-4 mr-1" />
+                    {project.stats.users}
+                  </div>
+                  <div className="flex items-center text-muted-foreground">
+                    <Zap className="w-4 h-4 mr-1" />
+                    {Object.values(project.stats)[1]}
+                  </div>
+                  <div className="flex items-center text-muted-foreground">
+                    <Play className="w-4 h-4 mr-1" />
+                    {project.stats.rating}
                   </div>
                 </div>
-
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Features */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.features.map((feature) => (
-                    <span
-                      key={feature}
-                      className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-md"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
-                  {Object.entries(project.stats).map(([key, value]) => (
-                    <div key={key} className="text-center">
-                      <div className="text-lg font-bold text-primary">{value}</div>
-                      <div className="text-xs text-muted-foreground capitalize">
-                        {key === 'users' ? 'Usuarios' : 
-                         key === 'conversion' ? 'Conversión' :
-                         key === 'rating' ? 'Rating' :
-                         key === 'performance' ? 'Rendimiento' :
-                         key === 'visitors' ? 'Visitantes' :
-                         key === 'satisfaction' ? 'Satisfacción' : key}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
-            </motion.div>
+            </HoverRevealCard>
           ))}
-        </div>
+        </HorizontalScroller>
 
-        {/* CTA */}
-        <motion.div
-          variants={itemVariants}
-          className="text-center mt-16"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-lg hover:bg-primary/90 transition-all duration-300 glow"
-          >
-            Ver todos los proyectos
-          </motion.button>
-        </motion.div>
       </motion.div>
     </section>
   );

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon, Code, Palette } from "lucide-react";
+import { Menu, X, Sun, Moon, Palette } from "lucide-react";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,9 +27,14 @@ const Header = () => {
   const navItems = [
     { name: "Inicio", href: "#home" },
     { name: "Sobre mí", href: "#about" },
-    { name: "Habilidades", href: "#skills" },
+    { name: "Herramientas", href: "#tools" },
     { name: "Proyectos", href: "#projects" },
     { name: "Contacto", href: "#contact" },
+  ];
+
+  const pageItems = [
+    { name: "Portfolio", href: "/" },
+    { name: "Proyectos", href: "/projects" },
   ];
 
   const scrollToSection = (href: string) => {
@@ -49,7 +54,7 @@ const Header = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border"
+          ? "bg-black/40 backdrop-blur-md border-b border-white/10"
           : "bg-transparent"
       }`}
     >
@@ -58,15 +63,10 @@ const Header = () => {
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-3"
           >
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Code className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold gradient-text">Gasto</span>
-            </div>
-            <div className="hidden sm:flex items-center space-x-1 text-sm text-muted-foreground">
+            <span className="text-xl font-bold gradient-text">Maitena</span>
+            <div className="hidden sm:flex items-center space-x-1 text-base text-muted-foreground">
               <Palette className="w-4 h-4" />
               <span>UX/UI Designer</span>
             </div>
@@ -92,6 +92,21 @@ const Header = () => {
 
           {/* Theme Toggle & Mobile Menu */}
           <div className="flex items-center space-x-4">
+            {/* Page Navigation */}
+            <div className="hidden md:flex items-center space-x-2">
+              {pageItems.map((item) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 rounded-md hover:bg-muted/50"
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
+
             {/* Theme Toggle */}
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -128,7 +143,7 @@ const Header = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden border-t border-border bg-background/95 backdrop-blur-md"
+              className="md:hidden border-t border-white/10 bg-black/40 backdrop-blur-md"
             >
               <div className="py-4 space-y-2">
                 {navItems.map((item, index) => (

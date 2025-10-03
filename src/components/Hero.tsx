@@ -3,12 +3,36 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ArrowDown, Code2, Palette, Zap, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import TypewriterText from "./TypewriterText";
 
 const Hero = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [scrollIndicatorOpacity, setScrollIndicatorOpacity] = useState(1);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const maxScroll = 80; // Punto donde desaparece completamente (reducido de 200 a 80)
+      
+      if (scrollY <= 0) {
+        setScrollIndicatorOpacity(1);
+      } else if (scrollY >= maxScroll) {
+        setScrollIndicatorOpacity(0);
+      } else {
+        // Transición gradual de 1 a 0
+        const opacity = 1 - (scrollY / maxScroll);
+        setScrollIndicatorOpacity(opacity);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -48,10 +72,10 @@ const Hero = () => {
     <section
       id="home"
       ref={ref}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden tech-grid"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+      <div className="absolute inset-0 bg-transparent" />
       
       {/* Floating Elements */}
       <motion.div
@@ -78,10 +102,10 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ delay: 0.5, duration: 0.5 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4"
+            className="inline-flex items-center px-4 py-2 rounded-full tech-badge text-primary text-sm font-medium mb-4 relative z-10"
           >
             <Sparkles className="w-4 h-4 mr-2" />
-            ¡Hola! Soy diseñador UX/UI
+            ¡Hola! Soy Maitena, diseñadora UX/UI
           </motion.span>
         </motion.div>
 
@@ -93,7 +117,14 @@ const Hero = () => {
           <span className="block">Creo experiencias</span>
           <span className="block gradient-text">digitales únicas</span>
           <span className="block text-2xl sm:text-3xl lg:text-4xl font-normal text-muted-foreground mt-4">
-            que conectan con las personas
+            <TypewriterText 
+              text="que conectan con las personas" 
+              speed={80} 
+              eraseSpeed={50}
+              delay={1000}
+              pauseTime={2000}
+              className="text-muted-foreground"
+            />
           </span>
         </motion.h1>
 
@@ -102,34 +133,11 @@ const Hero = () => {
           variants={itemVariants}
           className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed"
         >
-          Especializado en diseño de interfaces modernas, experiencia de usuario
-          y soluciones digitales que combinan estética y funcionalidad para crear
-          productos que realmente importan.
+          Diseñadora UX/UI enfocada en crear interfaces intuitivas, responsivas y accesibles.
+          <br />
+          Mi pasión nace en entender a los usuarios, y poder mejorar su experiencia.
         </motion.p>
 
-        {/* Skills Pills */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {[
-            { icon: Code2, text: "UI Design", color: "bg-blue-500/10 text-blue-500" },
-            { icon: Palette, text: "UX Research", color: "bg-purple-500/10 text-purple-500" },
-            { icon: Zap, text: "Prototyping", color: "bg-yellow-500/10 text-yellow-500" },
-          ].map((skill, index) => (
-            <motion.div
-              key={skill.text}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-              transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-              className={`flex items-center px-4 py-2 rounded-full ${skill.color} backdrop-blur-sm`}
-            >
-              <skill.icon className="w-4 h-4 mr-2" />
-              <span className="text-sm font-medium">{skill.text}</span>
-            </motion.div>
-          ))}
-        </motion.div>
 
         {/* CTA Buttons */}
         <motion.div
@@ -140,7 +148,7 @@ const Hero = () => {
             whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(59, 130, 246, 0.3)" }}
             whileTap={{ scale: 0.95 }}
             onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-lg hover:bg-primary/90 transition-all duration-300 glow"
+            className="px-6 py-3 min-w-[180px] bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 glow"
           >
             Ver mis proyectos
           </motion.button>
@@ -149,7 +157,7 @@ const Hero = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-8 py-4 border border-border text-foreground rounded-lg font-semibold text-lg hover:bg-accent transition-all duration-300"
+            className="px-6 py-3 min-w-[180px] border border-border text-foreground rounded-full font-semibold text-lg hover:bg-accent transition-all duration-300"
           >
             Contactar
           </motion.button>
@@ -158,9 +166,9 @@ const Hero = () => {
         {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={inView ? { opacity: scrollIndicatorOpacity, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 1.5, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="mt-20"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}

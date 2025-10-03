@@ -16,10 +16,10 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gasto - UX/UI Designer Portfolio",
+  title: "Maitena - UX/UI Designer Portfolio",
   description: "Professional UX/UI Designer specializing in modern, tech-focused design solutions",
   keywords: ["UX Design", "UI Design", "Portfolio", "Designer", "Tech"],
-  authors: [{ name: "Gasto" }],
+  authors: [{ name: "Maitena" }],
   viewport: "width=device-width, initial-scale=1",
 };
 
@@ -36,8 +36,7 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange={false}
+          enableTransitionOnChange={false}
         >
           {children}
         </ThemeProvider>

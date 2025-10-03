@@ -28,7 +28,7 @@ const Footer = () => {
     {
       icon: Mail,
       name: "Email",
-      href: "mailto:gasto@example.com",
+      href: "mailto:maitenanl@gmail.com",
       color: "hover:text-primary"
     }
   ];
@@ -36,7 +36,7 @@ const Footer = () => {
   const quickLinks = [
     { name: "Inicio", href: "#home" },
     { name: "Sobre mí", href: "#about" },
-    { name: "Habilidades", href: "#skills" },
+    { name: "Herramientas", href: "#tools" },
     { name: "Proyectos", href: "#projects" },
     { name: "Contacto", href: "#contact" },
   ];
@@ -63,7 +63,7 @@ const Footer = () => {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Code className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold gradient-text">Gasto</span>
+              <span className="text-xl font-bold gradient-text">Maitena</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
               Diseñador UX/UI apasionado por crear experiencias digitales que conectan
@@ -123,9 +123,9 @@ const Footer = () => {
           >
             <h3 className="text-lg font-semibold mb-4">Contacto</h3>
             <div className="space-y-3 text-muted-foreground">
-              <p>gasto@example.com</p>
-              <p>+1 (555) 123-4567</p>
-              <p>Madrid, España</p>
+              <p>maitenanl@gmail.com</p>
+              <p>+54 3513964977</p>
+              <p>Córdoba, Argentina</p>
             </div>
           </motion.div>
         </div>
@@ -138,7 +138,7 @@ const Footer = () => {
           className="border-t border-border mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center"
         >
           <div className="flex items-center text-muted-foreground text-sm mb-4 sm:mb-0">
-            <span>© {currentYear} Gasto. Hecho con</span>
+            <span>© {currentYear} Maitena. Hecho con</span>
             <Heart className="w-4 h-4 mx-1 text-red-500" />
             <span>y mucho café</span>
           </div>
