@@ -138,7 +138,7 @@ const Projects = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-white/5 border border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-2"
+              className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-white/5 border border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-2 flex flex-col"
             >
               {/* Image */}
               <div className="relative h-64 overflow-hidden">
@@ -171,7 +171,7 @@ const Projects = () => {
               </div>
 
               {/* Content */}
-              <div className="p-4 bg-white/5 backdrop-blur-lg">
+              <div className="p-4 bg-white/5 backdrop-blur-lg flex-1 flex flex-col">
                 <h3 className="text-lg font-bold mb-2 text-white group-hover:text-white/90 transition-colors">
                   {project.title}
                 </h3>
@@ -180,7 +180,7 @@ const Projects = () => {
                 </p>
                 
                 {/* Technologies */}
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-1 mt-auto">
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
