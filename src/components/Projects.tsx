@@ -65,7 +65,7 @@ const Projects = () => {
       id: 6,
       title: "Dashboard Analytics",
       description: "Interfaz de dashboard para análisis de datos con visualizaciones interactivas y diseño responsive.",
-      image: "/avion.jpg",
+      image: "/dogandshe.jpeg",
       category: "Web App",
       technologies: ["Figma", "React", "Firebase"],
       liveUrl: "#",
@@ -138,7 +138,7 @@ const Projects = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className="group relative bg-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2"
+              className="group relative rounded-2xl overflow-hidden backdrop-blur-md bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-xl hover:shadow-white/10 hover:-translate-y-2"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
@@ -151,7 +151,7 @@ const Projects = () => {
                 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full backdrop-blur-sm">
+                  <span className="px-3 py-1 bg-white/20 text-white text-xs font-medium rounded-full backdrop-blur-sm border border-white/30">
                     {project.category}
                   </span>
                 </div>
@@ -176,11 +176,11 @@ const Projects = () => {
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+              <div className="p-6 bg-white/5 backdrop-blur-sm">
+                <h3 className="text-xl font-bold mb-3 text-white group-hover:text-white/90 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
+                <p className="text-white/80 mb-4 leading-relaxed">
                   {project.description}
                 </p>
                 
@@ -189,7 +189,7 @@ const Projects = () => {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md"
+                      className="px-2 py-1 bg-white/20 text-white/90 text-xs rounded-md backdrop-blur-sm border border-white/20"
                     >
                       {tech}
                     </span>
