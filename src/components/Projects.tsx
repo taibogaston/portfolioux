@@ -40,7 +40,7 @@ const Projects = () => {
       id: 1,
       title: "E-commerce Mobile App",
       description: "Diseño completo de una aplicación móvil de e-commerce con enfoque en la experiencia del usuario y conversión.",
-      image: "/api/placeholder/600/400",
+      image: "/avion.jpg",
       category: "Mobile App",
       year: "2024",
       technologies: ["Figma", "Principle", "React Native"],
@@ -199,7 +199,7 @@ const Projects = () => {
           {projects.map((project, index) => (
             <HoverRevealCard
               key={project.id}
-              image={index === 0 ? "https://img.freepik.com/foto-gratis/paisaje-avion-volando-cielo_23-2149151921.jpg?w=600&h=500&fit=crop&crop=center" : project.image}
+              image={project.image}
               title={project.title}
               description={project.description}
               labels={project.technologies}
