@@ -138,20 +138,20 @@ const Projects = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className="group relative rounded-2xl overflow-hidden backdrop-blur-md bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-xl hover:shadow-white/10 hover:-translate-y-2"
+              className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-white/5 border border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-2"
             >
               {/* Image */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-64 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-white/20 text-white text-xs font-medium rounded-full backdrop-blur-sm border border-white/30">
+                  <span className="px-3 py-1 bg-white/10 text-white text-xs font-medium rounded-full backdrop-blur-lg border border-white/20">
                     {project.category}
                   </span>
                 </div>
@@ -160,14 +160,14 @@ const Projects = () => {
                 <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <a
                     href={project.liveUrl}
-                    className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+                    className="p-2 bg-white/10 backdrop-blur-lg rounded-full hover:bg-white/20 transition-colors border border-white/20"
                     aria-label="Ver proyecto"
                   >
                     <ExternalLink className="w-4 h-4 text-white" />
                   </a>
                   <a
                     href={project.githubUrl}
-                    className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+                    className="p-2 bg-white/10 backdrop-blur-lg rounded-full hover:bg-white/20 transition-colors border border-white/20"
                     aria-label="Ver código"
                   >
                     <Github className="w-4 h-4 text-white" />
@@ -176,20 +176,20 @@ const Projects = () => {
               </div>
 
               {/* Content */}
-              <div className="p-6 bg-white/5 backdrop-blur-sm">
-                <h3 className="text-xl font-bold mb-3 text-white group-hover:text-white/90 transition-colors">
+              <div className="p-4 bg-white/5 backdrop-blur-lg">
+                <h3 className="text-lg font-bold mb-2 text-white group-hover:text-white/90 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-white/80 mb-4 leading-relaxed">
+                <p className="text-white/70 mb-3 leading-relaxed text-sm line-clamp-2">
                   {project.description}
                 </p>
                 
                 {/* Technologies */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1">
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-white/20 text-white/90 text-xs rounded-md backdrop-blur-sm border border-white/20"
+                      className="px-2 py-1 bg-white/10 text-white/80 text-xs rounded-md backdrop-blur-lg border border-white/10"
                     >
                       {tech}
                     </span>
