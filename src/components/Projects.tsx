@@ -2,37 +2,13 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Eye, Users, Zap, Play } from "lucide-react";
-import HorizontalScroller from "./HorizontalScroller";
-import HoverRevealCard from "./HoverRevealCard";
+import { Eye, ExternalLink, Github } from "lucide-react";
 
 const Projects = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
-
-  const handleScrollEnd = () => {
-    // Scroll automático hacia la siguiente sección (Contact)
-    const contactSection = document.querySelector("#contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ 
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  };
-
-  const handleScrollToStart = () => {
-    // Scroll automático hacia la sección anterior (About)
-    const aboutSection = document.querySelector("#about");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ 
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  };
 
   const projects = [
     {
@@ -41,101 +17,59 @@ const Projects = () => {
       description: "Diseño completo de una aplicación móvil de e-commerce con enfoque en la experiencia del usuario y conversión.",
       image: "/avion.jpg",
       category: "Mobile App",
-      year: "2024",
       technologies: ["Figma", "Principle", "React Native"],
-      features: ["UX Research", "UI Design", "Prototyping", "User Testing"],
       liveUrl: "#",
-      githubUrl: "#",
-      stats: {
-        users: "10K+",
-        conversion: "+25%",
-        rating: "4.8/5"
-      }
+      githubUrl: "#"
     },
     {
       id: 2,
-      title: "Dashboard Analytics",
-      description: "Interfaz de dashboard para análisis de datos con visualizaciones interactivas y diseño responsive.",
-      image: "/api/placeholder/600/400",
+      title: "MercadoLibre Redesign",
+      description: "Rediseño de la experiencia de usuario para la plataforma de e-commerce más grande de Latinoamérica.",
+      image: "/mercadolibre.jpeg",
       category: "Web App",
-      year: "2024",
       technologies: ["Figma", "React", "D3.js"],
-      features: ["Data Visualization", "Responsive Design", "Component Library"],
       liveUrl: "#",
-      githubUrl: "#",
-      stats: {
-        users: "5K+",
-        performance: "+40%",
-        rating: "4.9/5"
-      }
+      githubUrl: "#"
     },
     {
       id: 3,
-      title: "SaaS Landing Page",
-      description: "Landing page moderna para una plataforma SaaS con animaciones y optimización de conversión.",
-      image: "/api/placeholder/600/400",
-      category: "Landing Page",
-      year: "2023",
-      technologies: ["Figma", "Framer", "Next.js"],
-      features: ["Landing Design", "Animation", "A/B Testing"],
+      title: "Love - Art Gallery App",
+      description: "Aplicación móvil para galería de arte con enfoque en experiencias inmersivas y pop art.",
+      image: "/love.jpeg",
+      category: "Mobile App",
+      technologies: ["Figma", "Framer", "React Native"],
       liveUrl: "#",
-      githubUrl: "#",
-      stats: {
-        visitors: "50K+",
-        conversion: "+35%",
-        rating: "4.7/5"
-      }
+      githubUrl: "#"
     },
     {
       id: 4,
-      title: "Banking App Redesign",
-      description: "Rediseño completo de aplicación bancaria con enfoque en accesibilidad y usabilidad.",
-      image: "/api/placeholder/600/400",
+      title: "Digital Wallet App",
+      description: "Aplicación de billetera digital con interfaz moderna y funcionalidades de seguridad avanzadas.",
+      image: "/wallet.jpeg",
       category: "Mobile App",
-      year: "2023",
-      technologies: ["Sketch", "InVision", "React Native"],
-      features: ["UX Research", "Accessibility", "Security Design"],
+      technologies: ["Figma", "InVision", "React Native"],
       liveUrl: "#",
-      githubUrl: "#",
-      stats: {
-        users: "100K+",
-        satisfaction: "+30%",
-        rating: "4.6/5"
-      }
+      githubUrl: "#"
     },
     {
       id: 5,
-      title: "E-commerce Platform",
-      description: "Plataforma completa de e-commerce con diseño moderno y funcionalidades avanzadas.",
-      image: "/api/placeholder/600/400",
-      category: "Web App",
-      year: "2024",
+      title: "Starbucks Mobile App",
+      description: "Rediseño de la aplicación móvil de Starbucks con enfoque en pedidos y recompensas.",
+      image: "/starbucks.jpeg",
+      category: "Mobile App",
       technologies: ["Figma", "React", "Node.js"],
-      features: ["E-commerce Design", "Payment Integration", "Admin Dashboard"],
       liveUrl: "#",
-      githubUrl: "#",
-      stats: {
-        users: "25K+",
-        conversion: "+45%",
-        rating: "4.8/5"
-      }
+      githubUrl: "#"
     },
     {
       id: 6,
-      title: "Social Media App",
-      description: "Aplicación de redes sociales con interfaz intuitiva y características innovadoras.",
-      image: "/api/placeholder/600/400",
-      category: "Mobile App",
-      year: "2024",
-      technologies: ["Figma", "React Native", "Firebase"],
-      features: ["Social Features", "Real-time Chat", "Content Sharing"],
+      title: "Dashboard Analytics",
+      description: "Interfaz de dashboard para análisis de datos con visualizaciones interactivas y diseño responsive.",
+      image: "/avion.jpg",
+      category: "Web App",
+      technologies: ["Figma", "React", "Firebase"],
       liveUrl: "#",
-      githubUrl: "#",
-      stats: {
-        users: "50K+",
-        engagement: "+60%",
-        rating: "4.7/5"
-      }
+      githubUrl: "#"
     }
   ];
 
@@ -159,13 +93,13 @@ const Projects = () => {
   };
 
   return (
-     <section
-       id="projects"
-       ref={ref}
-       className="py-20 relative overflow-hidden"
-     >
-       {/* Fondo negro borroso como en About */}
-       <div className="absolute inset-0 bg-black/80 backdrop-blur-2xl z-0" style={{ zIndex: -1 }} />
+    <section
+      id="projects"
+      ref={ref}
+      className="py-20 relative overflow-hidden"
+    >
+      {/* Fondo */}
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-2xl z-0" />
       
       <motion.div
         variants={containerVariants}
@@ -173,13 +107,13 @@ const Projects = () => {
         animate={inView ? "visible" : "hidden"}
         className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
       >
-        {/* Section Header */}
+        {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-             className="inline-flex items-center px-4 py-2 rounded-full tech-badge text-primary text-sm font-medium mb-6 relative z-10"
+            className="inline-flex items-center px-4 py-2 rounded-full tech-badge text-primary text-sm font-medium mb-6"
           >
             <Eye className="w-4 h-4 mr-2" />
             Proyectos
@@ -195,81 +129,76 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {/* Projects Grid */}
         <motion.div 
-          variants={itemVariants}
-          className="text-center mb-8"
-        >
-          <div className="inline-flex items-center space-x-2 text-sm text-muted-foreground">
-            <span>Desplázate horizontalmente para ver todos los proyectos</span>
-            <motion.div
-              animate={{ x: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              className="w-4 h-4"
-            >
-              →
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Horizontal Scrolling Projects */}
-        <HorizontalScroller 
-          className="py-8 pb-16" 
-          onScrollEnd={handleScrollEnd}
-          onScrollToStart={handleScrollToStart}
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {projects.map((project) => (
-            <HoverRevealCard
+            <motion.div
               key={project.id}
-              image={project.image}
-              title={project.title}
-              description={project.description}
-              labels={project.technologies}
-              className="w-[400px] min-w-[400px] h-[500px] flex-shrink-0"
+              variants={itemVariants}
+              className="group relative bg-card rounded-2xl overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-2"
             >
-              {/* Project badges */}
-              <div className="flex space-x-2 mb-4">
-                <span className="px-3 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full">
-                  {project.category}
-                </span>
-                <span className="px-3 py-1 bg-muted/50 text-muted-foreground text-xs font-medium rounded-full">
-                  {project.year}
-                </span>
-              </div>
-
-              {/* Technologies */}
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md"
-                  >
-                    {tech}
+              {/* Image */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Category Badge */}
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 bg-primary/20 text-primary text-xs font-medium rounded-full backdrop-blur-sm">
+                    {project.category}
                   </span>
-                ))}
-              </div>
+                </div>
 
-              {/* Stats */}
-              <div className="mt-4 pt-4 border-t border-white/10">
-                <div className="flex justify-between text-sm">
-                  <div className="flex items-center text-muted-foreground">
-                    <Users className="w-4 h-4 mr-1" />
-                    {project.stats.users}
-                  </div>
-                  <div className="flex items-center text-muted-foreground">
-                    <Zap className="w-4 h-4 mr-1" />
-                    {Object.values(project.stats)[1]}
-                  </div>
-                  <div className="flex items-center text-muted-foreground">
-                    <Play className="w-4 h-4 mr-1" />
-                    {project.stats.rating}
-                  </div>
+                {/* Links */}
+                <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <a
+                    href={project.liveUrl}
+                    className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+                    aria-label="Ver proyecto"
+                  >
+                    <ExternalLink className="w-4 h-4 text-white" />
+                  </a>
+                  <a
+                    href={project.githubUrl}
+                    className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+                    aria-label="Ver código"
+                  >
+                    <Github className="w-4 h-4 text-white" />
+                  </a>
                 </div>
               </div>
-            </HoverRevealCard>
-          ))}
-        </HorizontalScroller>
 
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-muted-foreground mb-4 leading-relaxed">
+                  {project.description}
+                </p>
+                
+                {/* Technologies */}
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
     </section>
   );
