@@ -18,14 +18,12 @@ const TypewriterText = ({
   eraseSpeed = 50,
   delay = 0, 
   pauseTime = 2000,
-  className = "",
-  loop = true
+  className = ""
 }: TypewriterTextProps) => {
   const [displayedText, setDisplayedText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [isErasing, setIsErasing] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,7 +39,6 @@ const TypewriterText = ({
     // Pause after typing is complete
     if (!isErasing && currentIndex >= text.length) {
       const pauseTimer = setTimeout(() => {
-        setIsPaused(false);
         setIsErasing(true);
       }, pauseTime);
       return () => clearTimeout(pauseTimer);

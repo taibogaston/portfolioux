@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ArrowDown, Code2, Palette, Zap, Sparkles } from "lucide-react";
+import { ArrowDown, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 import TypewriterText from "./TypewriterText";
 
@@ -50,10 +50,6 @@ const Hero = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
     },
   };
 
@@ -63,7 +59,6 @@ const Hero = () => {
       transition: {
         duration: 4,
         repeat: Infinity,
-        ease: "easeInOut",
       },
     },
   };

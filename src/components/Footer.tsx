@@ -10,19 +10,13 @@ const Footer = () => {
     {
       icon: Github,
       name: "GitHub",
-      href: "https://github.com/gasto",
+      href: "https://github.com/maitenanl-git",
       color: "hover:text-gray-400"
     },
     {
       icon: Linkedin,
       name: "LinkedIn",
-      href: "https://linkedin.com/in/gasto",
-      color: "hover:text-blue-400"
-    },
-    {
-      icon: Twitter,
-      name: "Twitter",
-      href: "https://twitter.com/gasto",
+      href: "https://ar.linkedin.com/in/maitena-nicosia-lazzarini",
       color: "hover:text-blue-400"
     },
     {
@@ -66,7 +60,7 @@ const Footer = () => {
               <span className="text-xl font-bold gradient-text">Maitena</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
-              Diseñador UX/UI apasionado por crear experiencias digitales que conectan
+              Diseñadora UX/UI apasionada por crear experiencias digitales que conectan
               con las personas y resuelven problemas reales.
             </p>
             <div className="flex space-x-4">

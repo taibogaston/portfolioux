@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { 
@@ -11,9 +11,10 @@ import {
   CheckCircle, 
   Github, 
   Linkedin, 
-  Twitter,
-  MessageCircle
+  MessageCircle,
+  AlertCircle
 } from "lucide-react";
+import { initEmailJS, sendEmail } from "../lib/emailjs";
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -30,6 +31,7 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -47,10 +49,6 @@ const Contact = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
     },
   };
 
@@ -62,21 +60,42 @@ const Contact = () => {
     }));
   };
 
+  // Inicializar EmailJS al montar el componente
+  useEffect(() => {
+    initEmailJS();
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 3000);
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      };
+
+      const result = await sendEmail(templateParams);
+      
+      if (result.success) {
+        setIsSubmitted(true);
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: "", email: "", subject: "", message: "" });
+        }, 3000);
+      } else {
+        setSubmitError("Error al enviar el mensaje. Por favor, inténtalo de nuevo.");
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitError("Error al enviar el mensaje. Por favor, inténtalo de nuevo.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -104,20 +123,20 @@ const Contact = () => {
     {
       icon: Github,
       name: "GitHub",
-      href: "https://github.com/gasto",
+      href: "https://github.com/maitenanl-git",
       color: "hover:text-gray-400"
     },
     {
       icon: Linkedin,
       name: "LinkedIn",
-      href: "https://linkedin.com/in/gasto",
+      href: "https://ar.linkedin.com/in/maitena-nicosia-lazzarini",
       color: "hover:text-blue-400"
     },
     {
-      icon: Twitter,
-      name: "Twitter",
-      href: "https://twitter.com/gasto",
-      color: "hover:text-blue-400"
+      icon: Mail,
+      name: "Email",
+      href: "mailto:maitenanl@gmail.com",
+      color: "hover:text-primary"
     }
   ];
 
@@ -164,7 +183,7 @@ const Contact = () => {
                 Información de contacto
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-8">
-                Siempre estoy abierto a nuevas oportunidades y proyectos interesantes.
+                Siempre estoy abierta a nuevas oportunidades y proyectos interesantes.
                 No dudes en contactarme a través de cualquiera de estos medios.
               </p>
             </div>
@@ -302,6 +321,18 @@ const Contact = () => {
                     placeholder="Cuéntame sobre tu proyecto..."
                   />
                 </div>
+
+                {/* Error message */}
+                {submitError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 mb-4"
+                  >
+                    <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+                    <span className="text-sm">{submitError}</span>
+                  </motion.div>
+                )}
 
                 <motion.button
                   type="submit"

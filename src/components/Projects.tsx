@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ExternalLink, Github, Eye, Calendar, Users, Zap, Play } from "lucide-react";
+import { Eye, Users, Zap, Play } from "lucide-react";
 import HorizontalScroller from "./HorizontalScroller";
 import HoverRevealCard from "./HoverRevealCard";
 
@@ -12,27 +12,26 @@ const Projects = () => {
     threshold: 0.1,
   });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
+  const handleScrollEnd = () => {
+    // Scroll automático hacia la siguiente sección (Contact)
+    const contactSection = document.querySelector("#contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start"
+      });
+    }
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
+  const handleScrollToStart = () => {
+    // Scroll automático hacia la sección anterior (About)
+    const aboutSection = document.querySelector("#about");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start"
+      });
+    }
   };
 
   const projects = [
@@ -140,6 +139,25 @@ const Projects = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+
   return (
      <section
        id="projects"
@@ -183,7 +201,7 @@ const Projects = () => {
           className="text-center mb-8"
         >
           <div className="inline-flex items-center space-x-2 text-sm text-muted-foreground">
-            <span>Desplázate para ver más proyectos</span>
+            <span>Desplázate horizontalmente para ver todos los proyectos</span>
             <motion.div
               animate={{ x: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 2 }}
@@ -195,8 +213,12 @@ const Projects = () => {
         </motion.div>
 
         {/* Horizontal Scrolling Projects */}
-        <HorizontalScroller className="py-8 pb-16">
-          {projects.map((project, index) => (
+        <HorizontalScroller 
+          className="py-8 pb-16" 
+          onScrollEnd={handleScrollEnd}
+          onScrollToStart={handleScrollToStart}
+        >
+          {projects.map((project) => (
             <HoverRevealCard
               key={project.id}
               image={project.image}
@@ -254,4 +276,3 @@ const Projects = () => {
 };
 
 export default Projects;
-

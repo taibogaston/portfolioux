@@ -60,11 +60,11 @@ const InfiniteScroller = () => {
         <svg viewBox="0 0 24 24" className="w-10 h-10 md:w-12 md:h-12">
           <defs>
             <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.3"/>
+              <feDropShadow dx="1" dy="1" stdDeviation="1" floodColor="#000" floodOpacity="0.3"/>
             </filter>
           </defs>
           <rect x="2" y="2" width="20" height="20" rx="4" ry="4" fill="#211A54" filter="url(#shadow)"/>
-          <text x="12" y="16" text-anchor="middle" fill="#A699FF" font-family="Arial, sans-serif" font-size="10" font-weight="bold">Ae</text>
+          <text x="12" y="16" textAnchor="middle" fill="#A699FF" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="bold">Ae</text>
         </svg>
       ), 
       color: "text-[#A699FF]" 
@@ -202,7 +202,7 @@ const InfiniteScroller = () => {
         >
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Estas son solo algunas de las herramientas que utilizo en mi flujo de trabajo. 
-            Siempre estoy aprendiendo nuevas tecnologías para mantenerme actualizado.
+            Siempre estoy aprendiendo nuevas tecnologías para mantenerme actualizada.
           </p>
         </motion.div>
       </motion.div>
