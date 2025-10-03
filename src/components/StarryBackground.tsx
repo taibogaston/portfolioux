@@ -43,7 +43,6 @@ const StarryBackground = () => {
   }, []);
 
   useEffect(() => {
-    let animationFrameId: number;
     let lastTime = 0;
     const targetFPS = 60;
     const frameInterval = 1000 / targetFPS;
@@ -64,9 +63,6 @@ const StarryBackground = () => {
     document.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
       window.removeEventListener("mousemove", throttledMouseMove);
       document.removeEventListener("mouseenter", handleMouseEnter);
       document.removeEventListener("mouseleave", handleMouseLeave);

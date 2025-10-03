@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Heart, Instagram, Linkedin, Twitter, Mail } from "lucide-react";
+import { Code, Heart, Instagram, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

@@ -131,16 +131,16 @@ const About = () => {
         </div>
         {/* Section Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
-          {/* Photo placeholder - positioned above title */}
+          {/* Profile Photo */}
           <div className="flex justify-center mb-8">
             <div className="relative">
-              <div className="w-32 h-32 rounded-full bg-white/20 border border-white/30 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <User className="w-6 h-6 text-white/60" />
-                  </div>
-                  <p className="text-white/60 text-xs">Tu foto</p>
-                </div>
+              <div className="w-48 h-48 rounded-full overflow-hidden bg-white/20 border border-white/30 backdrop-blur-sm">
+                <img
+                  src="/maitev2.jpg"
+                  alt="Maitena - Diseñadora UX/UI"
+                  className="w-full h-full object-cover object-center object-top"
+                  style={{ objectPosition: 'center 20%', transform: 'scale(1.3)' }}
+                />
               </div>
               {/* Decorative elements */}
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-white/20 rounded-full blur-sm"></div>

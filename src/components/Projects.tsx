@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Eye, ExternalLink, Github } from "lucide-react";
+import { Eye, ExternalLink } from "lucide-react";
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -47,7 +47,7 @@ const Projects = () => {
       description: "Desafio basado en el re-diseño del Home de la app Buenbit",
       image: "/wallet.jpeg",
       category: "Mobile App",
-      technologies: ["Figma", "home", "app"],
+      technologies: ["Figma", "UX Design", "Mobile UI"],
       liveUrl: "#",
       githubUrl: "#"
     },
@@ -142,6 +142,7 @@ const Projects = () => {
             >
               {/* Image */}
               <div className="relative h-64 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={project.image}
                   alt={project.title}
