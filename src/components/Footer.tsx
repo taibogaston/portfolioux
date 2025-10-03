@@ -1,22 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Heart, Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Code, Heart, Instagram, Linkedin, Twitter, Mail } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
     {
-      icon: Github,
-      name: "GitHub",
-      href: "https://github.com/maitenanl-git",
-      color: "hover:text-gray-400"
+      icon: Instagram,
+      name: "Instagram",
+      href: "https://www.instagram.com/maitenicosia.l/",
+      color: "hover:text-pink-400"
     },
     {
       icon: Linkedin,
       name: "LinkedIn",
-      href: "https://ar.linkedin.com/in/maitena-nicosia-lazzarini",
+      href: "https://www.linkedin.com/in/maitena-nicosia-lazzarini",
       color: "hover:text-blue-400"
     },
     {

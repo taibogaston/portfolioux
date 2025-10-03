@@ -9,7 +9,7 @@ import {
   MapPin, 
   Send, 
   CheckCircle, 
-  Github, 
+  Instagram, 
   Linkedin, 
   MessageCircle,
   AlertCircle
@@ -121,15 +121,15 @@ const Contact = () => {
 
   const socialLinks = [
     {
-      icon: Github,
-      name: "GitHub",
-      href: "https://github.com/maitenanl-git",
-      color: "hover:text-gray-400"
+      icon: Instagram,
+      name: "Instagram",
+      href: "https://www.instagram.com/maitenicosia.l/",
+      color: "hover:text-pink-400"
     },
     {
       icon: Linkedin,
       name: "LinkedIn",
-      href: "https://ar.linkedin.com/in/maitena-nicosia-lazzarini",
+      href: "https://www.linkedin.com/in/maitena-nicosia-lazzarini",
       color: "hover:text-blue-400"
     },
     {

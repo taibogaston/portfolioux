@@ -53,12 +53,12 @@ const About = () => {
     {
       icon: Lightbulb,
       title: "Innovación constante",
-      description: "Mantengo un enfoque proactivo hacia las nuevas tendencias y tecnologías para crear soluciones vanguardistas.",
+      description: "Mantengo un enfoque proactivo hacia las nuevas tendencias y tecnologías para crear soluciones.",
     },
     {
       icon: Heart,
       title: "Pasión por el detalle",
-      description: "Creo que los pequeños detalles marcan la diferencia entre un buen diseño y una experiencia excepcional.",
+      description: "Creo que los pequeños detalles marcan la diferencia en todas las experiencias tanto digitales como físicas",
     },
   ];
 

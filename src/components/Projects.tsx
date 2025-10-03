@@ -13,58 +13,58 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "E-commerce Mobile App",
-      description: "Diseño completo de una aplicación móvil de e-commerce con enfoque en la experiencia del usuario y conversión.",
+      title: "Worldtrip e-commerce",
+      description: "Web e-commerce, con orientación en viajes y paquetes. Modelo responsive",
       image: "/avion.jpg",
       category: "Mobile App",
-      technologies: ["Figma", "Principle", "React Native"],
+      technologies: ["Figma", "Web", "Sitemap", "Card sorting", "Tree testing"],
       liveUrl: "#",
       githubUrl: "#"
     },
     {
       id: 2,
-      title: "MercadoLibre Redesign",
-      description: "Rediseño de la experiencia de usuario para la plataforma de e-commerce más grande de Latinoamérica.",
+      title: "MercadoLibre Research",
+      description: "Rediseño de la funcionalidad de filtrados de una de las plataformas de e-commerce más grande de Latinoamérica",
       image: "/mercadolibre.jpeg",
       category: "Web App",
-      technologies: ["Figma", "React", "D3.js"],
+      technologies: ["Figma", "Card sorting", "Tree testing", "UX"],
       liveUrl: "#",
       githubUrl: "#"
     },
     {
       id: 3,
-      title: "Love - Art Gallery App",
-      description: "Aplicación móvil para galería de arte con enfoque en experiencias inmersivas y pop art.",
+      title: "Love - Art Gallery",
+      description: "Trabajo en proceso. Congeniado con diversas diseñadoras de todo el mundo",
       image: "/love.jpeg",
       category: "Mobile App",
-      technologies: ["Figma", "Framer", "React Native"],
+      technologies: ["Figma", "UX", "UI"],
       liveUrl: "#",
       githubUrl: "#"
     },
     {
       id: 4,
-      title: "Digital Wallet App",
-      description: "Aplicación de billetera digital con interfaz moderna y funcionalidades de seguridad avanzadas.",
+      title: "Desafio Buenbit",
+      description: "Desafio basado en el re-diseño del Home de la app Buenbit",
       image: "/wallet.jpeg",
       category: "Mobile App",
-      technologies: ["Figma", "InVision", "React Native"],
+      technologies: ["Figma", "home", "app"],
       liveUrl: "#",
       githubUrl: "#"
     },
     {
       id: 5,
-      title: "Starbucks Mobile App",
-      description: "Rediseño de la aplicación móvil de Starbucks con enfoque en pedidos y recompensas.",
+      title: "Starbucks",
+      description: "Rediseño de la web Starbucks Argentina. Enfocado en landing page para descarga de su app",
       image: "/starbucks.jpeg",
       category: "Mobile App",
-      technologies: ["Figma", "React", "Node.js"],
+      technologies: ["Figma", "Responsive", "Research", "UI"],
       liveUrl: "#",
       githubUrl: "#"
     },
     {
       id: 6,
-      title: "Dashboard Analytics",
-      description: "Interfaz de dashboard para análisis de datos con visualizaciones interactivas y diseño responsive.",
+      title: "Dogwalk App",
+      description: "Primer proyecto de mi Diplomatura en UX/UI. Centrado principalmente en estructuración. No estética",
       image: "/dogandshe.jpeg",
       category: "Web App",
       technologies: ["Figma", "React", "Firebase"],
@@ -120,7 +120,7 @@ const Projects = () => {
           </motion.div>
           
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Trabajos destacados
+            Proyectos realizados
           </h2>
           
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -149,28 +149,22 @@ const Projects = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-white/10 text-white text-xs font-medium rounded-full backdrop-blur-lg border border-white/20">
-                    {project.category}
-                  </span>
-                </div>
 
                 {/* Links */}
                 <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <a
-                    href={project.liveUrl}
+                    href={project.id === 1 ? "https://www.figma.com/board/Txm6rmVc23s3eiPYq9Ya3U/Worldtrip?node-id=0-1&t=MVhe9WdvsBLzHNp1-1" : 
+                        project.id === 2 ? "https://www.figma.com/design/pM31VoCZnKYo2gvnSopaxW/UX-Club-MeLi?node-id=28-724&t=IGRsXucvCxEOxlFp-1" :
+                        project.id === 3 ? "https://www.figma.com/board/50SwZpDGtqhW1AWZw2Uvyz/UXISTIR----UX-CLUB-PROYECTO?node-id=218-745&t=KKQN2qyx4qXqiT6p-1" : 
+                        project.id === 4 ? "https://www.figma.com/design/xmVa7xLpXXNQEVFAAi7cS2/Creaciones?node-id=34-173&t=CfQylzFYNjPeowNh-1" :
+                        project.id === 6 ? "https://www.figma.com/design/gw9ESmToqxT9o7tP5RFh3e/Dogwalk?node-id=33-869&t=YKA7k00lUZEjtuCC-1" :
+                        project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-2 bg-white/10 backdrop-blur-lg rounded-full hover:bg-white/20 transition-colors border border-white/20"
                     aria-label="Ver proyecto"
                   >
                     <ExternalLink className="w-4 h-4 text-white" />
-                  </a>
-                  <a
-                    href={project.githubUrl}
-                    className="p-2 bg-white/10 backdrop-blur-lg rounded-full hover:bg-white/20 transition-colors border border-white/20"
-                    aria-label="Ver código"
-                  >
-                    <Github className="w-4 h-4 text-white" />
                   </a>
                 </div>
               </div>
