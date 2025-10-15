@@ -87,20 +87,6 @@ const Header = () => {
 
           {/* Theme Toggle & Mobile Menu */}
           <div className="flex items-center space-x-4">
-            {/* Page Navigation */}
-            <div className="hidden md:flex items-center space-x-2">
-              {pageItems.map((item) => (
-                <motion.a
-                  key={item.href}
-                  href={item.href}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-3 py-1 text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 rounded-md hover:bg-muted/50"
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-            </div>
 
             {/* Theme Toggle */}
             <motion.button
