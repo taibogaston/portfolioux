@@ -18,7 +18,7 @@ const StarryBackground = () => {
   // Memoize stars generation - only create once
   const stars = useMemo(() => {
     const newStars: Star[] = [];
-    const starCount = 80; // Reduced from 200 to 80 for better performance
+    const starCount = 40; // Further reduced for mobile performance
     
     for (let i = 0; i < starCount; i++) {
       newStars.push({

@@ -148,8 +148,23 @@ const Projects = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-white/5 border border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-2 flex flex-col"
+              className="group relative rounded-2xl overflow-hidden bg-white/10 border border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-2 flex flex-col md:cursor-default cursor-pointer"
             >
+              {/* Mobile clickable overlay */}
+              <a
+                href={project.id === 1 ? "https://www.figma.com/board/Txm6rmVc23s3eiPYq9Ya3U/Worldtrip?node-id=0-1&t=MVhe9WdvsBLzHNp1-1" : 
+                    project.id === 2 ? "https://www.figma.com/design/pM31VoCZnKYo2gvnSopaxW/UX-Club-MeLi?node-id=28-724&t=IGRsXucvCxEOxlFp-1" :
+                    project.id === 3 ? "https://www.figma.com/board/50SwZpDGtqhW1AWZw2Uvyz/UXISTIR----UX-CLUB-PROYECTO?node-id=218-745&t=KKQN2qyx4qXqiT6p-1" : 
+                    project.id === 4 ? "https://www.figma.com/design/xmVa7xLpXXNQEVFAAi7cS2/Creaciones?node-id=34-173&t=CfQylzFYNjPeowNh-1" :
+                    project.id === 6 ? "https://www.figma.com/design/gw9ESmToqxT9o7tP5RFh3e/Dogwalk?node-id=33-869&t=YKA7k00lUZEjtuCC-1" :
+                    project.id === 7 ? "https://www.figma.com/design/OjA0deYtUo5wZD0TglwJwt/IEB----Proyecto-t%C3%A9cnico?node-id=0-1&t=xhLJ0Sof33eiefkA-1" :
+                    project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 z-10 md:hidden"
+                aria-label={`Ver proyecto ${project.title}`}
+              />
+              
               {/* Image */}
               <div className="relative h-64 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -157,13 +172,13 @@ const Projects = () => {
                   src={project.image}
                   alt={project.title}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
 
                 {/* Links */}
-                <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                   <a
                     href={project.id === 1 ? "https://www.figma.com/board/Txm6rmVc23s3eiPYq9Ya3U/Worldtrip?node-id=0-1&t=MVhe9WdvsBLzHNp1-1" : 
                         project.id === 2 ? "https://www.figma.com/design/pM31VoCZnKYo2gvnSopaxW/UX-Club-MeLi?node-id=28-724&t=IGRsXucvCxEOxlFp-1" :
@@ -174,7 +189,7 @@ const Projects = () => {
                         project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-white/10 backdrop-blur-lg rounded-full hover:bg-white/20 transition-colors border border-white/20"
+                    className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors border border-white/30"
                     aria-label="Ver proyecto"
                   >
                     <ExternalLink className="w-4 h-4 text-white" />
@@ -183,7 +198,7 @@ const Projects = () => {
               </div>
 
               {/* Content */}
-              <div className="p-4 bg-white/5 backdrop-blur-lg flex-1 flex flex-col">
+              <div className="p-4 bg-white/10 flex-1 flex flex-col">
                 <h3 className="text-lg font-bold mb-2 text-white group-hover:text-white/90 transition-colors">
                   {project.title}
                 </h3>
@@ -196,7 +211,7 @@ const Projects = () => {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-white/10 text-white/80 text-xs rounded-md backdrop-blur-lg border border-white/10"
+                      className="px-2 py-1 bg-white/20 text-white text-xs rounded-md border border-white/20"
                     >
                       {tech}
                     </span>
