@@ -8,8 +8,8 @@ import { Menu, X, Sun, Moon, Palette } from "lucide-react";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -96,7 +96,9 @@ const Header = () => {
               className="p-2 rounded-lg bg-muted hover:bg-accent transition-colors duration-200"
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? (
+              {!mounted ? (
+                <Sun className="w-5 h-5" />
+              ) : theme === "dark" ? (
                 <Sun className="w-5 h-5" />
               ) : (
                 <Moon className="w-5 h-5" />

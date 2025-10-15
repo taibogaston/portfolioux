@@ -148,7 +148,7 @@ const Projects = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className="group relative rounded-2xl overflow-hidden bg-white/10 border border-white/30 hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-2 flex flex-col md:cursor-default cursor-pointer"
+              className="group relative rounded-2xl overflow-hidden bg-gray-100/80 dark:bg-white/10 border border-gray-200 dark:border-white/30 hover:border-gray-300 dark:hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-gray-300/20 dark:hover:shadow-white/20 hover:-translate-y-2 flex flex-col md:cursor-default cursor-pointer"
             >
               {/* Mobile clickable overlay */}
               <a
@@ -189,20 +189,20 @@ const Projects = () => {
                         project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors border border-white/30"
+                    className="p-2 bg-gray-200 dark:bg-white/20 rounded-full hover:bg-gray-300 dark:hover:bg-white/30 transition-colors border border-gray-300 dark:border-white/30"
                     aria-label="Ver proyecto"
                   >
-                    <ExternalLink className="w-4 h-4 text-white" />
+                    <ExternalLink className="w-4 h-4 text-gray-800 dark:text-white" />
                   </a>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-4 bg-white/10 flex-1 flex flex-col">
-                <h3 className="text-lg font-bold mb-2 text-white group-hover:text-white/90 transition-colors">
+              <div className="p-4 bg-gray-50/80 dark:bg-white/10 flex-1 flex flex-col">
+                <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-white/90 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-white/70 mb-3 leading-relaxed text-sm line-clamp-2">
+                <p className="text-gray-600 dark:text-white/70 mb-3 leading-relaxed text-sm line-clamp-2">
                   {project.description}
                 </p>
                 
@@ -211,7 +211,7 @@ const Projects = () => {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-white/20 text-white text-xs rounded-md border border-white/20"
+                      className="px-2 py-1 bg-gray-200 dark:bg-white/20 text-gray-800 dark:text-white text-xs rounded-md border border-gray-300 dark:border-white/20"
                     >
                       {tech}
                     </span>

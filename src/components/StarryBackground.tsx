@@ -96,7 +96,7 @@ const StarryBackground = () => {
           return (
             <div
               key={star.id}
-              className="absolute rounded-full bg-white will-change-transform"
+              className="absolute rounded-full bg-purple-300 dark:bg-white will-change-transform"
               style={{
                 left: `${newX}%`,
                 top: `${newY}%`,

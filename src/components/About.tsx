@@ -95,7 +95,7 @@ const About = () => {
         onMouseLeave={() => setIsHovering(false)}
       >
         {/* Rectángulo de fondo negro borroso - solo en About */}
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-2xl z-0" style={{ zIndex: -1 }} />
+        <div className="absolute inset-0 bg-white/90 dark:bg-black/80 backdrop-blur-2xl z-0" style={{ zIndex: -1 }} />
         
         {/* Cursor glow effect */}
         {isHovering && (
@@ -202,18 +202,18 @@ const About = () => {
                 animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
                 transition={{ delay: 0.8 + index * 0.2, duration: 0.6 }}
                 whileHover={{ scale: 1.02, x: 10 }}
-                className="group relative p-8 rounded-2xl bg-black border border-white/20 hover:border-white/30 transition-all duration-500 hover:shadow-lg hover:shadow-white/10 hover:-translate-y-2 overflow-hidden"
+                className="group relative p-8 rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-white/20 hover:border-gray-300 dark:hover:border-white/30 transition-all duration-500 hover:shadow-lg hover:shadow-gray-300/20 dark:hover:shadow-white/10 hover:-translate-y-2 overflow-hidden"
               >
                 
                 <div className="relative z-10 flex items-start space-x-6">
-                  <div className="flex-shrink-0 w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center border border-white/30 group-hover:border-white/40 transition-all duration-300 group-hover:scale-110">
-                    <value.icon className="w-5 h-5 text-white/80 group-hover:text-white transition-colors duration-300" />
+                  <div className="flex-shrink-0 w-12 h-12 bg-gray-100 dark:bg-white/20 rounded-xl flex items-center justify-center border border-gray-200 dark:border-white/30 group-hover:border-gray-300 dark:group-hover:border-white/40 transition-all duration-300 group-hover:scale-110">
+                    <value.icon className="w-5 h-5 text-gray-600 dark:text-white/80 group-hover:text-gray-800 dark:group-hover:text-white transition-colors duration-300" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-xl font-bold mb-3 text-white group-hover:text-white transition-all duration-300">
+                    <h4 className="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-white transition-all duration-300">
                       {value.title}
                     </h4>
-                    <p className="text-slate-300 leading-relaxed group-hover:text-slate-200 transition-colors duration-300">
+                    <p className="text-gray-600 dark:text-slate-300 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-slate-200 transition-colors duration-300">
                       {value.description}
                     </p>
                   </div>
