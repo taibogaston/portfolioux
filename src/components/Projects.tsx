@@ -7,10 +7,20 @@ import { Eye, ExternalLink, Github } from "lucide-react";
 const Projects = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.05, // Reducido para activar más rápido
   });
 
   const projects = [
+    {
+      id: 7,
+      title: "IEB - Proyecto técnico",
+      description: "Proyecto técnico realizado para IEB (personal), enfocado en diseño de interfaces y experiencia de usuario",
+      image: "/Image ieb.jpg",
+      category: "Web Design",
+      technologies: ["Figma", "UX", "UI", "Design System"],
+      liveUrl: "https://www.figma.com/design/OjA0deYtUo5wZD0TglwJwt/IEB----Proyecto-t%C3%A9cnico?node-id=0-1&t=xhLJ0Sof33eiefkA-1",
+      githubUrl: "#"
+    },
     {
       id: 1,
       title: "Worldtrip e-commerce",
@@ -145,7 +155,8 @@ const Projects = () => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
@@ -158,6 +169,7 @@ const Projects = () => {
                         project.id === 3 ? "https://www.figma.com/board/50SwZpDGtqhW1AWZw2Uvyz/UXISTIR----UX-CLUB-PROYECTO?node-id=218-745&t=KKQN2qyx4qXqiT6p-1" : 
                         project.id === 4 ? "https://www.figma.com/design/xmVa7xLpXXNQEVFAAi7cS2/Creaciones?node-id=34-173&t=CfQylzFYNjPeowNh-1" :
                         project.id === 6 ? "https://www.figma.com/design/gw9ESmToqxT9o7tP5RFh3e/Dogwalk?node-id=33-869&t=YKA7k00lUZEjtuCC-1" :
+                        project.id === 7 ? "https://www.figma.com/design/OjA0deYtUo5wZD0TglwJwt/IEB----Proyecto-t%C3%A9cnico?node-id=0-1&t=xhLJ0Sof33eiefkA-1" :
                         project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"

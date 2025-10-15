@@ -8,7 +8,7 @@ import { useState, useRef } from "react";
 const About = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.05, // Reducido para activar más rápido
   });
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -81,6 +81,7 @@ const About = () => {
             opacity: 0;
           }
         }
+        
       `}</style>
       <motion.section
         id="about"
@@ -118,7 +119,7 @@ const About = () => {
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="container mx-auto px-8 sm:px-12 lg:px-16 relative z-20"
+        className="container mx-auto px-8 sm:px-12 lg:px-16 relative z-20 pt-8"
       >
         {/* Animated vertical flow line - extends through entire section */}
         <div className="absolute -left-4 top-0 w-px h-full bg-gradient-to-b from-transparent via-white/40 to-transparent">
@@ -131,20 +132,20 @@ const About = () => {
         </div>
         {/* Section Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
-          {/* Photo placeholder - positioned above title */}
+          {/* Profile Photo */}
           <div className="flex justify-center mb-8">
             <div className="relative">
-              <div className="w-32 h-32 rounded-full bg-white/20 border border-white/30 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <User className="w-6 h-6 text-white/60" />
-                  </div>
-                  <p className="text-white/60 text-xs">Tu foto</p>
-                </div>
+              <div className="w-48 h-48 rounded-full overflow-hidden border-2 border-white/30 shadow-xl">
+                <img
+                  src="/IMG_9216.JPG"
+                  alt="Maitena - UX/UI Designer"
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
               </div>
               {/* Decorative elements */}
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-white/20 rounded-full blur-sm"></div>
-              <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-white/30 rounded-full blur-sm"></div>
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-white/20 rounded-full blur-sm"></div>
+              <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-white/30 rounded-full blur-sm"></div>
             </div>
           </div>
           <motion.div

@@ -9,7 +9,7 @@ import TypewriterText from "./TypewriterText";
 const Hero = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.05, // Reducido para activar más rápido
   });
 
   const [scrollIndicatorOpacity, setScrollIndicatorOpacity] = useState(1);
@@ -67,7 +67,7 @@ const Hero = () => {
     <section
       id="home"
       ref={ref}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 bg-transparent" />
@@ -89,7 +89,7 @@ const Hero = () => {
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
+        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-8"
       >
         {/* Greeting */}
         <motion.div variants={itemVariants} className="mb-6">

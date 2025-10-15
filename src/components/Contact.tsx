@@ -14,12 +14,12 @@ import {
   MessageCircle,
   AlertCircle
 } from "lucide-react";
-import { initEmailJS, sendEmail } from "../lib/emailjs";
+// EmailJS se carga dinámicamente para mejor rendimiento
 
 const Contact = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.05, // Reducido para activar más rápido
   });
 
   const [formData, setFormData] = useState({
@@ -60,10 +60,15 @@ const Contact = () => {
     }));
   };
 
-  // Inicializar EmailJS al montar el componente
+  // Lazy load EmailJS solo cuando el componente esté en vista
   useEffect(() => {
-    initEmailJS();
-  }, []);
+    if (inView) {
+      // Cargar EmailJS de forma asíncrona
+      import('../lib/emailjs').then(({ initEmailJS }) => {
+        initEmailJS();
+      });
+    }
+  }, [inView]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,6 +76,9 @@ const Contact = () => {
     setSubmitError(null);
     
     try {
+      // Cargar EmailJS dinámicamente si no está cargado
+      const { sendEmail } = await import('../lib/emailjs');
+      
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
@@ -337,15 +345,10 @@ const Contact = () => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  whileHover={{ 
-                    scale: 1.02,
-                    boxShadow: "0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.3)"
-                  }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-8 py-4 bg-gradient-to-r from-primary via-blue-500 to-purple-600 text-white rounded-lg font-semibold text-lg hover:from-blue-500 hover:via-purple-600 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-500 relative overflow-hidden group"
+                  className="w-full px-8 py-4 bg-gradient-to-r from-primary via-blue-500 to-purple-600 text-white rounded-lg font-semibold text-lg hover:from-blue-500 hover:via-purple-600 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 relative"
                 >
-                  {/* Tech effect overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
                   <div className="relative z-10 flex items-center justify-center">
                     {isSubmitting ? (
                       <>
