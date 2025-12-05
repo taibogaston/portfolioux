@@ -80,49 +80,49 @@ const ProjectModal = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", duration: 0.4, bounce: 0.1 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 pointer-events-none"
           >
             <div
-              className="bg-[#0a0a0a] border border-border/30 rounded-3xl shadow-2xl max-w-7xl w-full max-h-[85vh] overflow-hidden pointer-events-auto backdrop-blur-xl"
+              className="bg-[#0a0a0a] border border-border/30 rounded-2xl sm:rounded-3xl shadow-2xl max-w-7xl w-full max-h-[95vh] sm:max-h-[85vh] overflow-hidden pointer-events-auto backdrop-blur-xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header del Modal - Moderno e integrado */}
-              <div className="px-8 lg:px-10 pt-8 pb-6 relative">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0 space-y-2">
-                    <h2 className="text-3xl lg:text-4xl font-bold tracking-tight">
+              <div className="px-4 sm:px-6 lg:px-10 pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 relative">
+                <div className="flex items-start justify-between gap-2 sm:gap-4">
+                  <div className="flex-1 min-w-0 space-y-1 sm:space-y-2">
+                    <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tight">
                       {title}
                     </h2>
-                    <p className="text-muted-foreground text-base font-light">{subtitle}</p>
+                    <p className="text-muted-foreground text-sm sm:text-base font-light">{subtitle}</p>
                   </div>
                   <button
                     onClick={onClose}
-                    className="p-2.5 hover:bg-white/5 rounded-xl transition-all hover:scale-110 active:scale-95 flex-shrink-0"
+                    className="p-2 sm:p-2.5 hover:bg-white/5 rounded-lg sm:rounded-xl transition-all hover:scale-110 active:scale-95 flex-shrink-0 touch-manipulation"
                     aria-label="Cerrar"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
                 <div className="absolute bottom-0 left-8 lg:left-10 right-8 lg:right-10 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent"></div>
               </div>
 
               {/* Contenido */}
-              <div className="overflow-y-auto max-h-[calc(85vh-140px)] modal-scrollbar">
-                <div className="px-8 lg:px-10 py-8 lg:py-10">
+              <div className="overflow-y-auto max-h-[calc(95vh-100px)] sm:max-h-[calc(85vh-140px)] modal-scrollbar">
+                <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-10">
                   {/* Layout principal: Contenido + Mockup */}
                   <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 mb-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 mb-8 sm:mb-12">
                       {/* Columna izquierda - Contenido */}
-                      <div className="lg:col-span-7 space-y-8">
+                      <div className="lg:col-span-7 space-y-6 sm:space-y-8">
                       {/* Botones de acción - Arriba */}
                       {(presentationUrl || prototypeUrl) && (
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-2 sm:gap-3">
                           {presentationUrl && (
                             <a
                               href={presentationUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
                             >
                               {title === "IEB - Proyecto técnico" ? "Ver investigación" : "Ver presentación"}
                             </a>
@@ -132,7 +132,7 @@ const ProjectModal = ({
                               href={prototypeUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
                             >
                               Probar prototipo
                             </a>
@@ -142,23 +142,23 @@ const ProjectModal = ({
 
                       {/* Sobre el Proyecto */}
                       {aboutProject && (
-                        <div className="space-y-3">
-                          <h3 className="text-xl font-bold text-foreground">Sobre el Proyecto</h3>
-                          <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                          <p className="text-muted-foreground leading-relaxed text-[15px]">{aboutProject}</p>
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Sobre el Proyecto</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{aboutProject}</p>
                         </div>
                       )}
 
                       {/* Metodología */}
                       {methodology && methodology.length > 0 && (
-                        <div className="space-y-3">
-                          <h3 className="text-xl font-bold text-foreground">Metodología</h3>
-                          <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                          <ul className="space-y-3 text-muted-foreground">
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Metodología</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <ul className="space-y-2 sm:space-y-3 text-muted-foreground">
                             {methodology.map((item, index) => (
-                              <li key={index} className="flex gap-3 group">
-                                <span className="text-primary font-bold text-lg group-hover:scale-110 transition-transform flex-shrink-0">•</span>
-                                <span className="text-[15px] leading-relaxed" dangerouslySetInnerHTML={{ __html: item }} />
+                              <li key={index} className="flex gap-2 sm:gap-3 group">
+                                <span className="text-primary font-bold text-base sm:text-lg group-hover:scale-110 transition-transform flex-shrink-0">•</span>
+                                <span className="text-sm sm:text-[15px] leading-relaxed" dangerouslySetInnerHTML={{ __html: item }} />
                               </li>
                             ))}
                           </ul>
@@ -167,18 +167,18 @@ const ProjectModal = ({
 
                       {/* Análisis */}
                       {analysis && (
-                        <div className="space-y-3">
-                          <h3 className="text-xl font-bold text-foreground">Análisis</h3>
-                          <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                          <p className="text-muted-foreground leading-relaxed text-[15px]">{analysis}</p>
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Análisis</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{analysis}</p>
                         </div>
                       )}
                     </div>
 
                     {/* Columna derecha - Mockup */}
                     {mockupImage && (
-                      <div className={`lg:col-span-5 flex items-start justify-center ${(presentationUrl || prototypeUrl) ? 'pt-20' : 'pt-6'}`}>
-                        <div className="w-full max-w-md h-full flex items-start">
+                      <div className={`lg:col-span-5 flex items-start justify-center ${(presentationUrl || prototypeUrl) ? 'pt-8 sm:pt-12 lg:pt-20' : 'pt-4 sm:pt-6'}`}>
+                        <div className="w-full max-w-xs sm:max-w-md h-full flex items-start">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={mockupImage}
@@ -197,19 +197,19 @@ const ProjectModal = ({
                       {title === "IEB - Proyecto técnico" ? (
                         // Layout Antes y Después para IEB
                         <div className="max-w-6xl mx-auto">
-                          <div className="mb-8 text-center">
-                            <h3 className="text-2xl font-bold mb-2">Demostración del proyecto</h3>
-                            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                          <div className="mb-4 sm:mb-8 text-center">
+                            <h3 className="text-xl sm:text-2xl font-bold mb-2">Demostración del proyecto</h3>
+                            <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                           </div>
-                          <div className="bg-black/90 rounded-2xl p-6 lg:p-8 border border-border/20">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                          <div className="bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-2">
                               {/* Antes */}
-                              <div className="space-y-6">
+                              <div className="space-y-4 sm:space-y-6">
                                 <div className="text-center">
-                                  <h4 className="text-lg font-semibold text-primary mb-2">Antes</h4>
-                                  <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                                  <h4 className="text-base sm:text-lg font-semibold text-primary mb-1 sm:mb-2">Antes</h4>
+                                  <div className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                                 </div>
-                                <div className="relative w-full h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-black/50">
+                                <div className="relative w-full h-[400px] sm:h-[600px] md:h-[1000px] lg:h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-black/50">
                                   {images.length >= 2 && images[0] ? (
                                     <motion.img
                                       src={images[0]}
@@ -228,12 +228,12 @@ const ProjectModal = ({
                               </div>
 
                               {/* Después */}
-                              <div className="space-y-6">
+                              <div className="space-y-4 sm:space-y-6">
                                 <div className="text-center">
-                                  <h4 className="text-lg font-semibold text-primary mb-2">Después</h4>
-                                  <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                                  <h4 className="text-base sm:text-lg font-semibold text-primary mb-1 sm:mb-2">Después</h4>
+                                  <div className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                                 </div>
-                                <div className="relative w-full h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-black/50">
+                                <div className="relative w-full h-[400px] sm:h-[600px] md:h-[1000px] lg:h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-black/50">
                                   {images[images.length - 1] && (
                                     <motion.img
                                       src={images[images.length - 1]}
@@ -256,12 +256,12 @@ const ProjectModal = ({
                             <h3 className="text-2xl font-bold mb-2">Demostración del proyecto</h3>
                             <div className="h-1 w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                           </div>
-                          <div className="bg-black/90 rounded-2xl p-6 lg:p-8 border border-border/20">
+                          <div className="bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
                             {/* Selector de tabs */}
-                            <div className="flex justify-center gap-4 mb-8">
+                            <div className="flex justify-center gap-2 sm:gap-4 mb-4 sm:mb-8">
                               <button
                                 onClick={() => setSelectedView('desktop')}
-                                className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                                className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold transition-all ${
                                   selectedView === 'desktop'
                                     ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
                                     : 'bg-white/10 text-muted-foreground hover:bg-white/20'
@@ -271,7 +271,7 @@ const ProjectModal = ({
                               </button>
                               <button
                                 onClick={() => setSelectedView('mobile')}
-                                className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                                className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold transition-all ${
                                   selectedView === 'mobile'
                                     ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
                                     : 'bg-white/10 text-muted-foreground hover:bg-white/20'
@@ -282,7 +282,7 @@ const ProjectModal = ({
                             </div>
                             
                             {/* Imagen según selección */}
-                            <div className="relative w-full h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-black/50 mx-auto">
+                            <div className="relative w-full h-[400px] sm:h-[600px] md:h-[1000px] lg:h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-black/50 mx-auto">
                               <AnimatePresence mode="wait">
                                 {selectedView === 'desktop' && images[0] && (
                                   <motion.img
@@ -315,14 +315,14 @@ const ProjectModal = ({
                       ) : (
                         // Carrusel para otros proyectos
                         <div className="max-w-5xl mx-auto">
-                          <div className="mb-8 text-center">
-                            <h3 className="text-2xl font-bold mb-2">Capturas del Proyecto</h3>
-                            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                          <div className="mb-4 sm:mb-8 text-center">
+                            <h3 className="text-xl sm:text-2xl font-bold mb-2">Capturas del Proyecto</h3>
+                            <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                           </div>
-                          <div className="bg-black/90 rounded-2xl p-6 lg:p-8 border border-border/20">
+                          <div className="bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
                             <div className="relative">
                               {/* Imagen actual */}
-                              <div className="relative w-full h-[1800px] overflow-hidden rounded-xl flex items-center justify-center">
+                              <div className="relative w-full h-[400px] sm:h-[600px] md:h-[1000px] lg:h-[1800px] overflow-hidden rounded-xl flex items-center justify-center">
                                 <AnimatePresence mode="wait">
                                   <motion.img
                                     key={currentImageIndex}
@@ -342,18 +342,18 @@ const ProjectModal = ({
                                 <>
                                   <button
                                     onClick={prevImage}
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/70 hover:bg-black/90 backdrop-blur-sm rounded-full text-white transition-all hover:scale-110 active:scale-95 z-10 border border-white/10"
+                                    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 bg-black/70 hover:bg-black/90 backdrop-blur-sm rounded-full text-white transition-all hover:scale-110 active:scale-95 z-10 border border-white/10 touch-manipulation"
                                     aria-label="Imagen anterior"
                                   >
-                                    <ChevronLeft className="w-5 h-5" />
+                                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                                   </button>
 
                                   <button
                                     onClick={nextImage}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/70 hover:bg-black/90 backdrop-blur-sm rounded-full text-white transition-all hover:scale-110 active:scale-95 z-10 border border-white/10"
+                                    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 bg-black/70 hover:bg-black/90 backdrop-blur-sm rounded-full text-white transition-all hover:scale-110 active:scale-95 z-10 border border-white/10 touch-manipulation"
                                     aria-label="Imagen siguiente"
                                   >
-                                    <ChevronRight className="w-5 h-5" />
+                                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                                   </button>
 
                                   {/* Indicadores */}
