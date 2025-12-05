@@ -1,0 +1,392 @@
+"use client";
+
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+
+interface ProjectModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  subtitle: string;
+  aboutProject?: string;
+  methodology?: string[];
+  analysis?: string;
+  images?: string[];
+  presentationUrl?: string;
+  prototypeUrl?: string;
+  mockupImage?: string;
+}
+
+const ProjectModal = ({
+  isOpen,
+  onClose,
+  title,
+  subtitle,
+  aboutProject,
+  methodology,
+  analysis,
+  images = [],
+  presentationUrl,
+  prototypeUrl,
+  mockupImage,
+}: ProjectModalProps) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedView, setSelectedView] = useState<'desktop' | 'mobile'>('desktop');
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      const originalPaddingRight = document.body.style.paddingRight;
+      
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      
+      document.body.style.overflow = 'hidden';
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
+      
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        document.body.style.paddingRight = originalPaddingRight;
+      };
+    }
+  }, [isOpen]);
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
+          />
+
+          {/* Modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", duration: 0.4, bounce: 0.1 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+          >
+            <div
+              className="bg-[#0a0a0a] border border-border/30 rounded-3xl shadow-2xl max-w-7xl w-full max-h-[85vh] overflow-hidden pointer-events-auto backdrop-blur-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header del Modal - Moderno e integrado */}
+              <div className="px-8 lg:px-10 pt-8 pb-6 relative">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0 space-y-2">
+                    <h2 className="text-3xl lg:text-4xl font-bold tracking-tight">
+                      {title}
+                    </h2>
+                    <p className="text-muted-foreground text-base font-light">{subtitle}</p>
+                  </div>
+                  <button
+                    onClick={onClose}
+                    className="p-2.5 hover:bg-white/5 rounded-xl transition-all hover:scale-110 active:scale-95 flex-shrink-0"
+                    aria-label="Cerrar"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <div className="absolute bottom-0 left-8 lg:left-10 right-8 lg:right-10 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent"></div>
+              </div>
+
+              {/* Contenido */}
+              <div className="overflow-y-auto max-h-[calc(85vh-140px)] modal-scrollbar">
+                <div className="px-8 lg:px-10 py-8 lg:py-10">
+                  {/* Layout principal: Contenido + Mockup */}
+                  <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 mb-12">
+                      {/* Columna izquierda - Contenido */}
+                      <div className="lg:col-span-7 space-y-8">
+                      {/* Botones de acción - Arriba */}
+                      {(presentationUrl || prototypeUrl) && (
+                        <div className="flex flex-wrap gap-3">
+                          {presentationUrl && (
+                            <a
+                              href={presentationUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                            >
+                              {title === "IEB - Proyecto técnico" ? "Ver investigación" : "Ver presentación"}
+                            </a>
+                          )}
+                          {prototypeUrl && (
+                            <a
+                              href={prototypeUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                            >
+                              Probar prototipo
+                            </a>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Sobre el Proyecto */}
+                      {aboutProject && (
+                        <div className="space-y-3">
+                          <h3 className="text-xl font-bold text-foreground">Sobre el Proyecto</h3>
+                          <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-[15px]">{aboutProject}</p>
+                        </div>
+                      )}
+
+                      {/* Metodología */}
+                      {methodology && methodology.length > 0 && (
+                        <div className="space-y-3">
+                          <h3 className="text-xl font-bold text-foreground">Metodología</h3>
+                          <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <ul className="space-y-3 text-muted-foreground">
+                            {methodology.map((item, index) => (
+                              <li key={index} className="flex gap-3 group">
+                                <span className="text-primary font-bold text-lg group-hover:scale-110 transition-transform flex-shrink-0">•</span>
+                                <span className="text-[15px] leading-relaxed" dangerouslySetInnerHTML={{ __html: item }} />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Análisis */}
+                      {analysis && (
+                        <div className="space-y-3">
+                          <h3 className="text-xl font-bold text-foreground">Análisis</h3>
+                          <div className="h-1 w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-[15px]">{analysis}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Columna derecha - Mockup */}
+                    {mockupImage && (
+                      <div className={`lg:col-span-5 flex items-start justify-center ${(presentationUrl || prototypeUrl) ? 'pt-20' : 'pt-6'}`}>
+                        <div className="w-full max-w-md h-full flex items-start">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={mockupImage}
+                            alt={title}
+                            className="w-full h-auto object-contain drop-shadow-2xl"
+                          />
+                        </div>
+                      </div>
+                    )}
+                    </div>
+                  </div>
+
+                  {/* Antes y Después para IEB, Layout lado a lado para MindDev, Carrusel para otros proyectos */}
+                  {images && images.length > 0 && (
+                    <div className="mt-16 pt-12 border-t border-border/50">
+                      {title === "IEB - Proyecto técnico" ? (
+                        // Layout Antes y Después para IEB
+                        <div className="max-w-6xl mx-auto">
+                          <div className="mb-8 text-center">
+                            <h3 className="text-2xl font-bold mb-2">Demostración del proyecto</h3>
+                            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                          </div>
+                          <div className="bg-black/90 rounded-2xl p-6 lg:p-8 border border-border/20">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                              {/* Antes */}
+                              <div className="space-y-6">
+                                <div className="text-center">
+                                  <h4 className="text-lg font-semibold text-primary mb-2">Antes</h4>
+                                  <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                                </div>
+                                <div className="relative w-full h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-black/50">
+                                  {images.length >= 2 && images[0] ? (
+                                    <motion.img
+                                      src={images[0]}
+                                      alt={`${title} - Antes`}
+                                      initial={{ opacity: 0, scale: 0.95 }}
+                                      animate={{ opacity: 1, scale: 1 }}
+                                      transition={{ duration: 0.4 }}
+                                      className="w-full h-full object-contain object-center"
+                                    />
+                                  ) : (
+                                    <div className="text-muted-foreground text-center p-8">
+                                      <p className="text-sm">Imagen no disponible</p>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+
+                              {/* Después */}
+                              <div className="space-y-6">
+                                <div className="text-center">
+                                  <h4 className="text-lg font-semibold text-primary mb-2">Después</h4>
+                                  <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                                </div>
+                                <div className="relative w-full h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-black/50">
+                                  {images[images.length - 1] && (
+                                    <motion.img
+                                      src={images[images.length - 1]}
+                                      alt={`${title} - Después`}
+                                      initial={{ opacity: 0, scale: 0.95 }}
+                                      animate={{ opacity: 1, scale: 1 }}
+                                      transition={{ duration: 0.4, delay: 0.1 }}
+                                      className="w-full h-full object-contain object-center"
+                                    />
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : title === "Blog MindDev Perú" ? (
+                        // Selector Desktop/Mobile para MindDev
+                        <div className="max-w-6xl mx-auto">
+                          <div className="mb-8 text-center">
+                            <h3 className="text-2xl font-bold mb-2">Demostración del proyecto</h3>
+                            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                          </div>
+                          <div className="bg-black/90 rounded-2xl p-6 lg:p-8 border border-border/20">
+                            {/* Selector de tabs */}
+                            <div className="flex justify-center gap-4 mb-8">
+                              <button
+                                onClick={() => setSelectedView('desktop')}
+                                className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                                  selectedView === 'desktop'
+                                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                                    : 'bg-white/10 text-muted-foreground hover:bg-white/20'
+                                }`}
+                              >
+                                Desktop
+                              </button>
+                              <button
+                                onClick={() => setSelectedView('mobile')}
+                                className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+                                  selectedView === 'mobile'
+                                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                                    : 'bg-white/10 text-muted-foreground hover:bg-white/20'
+                                }`}
+                              >
+                                Mobile
+                              </button>
+                            </div>
+                            
+                            {/* Imagen según selección */}
+                            <div className="relative w-full h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-black/50 mx-auto">
+                              <AnimatePresence mode="wait">
+                                {selectedView === 'desktop' && images[0] && (
+                                  <motion.img
+                                    key="desktop"
+                                    src={images[0]}
+                                    alt={`${title} - Desktop`}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="w-full h-full object-contain object-center"
+                                  />
+                                )}
+                                {selectedView === 'mobile' && images[1] && (
+                                  <motion.img
+                                    key="mobile"
+                                    src={images[1]}
+                                    alt={`${title} - Mobile`}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="w-full h-full object-contain object-center"
+                                  />
+                                )}
+                              </AnimatePresence>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        // Carrusel para otros proyectos
+                        <div className="max-w-5xl mx-auto">
+                          <div className="mb-8 text-center">
+                            <h3 className="text-2xl font-bold mb-2">Capturas del Proyecto</h3>
+                            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                          </div>
+                          <div className="bg-black/90 rounded-2xl p-6 lg:p-8 border border-border/20">
+                            <div className="relative">
+                              {/* Imagen actual */}
+                              <div className="relative w-full h-[1800px] overflow-hidden rounded-xl flex items-center justify-center">
+                                <AnimatePresence mode="wait">
+                                  <motion.img
+                                    key={currentImageIndex}
+                                    src={images[currentImageIndex]}
+                                    alt={`${title} ${currentImageIndex + 1}`}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="w-full h-full object-contain object-center"
+                                  />
+                                </AnimatePresence>
+                              </div>
+
+                              {/* Botones de navegación */}
+                              {images.length > 1 && (
+                                <>
+                                  <button
+                                    onClick={prevImage}
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/70 hover:bg-black/90 backdrop-blur-sm rounded-full text-white transition-all hover:scale-110 active:scale-95 z-10 border border-white/10"
+                                    aria-label="Imagen anterior"
+                                  >
+                                    <ChevronLeft className="w-5 h-5" />
+                                  </button>
+
+                                  <button
+                                    onClick={nextImage}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/70 hover:bg-black/90 backdrop-blur-sm rounded-full text-white transition-all hover:scale-110 active:scale-95 z-10 border border-white/10"
+                                    aria-label="Imagen siguiente"
+                                  >
+                                    <ChevronRight className="w-5 h-5" />
+                                  </button>
+
+                                  {/* Indicadores */}
+                                  <div className="flex justify-center gap-2.5 mt-6">
+                                    {images.map((_, index) => (
+                                      <button
+                                        key={index}
+                                        onClick={() => setCurrentImageIndex(index)}
+                                        className={`h-2 rounded-full transition-all duration-300 ${
+                                          index === currentImageIndex
+                                            ? "bg-primary w-10 shadow-lg shadow-primary/50"
+                                            : "bg-white/30 hover:bg-white/50 w-2"
+                                        }`}
+                                        aria-label={`Ir a imagen ${index + 1}`}
+                                      />
+                                    ))}
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default ProjectModal;

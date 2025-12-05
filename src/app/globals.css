@@ -165,6 +165,25 @@ body {
   background: hsl(var(--primary));
 }
 
+/* Modal scrollbar - siempre lila */
+.modal-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+  opacity: 0.9;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
