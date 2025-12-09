@@ -1,28 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon, Palette } from "lucide-react";
+import { Menu, X, Palette } from "lucide-react";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const navItems = [
     { name: "Inicio", href: "#home" },
@@ -30,10 +13,6 @@ const Header = () => {
     { name: "Herramientas", href: "#tools" },
     { name: "Proyectos", href: "#projects" },
     { name: "Contacto", href: "#contact" },
-  ];
-
-  const pageItems = [
-    { name: "Portfolio", href: "/" },
   ];
 
   const scrollToSection = (href: string) => {
@@ -44,21 +23,19 @@ const Header = () => {
     setIsOpen(false);
   };
 
-  if (!mounted) return null;
-
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-md border-b border-white/10 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 bg-background/40 dark:bg-black/40 backdrop-blur-md border-b border-border/50 dark:border-white/10 transition-all duration-300"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+        <div className="flex items-center justify-center h-16 relative">
+          {/* Logo - Posicionado a la izquierda */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-3"
+            className="absolute left-0 sm:left-4 lg:left-8 flex items-center space-x-3"
           >
             <span className="text-xl font-bold gradient-text">Maitena</span>
             <div className="hidden sm:flex items-center space-x-1 text-base text-muted-foreground">
@@ -67,7 +44,7 @@ const Header = () => {
             </div>
           </motion.div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Centrado */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
               <motion.button
@@ -85,26 +62,8 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Theme Toggle & Mobile Menu */}
-          <div className="flex items-center space-x-4">
-
-            {/* Theme Toggle */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-lg bg-muted hover:bg-accent transition-colors duration-200"
-              aria-label="Toggle theme"
-            >
-              {!mounted ? (
-                <Sun className="w-5 h-5" />
-              ) : theme === "dark" ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </motion.button>
-
+          {/* Mobile Menu - Posicionado a la derecha */}
+          <div className="absolute right-0 flex items-center space-x-4">
             {/* Mobile Menu Button */}
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -126,7 +85,7 @@ const Header = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden border-t border-white/10 bg-black/40 backdrop-blur-md"
+              className="md:hidden border-t border-border/50 dark:border-white/10 bg-background/40 dark:bg-black/40 backdrop-blur-md"
             >
               <div className="py-4 space-y-2">
                 {navItems.map((item, index) => (

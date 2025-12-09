@@ -24,24 +24,24 @@
 }
 
 .light {
-  --background: 0 0% 98%;
+  --background: 40 8% 96%;
   --foreground: 0 0% 8%;
-  --card: 0 0% 95%;
+  --card: 40 6% 94%;
   --card-foreground: 0 0% 8%;
-  --popover: 0 0% 95%;
+  --popover: 40 6% 94%;
   --popover-foreground: 0 0% 8%;
   --primary: 270 100% 60%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 90%;
+  --primary-foreground: 40 8% 96%;
+  --secondary: 40 5% 88%;
   --secondary-foreground: 0 0% 8%;
-  --muted: 0 0% 90%;
+  --muted: 40 5% 88%;
   --muted-foreground: 0 0% 45%;
   --accent: 270 60% 85%;
   --accent-foreground: 0 0% 8%;
   --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 85%;
-  --input: 0 0% 85%;
+  --destructive-foreground: 40 8% 96%;
+  --border: 40 5% 83%;
+  --input: 40 5% 83%;
   --ring: 270 100% 60%;
 }
 
@@ -115,11 +115,11 @@ body {
 
 .light .gradient-bg {
   background: linear-gradient(135deg, 
-    hsl(0 0% 100%) 0%, 
-    hsl(270 100% 98%) 25%, 
-    hsl(0 0% 100%) 50%, 
-    hsl(270 100% 97%) 75%, 
-    hsl(0 0% 100%) 100%);
+    hsl(40 8% 96%) 0%, 
+    hsl(40 10% 97%) 25%, 
+    hsl(40 8% 96%) 50%, 
+    hsl(40 9% 97%) 75%, 
+    hsl(40 8% 96%) 100%);
   background-size: 400% 400%;
   animation: gradientShift 20s ease infinite;
 }

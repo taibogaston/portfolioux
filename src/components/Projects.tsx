@@ -6,6 +6,19 @@ import { Eye } from "lucide-react";
 import { useState } from "react";
 import ProjectModal from "./ProjectModal";
 
+interface ModalData {
+  title: string;
+  subtitle: string;
+  aboutProject?: string;
+  methodology?: string[];
+  analysis?: string;
+  images?: string[];
+  processImages?: string[];
+  presentationUrl?: string;
+  prototypeUrl?: string;
+  mockupImage?: string;
+}
+
 const Projects = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -38,7 +51,7 @@ const Projects = () => {
     {
       id: 7,
       title: "IEB - Proyecto técnico",
-      description: "Proyecto técnico realizado para IEB (personal), enfocado en diseño de interfaces y experiencia de usuario",
+      description: "Proyecto técnico realizado en 4 días para IEB (personal), enfocado en diseño de interfaces y experiencia de usuario",
       image: "/Image ieb.jpg",
       category: "Web Design",
       technologies: ["Figma", "UX", "UI", "Design System"],
@@ -67,9 +80,9 @@ const Projects = () => {
     },
     {
       id: 3,
-      title: "Love - Art Gallery",
+      title: "Alpay",
       description: "Trabajo en proceso. Congeniado con diversas diseñadoras de todo el mundo",
-      image: "/love.jpeg",
+      image: "/alpayxs.png",
       category: "Mobile App",
       technologies: ["Figma", "UX", "UI"],
       liveUrl: "#",
@@ -133,7 +146,10 @@ const Projects = () => {
       className="py-20 relative overflow-hidden"
     >
       {/* Fondo */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-2xl z-0" />
+      <div className="absolute inset-0 bg-background/80 dark:bg-black/80 backdrop-blur-2xl z-0" />
+      
+      {/* Difuminado violeta - solo en modo claro */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent blur-3xl z-0 dark:hidden" />
       
       <motion.div
         variants={containerVariants}
@@ -172,14 +188,9 @@ const Projects = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className={`group relative rounded-2xl overflow-hidden bg-gray-100/80 dark:bg-white/10 border border-gray-200 dark:border-white/30 hover:border-gray-300 dark:hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-gray-300/20 dark:hover:shadow-white/20 hover:-translate-y-2 flex flex-col ${project.id === 2 ? 'cursor-pointer' : 'md:cursor-default cursor-pointer'}`}
+              className={`group relative rounded-2xl overflow-hidden bg-card dark:bg-white/10 border border-border dark:border-white/30 hover:border-primary/50 dark:hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 dark:hover:shadow-white/20 hover:-translate-y-2 flex flex-col z-10 cursor-pointer`}
+              onClick={() => setOpenModalId(project.id)}
             >
-              {/* Clickable overlay */}
-                <button
-                onClick={() => setOpenModalId(project.id)}
-                  className="absolute inset-0 z-10"
-                  aria-label={`Ver proyecto ${project.title}`}
-                />
               
               {/* Image */}
               <div className="relative h-64 overflow-hidden">
@@ -190,15 +201,15 @@ const Projects = () => {
                   loading="lazy"
                   className="w-full h-full transition-transform duration-500 group-hover:scale-110 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 dark:from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
               {/* Content */}
-              <div className="p-4 bg-gray-50/80 dark:bg-white/10 flex-1 flex flex-col">
-                <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-white/90 transition-colors">
+              <div className="p-4 bg-card dark:bg-white/10 flex-1 flex flex-col">
+                <h3 className="text-lg font-bold mb-2 text-card-foreground dark:text-white group-hover:text-card-foreground/80 dark:group-hover:text-white/90 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-gray-600 dark:text-white/70 mb-3 leading-relaxed text-sm line-clamp-2">
+                <p className="text-muted-foreground dark:text-white/70 mb-3 leading-relaxed text-sm line-clamp-2">
                   {project.description}
                 </p>
                 
@@ -207,7 +218,7 @@ const Projects = () => {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-gray-200 dark:bg-white/20 text-gray-800 dark:text-white text-xs rounded-md border border-gray-300 dark:border-white/20"
+                      className="px-2 py-1 bg-white dark:bg-white/20 text-primary dark:text-white text-xs rounded-md border border-primary/20 dark:border-white/20"
                     >
                       {tech}
                     </span>
@@ -222,7 +233,7 @@ const Projects = () => {
       {/* Modales de proyectos */}
       {projects.map((project) => {
         // Datos por defecto para cada proyecto (se pueden editar después)
-        const modalData: Record<number, any> = {
+        const modalData: Record<number, ModalData> = {
           1: {
             title: "Worldtrip e-commerce",
             subtitle: "Web e-commerce, con orientación en viajes y paquetes. Modelo responsive",
@@ -252,7 +263,7 @@ const Projects = () => {
             mockupImage: "/iphone mockup meli.png",
           },
           3: {
-            title: "Love - Art Gallery",
+            title: "Alpay",
             subtitle: "Trabajo en proceso. Congeniado con diversas diseñadoras de todo el mundo",
             aboutProject: "Descripción del proyecto...",
             methodology: ["Metodología 1", "Metodología 2"],
@@ -276,24 +287,57 @@ const Projects = () => {
           5: {
             title: "Starbucks",
             subtitle: "Rediseño de la web Starbucks Argentina. Enfocado en landing page para descarga de su app",
-            aboutProject: "Descripción del proyecto...",
-            methodology: ["Metodología 1", "Metodología 2"],
-            analysis: "Análisis del proyecto...",
-            images: [],
-            presentationUrl: "",
+            aboutProject: "El proyecto surge a partir de la necesidad de potenciar la descarga de la app de Starbucks a través de una landing clara, atractiva y alineada con los objetivos del negocio.\n\nEl foco estuvo en simplificar el mensaje, guiar al usuario rápidamente hacia la propuesta de valor de la app y reducir fricciones en el recorrido de navegación.",
+            methodology: [
+              "<strong>Análisis heurístico</strong><br/>Evaluación de la web actual para detectar problemas de usabilidad, jerarquía visual, consistencia y claridad del contenido.",
+              "<strong>Desktop research</strong><br/>Investigación de patrones, buenas prácticas y tendencias en landing pages orientadas a descargas de apps.",
+              "<strong>Benchmarking</strong><br/>Análisis comparativo con sitios de marcas y aplicaciones similares para identificar oportunidades de mejora y estándares del mercado.",
+              "<strong>Proto-persona</strong><br/>Definición de un perfil de usuario objetivo para orientar decisiones de diseño centradas en necesidades reales.",
+              "<strong>Encuestas a usuarios</strong><br/>Recolección de insights sobre expectativas, hábitos y motivaciones relacionadas con el uso de la app.",
+              "<strong>Wireframes</strong><br/>Realización de wireframes en baja, media y alta fidelidad."
+            ],
+            analysis: "A partir de la investigación se identificaron oportunidades clave para:\n\nMejorar la propuesta de valor de la app en el primer impacto.\n\nOptimizar la arquitectura de la información y la jerarquía del contenido.\n\nReducir fricciones en la navegación y acortar el camino hacia la descarga.\n\nAlinear el diseño visual con una experiencia más clara, moderna y orientada a conversión.",
+            images: [
+              "/Screenshot 2025-04-15 185713.png",
+              "/Screenshot 2025-04-14 184050.png",
+              "/Screenshot 2025-04-14 184117.png",
+              "/Starbucks.png",
+              "/Encuentra.png",
+              "/Drive.png",
+              "/Descargar.png",
+              "/Encuéntranos.png",
+              "/Menú.png",
+              "/carrousel starbucks.jpeg"
+            ],
+            processImages: [
+              "/Screenshot 2025-12-09 171937.png",
+              "/Screenshot 2025-12-09 172045.png",
+              "/Screenshot 2025-12-09 172126.png",
+              "/Screenshot 2025-12-09 172159.png",
+              "/Screenshot 2025-12-09 171609.png",
+              "/Screenshot 2025-12-09 172248.png"
+            ],
+            presentationUrl: "https://docs.google.com/presentation/d/1fW38yWg2vbLmB5iAepUND4t2Y8Tic-kCasi4RrXOac0/edit?usp=sharing",
             prototypeUrl: "",
             mockupImage: project.image,
           },
           6: {
             title: "Dogwalk App",
             subtitle: "Primer proyecto de mi Diplomatura en UX/UI. Centrado principalmente en estructuración. No estética",
-            aboutProject: "Descripción del proyecto...",
-            methodology: ["Metodología 1", "Metodología 2"],
-            analysis: "Análisis del proyecto...",
+            aboutProject: "Dogwalk es una aplicación pensada para conectar dueños de perros con paseadores, facilitando la gestión de paseos de forma simple y clara.\nEl objetivo principal del proyecto fue trabajar la estructura del producto, los flujos de uso y la organización de la información, priorizando la experiencia del usuario por sobre la estética visual.\n\nAl tratarse de un proyecto académico inicial, el foco estuvo puesto en:\n\nComprender el problema y las necesidades básicas del usuario.\n\nDefinir funcionalidades clave.\n\nDiseñar una navegación clara y coherente.\n\nConstruir una base sólida sobre la cual luego podría desarrollarse el diseño visual.",
+            methodology: [
+              "<strong>Definición del problema</strong><br/>Identificación de la necesidad principal: facilitar la contratación y gestión de paseos para dueños de perros de manera segura y organizada.",
+              "<strong>Investigación inicial</strong><br/>Análisis del contexto, comportamiento de usuarios potenciales y revisión de aplicaciones similares para detectar patrones y oportunidades de mejora.",
+              "<strong>Arquitectura de la información</strong><br/>Organización de secciones, jerarquía de contenidos y definición de flujos principales dentro de la app para garantizar una navegación intuitiva.",
+              "<strong>User flows</strong><br/>Diseño de los recorridos clave del usuario (registro, búsqueda de paseador, solicitud de paseo, seguimiento).",
+              "<strong>Wireframes de baja fidelidad</strong><br/>Creación de pantallas estructurales enfocadas en el orden del contenido, sin trabajar aún aspectos visuales o de branding.",
+              "<strong>Iteración</strong><br/>Ajustes sobre la estructura y los flujos a partir del análisis de uso y la coherencia del recorrido del usuario."
+            ],
+            analysis: "El proyecto permitió comprender la importancia de una buena estructura antes del diseño visual, asegurando que la app sea funcional, clara y fácil de usar.\n\nA través del trabajo de arquitectura y flujos se logró:\n\nReducir fricción en la navegación.\n\nPriorizar acciones clave del usuario.\n\nSentar las bases para un futuro desarrollo visual y funcional más sólido.",
             images: [],
-            presentationUrl: "https://www.figma.com/design/gw9ESmToqxT9o7tP5RFh3e/Dogwalk?node-id=33-869&t=YKA7k00lUZEjtuCC-1",
-            prototypeUrl: "",
-            mockupImage: project.image,
+            presentationUrl: "https://docs.google.com/presentation/d/19Gjds5OqX78y9EmX_nG4XqWzI2egTlIu3uzofgDvSTw/edit?usp=sharing",
+            prototypeUrl: "https://www.figma.com/design/gw9ESmToqxT9o7tP5RFh3e/Dogwalk?node-id=0-1&t=ztomAlqsYRR7z5og-1",
+            mockupImage: "/dogwalk.png",
           },
           7: {
             title: "IEB - Proyecto técnico",
@@ -311,22 +355,48 @@ const Projects = () => {
             subtitle: "Diseño y desarrollo de blog para MindDev Perú, enfocado en contenido técnico y experiencias de usuario",
             aboutProject: "En este proyecto trabajé en conjunto con programadores. Objetivo: Diseñar y desarrollar una versión del Blog de MindDev, aplicando buenas prácticas de experiencia de usuario, diseño visual y desarrollo frontend. El resultado debe ser una versión moderna, atractiva, responsive y alineada con la identidad visual de Minddev. Se pidió específicamente que NO SE UTILICEN IMAGENES.",
             methodology: ["Creación de tokens con nomenclaturas afines a Tailwind CSS", "Creación de componentes reutilizables y alineamientos de design system", "UX research (competencias, benchmarking, heurísticas, etc)", "Comunicación con desarrollo", "Escucha y recibimiento de feedback para mejora continua", "Diseño responsive"],
-            analysis: "Análisis del proyecto...",
+            analysis: "Este proyecto consiste en el diseño y análisis de un blog enfocado en SEO, con el objetivo de mejorar la legibilidad del contenido, la jerarquía visual y facilitar tanto la experiencia del usuario como el posicionamiento en buscadores.",
             images: ["/Desktopminddev.jpg", "/Mobile mindev.jpg"],
-            presentationUrl: "",
+            presentationUrl: "https://www.figma.com/proto/ssteCZBadimaFwwYBOFvFy/Blog---Minddev?page-id=174%3A411&node-id=174-412&viewport=401%2C376%2C0.17&t=dFZreXGJpBPVkVyK-1&scaling=min-zoom&content-scaling=fixed",
             prototypeUrl: "",
-            mockupImage: "/mockup minnnn.png",
+            mockupImage: "/blog mindevv.png",
           },
           9: {
             title: "Start CRM",
             subtitle: "Sistema CRM completo con diseño centrado en la experiencia del usuario y eficiencia operativa",
-            aboutProject: "Descripción del proyecto...",
-            methodology: ["Metodología 1", "Metodología 2"],
-            analysis: "Análisis del proyecto...",
-            images: [],
+            aboutProject: "Start CRM es un sistema de gestión de relaciones con clientes diseñado para optimizar procesos comerciales y de seguimiento, centralizando contactos, oportunidades, conversaciones y tareas en una única plataforma.\n\nEl proyecto se enfocó en crear una experiencia clara, escalable y orientada a equipos de ventas, priorizando la eficiencia operativa, la visibilidad del pipeline y la toma de decisiones basada en datos.\n\nEste CRM posee integración a WhatsApp y Gmail.\n\nTrabajé en conjunto con 6 desarrolladores y un QA.",
+            methodology: [
+              "Investigación de referencia y benchmarking de CRMs líderes (HubSpot, Pipedrive, Salesforce).",
+              "Creación de componentes reutilizables con diversos comportamientos y de tokens para facilitar la implementación a desarrollo.",
+              "Definición de flujos clave: contactos, dashboard de métricas, calendario de tareas, administración de equipo (only admin), pipeline de ventas, conversaciones y ajustes.",
+              "Diseño de arquitectura de información y jerarquías de contenido.",
+              "Creación de wireframes y prototipos UI orientados a tareas reales de usuarios comerciales.",
+              "Diseño visual, asegurando consistencia entre vistas (tablas, kanban, modales).",
+              "Utilización de inspiración de librería opensource, con componentes personalizados dentro del UI.",
+              "Metodología sprint, organización por épicas, HU, etc mediante Jira.",
+              "Optimización UX enfocada en acciones frecuentes: crear, asignar, filtrar y priorizar."
+            ],
+            analysis: "El resultado es una interfaz intuitiva y modular que facilita el trabajo diario de los equipos comerciales, reduce fricción en la gestión de oportunidades y permite escalar el sistema a futuras funcionalidades.\n\nEl diseño prioriza claridad visual, estados comprensibles y patrones reconocibles para usuarios acostumbrados a herramientas CRM profesionales.",
+            images: [
+              "/log-in.png",
+              "/dashboard-wsp.png",
+              "/dashboard-calendar-my account.png",
+              "/contactos.png",
+              "/contactos- acceso directo seleccion.png",
+              "/contactos- asignar a.png",
+              "/Conversaciones - whatsapp.png",
+              "/Conversaciones - mails.png",
+              "/Nuevo mensaje.png",
+              "/Kanban vista completa.png",
+              "/Administrar equipo - más.png",
+              "/nuevo miembro- error.png",
+              "/UI colors.png",
+              "/Screenshot 2025-12-09 152951.png",
+              "/Screenshot 2025-12-09 153902.png"
+            ],
             presentationUrl: "",
             prototypeUrl: "",
-            mockupImage: project.image,
+            mockupImage: "/mockup start.png",
           },
         };
 
@@ -337,6 +407,7 @@ const Projects = () => {
           methodology: [],
           analysis: "",
           images: [],
+          processImages: [],
           presentationUrl: "",
           prototypeUrl: "",
           mockupImage: project.image,
@@ -353,6 +424,7 @@ const Projects = () => {
             methodology={data.methodology}
             analysis={data.analysis}
             images={data.images}
+            processImages={data.processImages}
             presentationUrl={data.presentationUrl}
             prototypeUrl={data.prototypeUrl}
             mockupImage={data.mockupImage}

@@ -71,8 +71,8 @@ const StarryBackground = () => {
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      {/* Main dark background */}
-      <div className="absolute inset-0 bg-black" />
+      {/* Main background */}
+      <div className="absolute inset-0 bg-background dark:bg-black" />
       
       {/* Interactive Stars */}
       <div className="absolute inset-0">
