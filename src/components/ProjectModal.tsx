@@ -229,7 +229,7 @@ const ProjectModal = ({
                   {/* Antes y Después para IEB y Starbucks, Layout lado a lado para MindDev, Carrusel para otros proyectos */}
                   {images && images.length > 0 && (
                     <div id="project-carousel" className="mt-8 pt-8 border-t border-border/50">
-                      {title === "IEB - Proyecto técnico" || title === "Starbucks" ? (
+                      {title === "IEB - Proyecto técnico" || title === "Starbucks" || title === "Desafio Buenbit" ? (
                         // Layout Antes y Después para IEB
                         <div className="max-w-6xl mx-auto">
                           <div className="mb-4 sm:mb-6 text-center">
@@ -300,7 +300,11 @@ const ProjectModal = ({
                                     )}
                                   </div>
                                 ) : (
-                                  <div className="relative w-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px] overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50">
+                                  <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50 ${
+                                    title === "Desafio Buenbit"
+                                      ? "h-[300px] sm:h-[350px] md:h-[400px]" 
+                                      : "min-h-[300px] sm:min-h-[400px] md:min-h-[500px]"
+                                  }`}>
                                   {images.length >= 2 && images[0] ? (
                                     <motion.img
                                       src={images[0]}
@@ -380,7 +384,11 @@ const ProjectModal = ({
                                     )}
                                   </div>
                                 ) : (
-                                  <div className="relative w-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px] overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50">
+                                  <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50 ${
+                                    title === "Desafio Buenbit"
+                                      ? "h-[300px] sm:h-[350px] md:h-[400px]" 
+                                      : "min-h-[300px] sm:min-h-[400px] md:min-h-[500px]"
+                                  }`}>
                                   {images[images.length - 1] && (
                                     <motion.img
                                       src={images[images.length - 1]}
@@ -464,7 +472,7 @@ const ProjectModal = ({
                         // Carrusel para otros proyectos
                         <div className="max-w-5xl mx-auto">
                           <div className="mb-4 sm:mb-6 text-center">
-                            <h3 className="text-xl sm:text-2xl font-bold mb-2">{title === "Start CRM" ? "Demostración del proyecto" : "Capturas del Proyecto"}</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold mb-2">{title === "Start CRM" || title === "Alpay" ? "Demostración del proyecto" : "Capturas del Proyecto"}</h3>
                             <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                           </div>
                           <div className="bg-card/90 dark:bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
@@ -528,18 +536,22 @@ const ProjectModal = ({
                     </div>
                   )}
 
-                  {/* Carrusel de Proceso para Starbucks */}
-                  {title === "Starbucks" && processImages && processImages.length > 0 && (
+                  {/* Carrusel de Proceso para Starbucks, Variantes para Buenbit y Demostración para Alpay */}
+                  {(title === "Starbucks" || title === "Desafio Buenbit" || title === "Alpay") && processImages && processImages.length > 0 && (
                     <div id="project-process" className="mt-8 pt-8 border-t border-border/50">
                       <div className="max-w-6xl mx-auto">
                         <div className="mb-4 sm:mb-6 text-center">
-                          <h3 className="text-xl sm:text-2xl font-bold mb-2">Proceso</h3>
+                          <h3 className="text-xl sm:text-2xl font-bold mb-2">{title === "Desafio Buenbit" ? "Otras variantes" : title === "Alpay" ? "Demostración del proyecto" : "Proceso"}</h3>
                           <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                         </div>
                         <div className="bg-card/90 dark:bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
                           <div className="relative">
                             {/* Imagen actual */}
-                            <div className="relative w-full h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px] overflow-hidden rounded-xl flex items-center justify-center">
+                            <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center ${
+                              title === "Desafio Buenbit" || title === "Alpay"
+                                ? "h-[300px] sm:h-[350px] md:h-[400px]" 
+                                : "h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px]"
+                            }`}>
                               <AnimatePresence mode="wait">
                                 <motion.img
                                   key={currentProcessImageIndex}
@@ -599,6 +611,7 @@ const ProjectModal = ({
                       </div>
                     </div>
                   )}
+
                 </div>
               </div>
             </div>
