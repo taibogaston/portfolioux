@@ -10,8 +10,14 @@ interface ProjectModalProps {
   title: string;
   subtitle: string;
   aboutProject?: string;
+  problem?: string;
+  objectives?: string[];
+  research?: string;
+  designSystem?: string;
+  userType?: string;
   methodology?: string[];
   analysis?: string;
+  resultado?: string;
   images?: string[];
   processImages?: string[];
   presentationUrl?: string;
@@ -25,8 +31,14 @@ const ProjectModal = ({
   title,
   subtitle,
   aboutProject,
+  problem,
+  objectives,
+  research,
+  designSystem,
+  userType,
   methodology,
   analysis,
+  resultado,
   images = [],
   processImages = [],
   presentationUrl,
@@ -133,7 +145,7 @@ const ProjectModal = ({
                       {/* Columna izquierda - Contenido */}
                       <div className="lg:col-span-7 space-y-6 sm:space-y-8">
                       {/* Botones de acción - Arriba */}
-                      {(presentationUrl || prototypeUrl || (title === "Start CRM" && images && images.length > 0) || (title === "Starbucks" && images && images.length > 0)) && (
+                      {(presentationUrl || prototypeUrl || (title === "Start CRM" && images && images.length > 0) || (title === "Starbucks" && images && images.length > 0) || (title === "Propsail" && images && images.length > 0)) && (
                         <div className="flex flex-wrap gap-2 sm:gap-3">
                           {presentationUrl && (
                             <a
@@ -171,15 +183,75 @@ const ProjectModal = ({
                               Ver demostración
                             </button>
                           )}
+                          {title === "Propsail" && images && images.length > 0 && (
+                            <button
+                              onClick={scrollToCarousel}
+                              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                            >
+                              Ver demostración
+                            </button>
+                          )}
                         </div>
                       )}
 
                       {/* Sobre el Proyecto */}
                       {aboutProject && (
                         <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Sobre el Proyecto</h3>
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Contexto</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{aboutProject}</p>
+                        </div>
+                      )}
+
+                      {/* Problema */}
+                      {problem && (
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Problema</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{problem}</p>
+                        </div>
+                      )}
+
+                      {/* Tipo de usuario */}
+                      {userType && (
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Tipo de usuario</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{userType}</p>
+                        </div>
+                      )}
+
+                      {/* Objetivos */}
+                      {objectives && objectives.length > 0 && (
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Objetivos</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <ul className="space-y-2 sm:space-y-3 text-muted-foreground">
+                            {objectives.map((item, index) => (
+                              <li key={index} className="flex gap-2 sm:gap-3 group">
+                                <span className="text-primary font-bold text-base sm:text-lg group-hover:scale-110 transition-transform flex-shrink-0">•</span>
+                                <span className="text-sm sm:text-[15px] leading-relaxed" dangerouslySetInnerHTML={{ __html: item }} />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Research */}
+                      {research && (
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Research</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{research}</p>
+                        </div>
+                      )}
+
+                      {/* Design system, componentes y tokens */}
+                      {designSystem && (
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Design system, componentes y tokens</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{designSystem}</p>
                         </div>
                       )}
 
@@ -205,6 +277,15 @@ const ProjectModal = ({
                           <h3 className="text-lg sm:text-xl font-bold text-foreground">Análisis</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{analysis}</p>
+                        </div>
+                      )}
+
+                      {/* Resultado */}
+                      {resultado && (
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Resultado</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{resultado}</p>
                         </div>
                       )}
                     </div>
@@ -470,15 +551,15 @@ const ProjectModal = ({
                         </div>
                       ) : (
                         // Carrusel para otros proyectos
-                        <div className="max-w-5xl mx-auto">
+                        <div className={`mx-auto ${title === "Propsail" ? "max-w-7xl" : "max-w-5xl"}`}>
                           <div className="mb-4 sm:mb-6 text-center">
-                            <h3 className="text-xl sm:text-2xl font-bold mb-2">{title === "Start CRM" || title === "Alpay" ? "Demostración del proyecto" : "Capturas del Proyecto"}</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold mb-2">{title === "Start CRM" || title === "Alpay" || title === "Propsail" ? "Demostración del proyecto" : "Capturas del Proyecto"}</h3>
                             <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                           </div>
                           <div className="bg-card/90 dark:bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
                             <div className="relative">
                               {/* Imagen actual */}
-                              <div className="relative w-full h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px] overflow-hidden rounded-xl flex items-center justify-center">
+                              <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center ${title === "Propsail" ? "h-[700px] sm:h-[800px] md:h-[900px] lg:h-[1000px] xl:h-[1100px]" : "h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px]"}`}>
                                 <AnimatePresence mode="wait">
                                   <motion.img
                                     key={currentImageIndex}
@@ -488,7 +569,7 @@ const ProjectModal = ({
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     transition={{ duration: 0.4 }}
-                                    className="w-full h-full object-contain object-center"
+                                    className={`w-full h-full ${title === "Propsail" ? "object-contain" : "object-contain object-center"}`}
                                   />
                                 </AnimatePresence>
                               </div>
@@ -498,7 +579,7 @@ const ProjectModal = ({
                                 <>
                                   <button
                                     onClick={prevImage}
-                                    className="absolute left-2 sm:left-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation"
+                                    className={`absolute left-2 sm:left-4 -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation ${title === "Propsail" ? "top-[350px] sm:top-[400px] md:top-[450px] lg:top-[500px] xl:top-[550px]" : "top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px]"}`}
                                     aria-label="Imagen anterior"
                                   >
                                     <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -506,7 +587,7 @@ const ProjectModal = ({
 
                                   <button
                                     onClick={nextImage}
-                                    className="absolute right-2 sm:right-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation"
+                                    className={`absolute right-2 sm:right-4 -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation ${title === "Propsail" ? "top-[350px] sm:top-[400px] md:top-[450px] lg:top-[500px] xl:top-[550px]" : "top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px]"}`}
                                     aria-label="Imagen siguiente"
                                   >
                                     <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
