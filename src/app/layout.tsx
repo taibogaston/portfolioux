@@ -20,7 +20,11 @@ export const metadata: Metadata = {
   description: "Professional UX/UI Designer specializing in modern, tech-focused design solutions",
   keywords: ["UX Design", "UI Design", "Portfolio", "Designer", "Tech"],
   authors: [{ name: "Maitena" }],
-  viewport: "width=device-width, initial-scale=1",
+  viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f4" },
+  ],
 };
 
 export default function RootLayout({
@@ -31,7 +35,8 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground overflow-x-hidden`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"

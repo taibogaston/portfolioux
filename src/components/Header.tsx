@@ -12,6 +12,7 @@ const Header = () => {
     { name: "Sobre mí", href: "#about" },
     { name: "Herramientas", href: "#tools" },
     { name: "Proyectos", href: "#projects" },
+    { name: "Experiencia", href: "#experience" },
     { name: "Contacto", href: "#contact" },
   ];
 
@@ -66,11 +67,11 @@ const Header = () => {
           <div className="absolute right-0 flex items-center space-x-4">
             {/* Mobile Menu Button */}
             <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-lg bg-muted hover:bg-accent transition-colors duration-200"
-              aria-label="Toggle menu"
+              className="md:hidden p-3 min-h-[44px] min-w-[44px] rounded-lg bg-muted hover:bg-accent transition-colors duration-200 flex items-center justify-center touch-manipulation"
+              aria-label="Abrir o cerrar menú"
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </motion.button>
@@ -96,7 +97,7 @@ const Header = () => {
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ x: 10 }}
                     onClick={() => scrollToSection(item.href)}
-                    className="block w-full text-left px-4 py-2 text-foreground hover:text-primary hover:bg-accent rounded-lg transition-all duration-200"
+                    className="block w-full text-left px-4 py-3 min-h-[44px] flex items-center text-foreground hover:text-primary hover:bg-accent rounded-lg transition-all duration-200 touch-manipulation"
                   >
                     {item.name}
                   </motion.button>

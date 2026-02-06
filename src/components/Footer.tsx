@@ -32,6 +32,7 @@ const Footer = () => {
     { name: "Sobre mí", href: "#about" },
     { name: "Herramientas", href: "#tools" },
     { name: "Proyectos", href: "#projects" },
+    { name: "Experiencia", href: "#experience" },
     { name: "Contacto", href: "#contact" },
   ];
 
@@ -75,7 +76,7 @@ const Footer = () => {
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className={`w-10 h-10 bg-muted rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 ${social.color}`}
+                  className={`w-10 h-10 min-w-[44px] min-h-[44px] bg-muted rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 touch-manipulation ${social.color}`}
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
@@ -100,7 +101,7 @@ const Footer = () => {
                 >
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-muted-foreground hover:text-primary transition-colors duration-200 text-left"
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200 text-left py-2 min-h-[44px] flex items-center touch-manipulation"
                   >
                     {link.name}
                   </button>
@@ -137,10 +138,10 @@ const Footer = () => {
             <span>y mucho café</span>
           </div>
           <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-            <button className="hover:text-primary transition-colors">
+            <button className="hover:text-primary transition-colors py-2 px-1 min-h-[44px] touch-manipulation">
               Privacidad
             </button>
-            <button className="hover:text-primary transition-colors">
+            <button className="hover:text-primary transition-colors py-2 px-1 min-h-[44px] touch-manipulation">
               Términos
             </button>
           </div>

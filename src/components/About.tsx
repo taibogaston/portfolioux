@@ -2,242 +2,105 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { User, Target, Lightbulb, Heart, Code2, Palette, Zap } from "lucide-react";
-import { useState, useRef } from "react";
+import { Code2, Palette, Box } from "lucide-react";
+import TrueFocus from "./TrueFocus";
 
 const About = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.05, // Reducido para activar más rápido
+    threshold: 0.05,
   });
-
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (sectionRef.current) {
-      const rect = sectionRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-    }
-  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.12,
+        delayChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
     },
   };
 
-  const values = [
-    {
-      icon: Target,
-      title: "Enfoque centrado en el usuario",
-      description: "Cada decisión de diseño se basa en la investigación y comprensión profunda de las necesidades del usuario final.",
-    },
-    {
-      icon: Lightbulb,
-      title: "Innovación constante",
-      description: "Mantengo un enfoque proactivo hacia las nuevas tendencias y tecnologías para crear soluciones.",
-    },
-    {
-      icon: Heart,
-      title: "Pasión por el detalle",
-      description: "Creo que los pequeños detalles marcan la diferencia en todas las experiencias tanto digitales como físicas",
-    },
+  const skills = [
+    { icon: Palette, label: "UX Research" },
+    { icon: Code2, label: "UI Design" },
+    { icon: Box, label: "Product Design" },
   ];
 
   return (
-    <>
-      <style jsx>{`
-        @keyframes flowLineVertical {
-          0% {
-            transform: translateY(-100px);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(calc(100vh - 200px));
-            opacity: 0;
-          }
-        }
-        
-      `}</style>
-      <motion.section
-        id="about"
-        ref={(node) => {
-          ref(node);
-          sectionRef.current = node;
-        }}
-        className="py-20 relative overflow-hidden cursor-none z-10"
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
-        {/* Rectángulo de fondo negro borroso - solo en About */}
-        <div className="absolute inset-0 bg-white/90 dark:bg-black/80 backdrop-blur-2xl z-0" style={{ zIndex: -1 }} />
-        
-        {/* Cursor glow effect */}
-        {isHovering && (
-          <motion.div
-            className="absolute pointer-events-none z-50"
-            style={{
-              left: mousePosition.x - 20,
-              top: mousePosition.y - 20,
-            }}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <div className="w-10 h-10 bg-white/20 rounded-full blur-sm animate-pulse"></div>
-            <div className="absolute inset-0 w-10 h-10 bg-white/40 rounded-full blur-md animate-pulse"></div>
-          </motion.div>
-        )}
-      
+    <section
+      id="about"
+      ref={ref}
+      className="py-20 relative overflow-hidden bg-background"
+      style={{ contentVisibility: "auto" }}
+    >
+
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="container mx-auto px-8 sm:px-12 lg:px-16 relative z-20 pt-8"
+        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
       >
-        {/* Animated vertical flow line - extends through entire section */}
-        <div className="absolute -left-4 top-0 w-px h-full bg-gradient-to-b from-transparent via-white/40 to-transparent">
-          <div className="absolute top-16 left-0 w-full h-32 bg-gradient-to-b from-transparent via-white/60 to-transparent animate-pulse" 
-               style={{
-                 animation: 'flowLineVertical 4s ease-in-out infinite',
-                 animationDelay: '0s'
-               }}>
-          </div>
-        </div>
-        {/* Section Header */}
-        <motion.div variants={itemVariants} className="text-center mb-16">
-          {/* Profile Photo */}
-          <div className="flex justify-center mb-8">
-            <div className="relative">
-              <div className="w-48 h-48 rounded-full overflow-hidden border-2 border-white/30 shadow-xl">
-                <img
-                  src="/IMG_9216.JPG"
-                  alt="Maitena - UX/UI Designer"
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {/* Decorative elements */}
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-white/20 rounded-full blur-sm"></div>
-              <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-white/30 rounded-full blur-sm"></div>
-            </div>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center px-4 py-2 rounded-full tech-badge text-primary text-sm font-medium mb-6 relative z-10"
-          >
-            <User className="w-4 h-4 mr-2" />
-            Sobre mí
-          </motion.div>
-          
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Diseñando el futuro digital
-          </h2>
-          
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
-            Mi desafío es transformar ideas en experiencias digitales simples y efectivas. Como diseñadora, busco un enfoque centrado en el usuario, aportando creatividad y empatía.
-          </p>
-
-          {/* Skills Pills */}
+        {/* Bento: foto + bloque de texto - centrado */}
+        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16">
+          {/* Foto */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap justify-center gap-3"
+            className="lg:col-span-5 flex justify-center"
           >
-            {[
-              { icon: Code2, text: "UI Design", color: "bg-blue-500 text-white" },
-              { icon: Palette, text: "UX Research", color: "bg-purple-500 text-white" },
-              { icon: Zap, text: "IA", color: "bg-yellow-500 text-white" },
-            ].map((skill, index) => (
-              <motion.div
-                key={skill.text}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                whileHover={{ scale: 1.05 }}
-                className={`flex items-center px-4 py-2 rounded-full ${skill.color} backdrop-blur-sm`}
-              >
-                <skill.icon className="w-4 h-4 mr-2" />
-                <span className="text-sm font-medium">{skill.text}</span>
-              </motion.div>
-            ))}
+            <div className="relative w-full max-w-[150px] sm:max-w-[190px]">
+              <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-border dark:border-white/20 bg-card shadow-2xl shadow-primary/5">
+                <img
+                  src="/WhatsApp%20Image%202026-01-19%20at%2013.26.32.jpeg"
+                  alt="Maitena - UX UI & Product Designer"
+                  loading="lazy"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+              <div className="absolute -z-10 inset-0 translate-x-2 translate-y-2 rounded-2xl bg-primary/20 dark:bg-primary/10" />
+            </div>
           </motion.div>
-        </motion.div>
 
-        <div className="flex justify-center">
-          {/* Values */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 gap-6 max-w-2xl relative z-10">
-            
-            {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, x: 30 }}
-                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-                transition={{ delay: 0.8 + index * 0.2, duration: 0.6 }}
-                whileHover={{ scale: 1.02, x: 10 }}
-                className="group relative p-8 rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-white/20 hover:border-gray-300 dark:hover:border-white/30 transition-all duration-500 hover:shadow-lg hover:shadow-gray-300/20 dark:hover:shadow-white/10 hover:-translate-y-2 overflow-hidden"
-              >
-                
-                <div className="relative z-10 flex items-start space-x-6">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gray-100 dark:bg-white/20 rounded-xl flex items-center justify-center border border-gray-200 dark:border-white/30 group-hover:border-gray-300 dark:group-hover:border-white/40 transition-all duration-300 group-hover:scale-110">
-                    <value.icon className="w-5 h-5 text-gray-600 dark:text-white/80 group-hover:text-gray-800 dark:group-hover:text-white transition-colors duration-300" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-gray-700 dark:group-hover:text-white transition-all duration-300">
-                      {value.title}
-                    </h4>
-                    <p className="text-gray-600 dark:text-slate-300 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-slate-200 transition-colors duration-300">
-                      {value.description}
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Tech grid pattern overlay */}
-                <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
-                  <div className="w-full h-full" style={{
-                    backgroundImage: `
-                      linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '20px 20px'
-                  }}></div>
-                </div>
-              </motion.div>
-            ))}
+          {/* Texto + skills */}
+          <motion.div variants={itemVariants} className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 w-full text-center lg:text-left">
+              <TrueFocus
+                sentence="UX UI · Product Designer"
+                separator=" · "
+                blurAmount={5}
+                animationDuration={0.6}
+                pauseBetweenAnimations={1.5}
+                className="text-inherit w-full inline-flex flex-nowrap justify-center lg:justify-start gap-x-4 sm:gap-x-6"
+              />
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl lg:max-w-none mx-auto lg:mx-0">
+              Conecto investigación, diseño y estrategia de producto para crear experiencias digitales claras, usables y orientadas a resultados. Trabajo con equipos en metodologías ágiles, design systems y mejora continua.
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+              {skills.map((s) => (
+                <span
+                  key={s.label}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card dark:bg-white/10 border border-border dark:border-white/20 text-foreground text-sm font-medium"
+                >
+                  <s.icon className="w-4 h-4 text-primary" />
+                  {s.label}
+                </span>
+              ))}
+            </div>
           </motion.div>
         </div>
       </motion.div>
-    </motion.section>
-    </>
+    </section>
   );
 };
 
 export default About;
-

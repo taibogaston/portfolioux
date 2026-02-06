@@ -4,9 +4,25 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ArrowDown, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import TypewriterText from "./TypewriterText";
 
+const LiquidEther = dynamic(() => import("./LiquidEther"), { ssr: false });
+
+function useReducedMotionOrMobile() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px), (prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const fn = () => setReduced(mq.matches);
+    mq.addEventListener("change", fn);
+    return () => mq.removeEventListener("change", fn);
+  }, []);
+  return reduced;
+}
+
 const Hero = () => {
+  const reducedMotionOrMobile = useReducedMotionOrMobile();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.05, // Reducido para activar más rápido
@@ -15,22 +31,25 @@ const Hero = () => {
   const [scrollIndicatorOpacity, setScrollIndicatorOpacity] = useState(1);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const maxScroll = 80; // Punto donde desaparece completamente (reducido de 200 a 80)
-      
-      if (scrollY <= 0) {
-        setScrollIndicatorOpacity(1);
-      } else if (scrollY >= maxScroll) {
-        setScrollIndicatorOpacity(0);
-      } else {
-        // Transición gradual de 1 a 0
-        const opacity = 1 - (scrollY / maxScroll);
-        setScrollIndicatorOpacity(opacity);
-      }
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const maxScroll = 80;
+        if (scrollY <= 0) {
+          setScrollIndicatorOpacity(1);
+        } else if (scrollY >= maxScroll) {
+          setScrollIndicatorOpacity(0);
+        } else {
+          setScrollIndicatorOpacity(1 - scrollY / maxScroll);
+        }
+        ticking = false;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -68,10 +87,18 @@ const Hero = () => {
       id="home"
       ref={ref}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
+      style={{ minHeight: "100vh", height: "100vh" }}
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-transparent" />
-      
+      {/* LiquidEther background: siempre visible, reacciona al cursor */}
+      <div className="absolute inset-0 z-0 w-full" style={{ minHeight: "100vh" }}>
+        <LiquidEther
+          className="absolute inset-0 h-full w-full"
+          mouseForce={28}
+          autoIntensity={2.5}
+          resolution={reducedMotionOrMobile ? 0.35 : 0.5}
+        />
+      </div>
+
       {/* Floating Elements */}
       <motion.div
         variants={floatingVariants}

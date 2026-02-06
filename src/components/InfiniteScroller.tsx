@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Code } from "lucide-react";
+import BlurText from "./BlurText";
+import Noise from "./Noise";
 
 const InfiniteScroller = () => {
   const [ref, inView] = useInView({
@@ -120,11 +121,13 @@ const InfiniteScroller = () => {
     <section
       id="tools"
       ref={ref}
-      className="py-20 bg-muted/10 relative overflow-hidden"
+      className="py-20 relative overflow-hidden tech-section-bg"
+      style={{ contentVisibility: "auto" }}
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-      
+      {/* Fondo noise */}
+      <div className="absolute inset-0 z-0">
+        <Noise patternAlpha={12} patternRefreshInterval={3} />
+      </div>
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
@@ -138,19 +141,15 @@ const InfiniteScroller = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="inline-flex items-center px-4 py-2 rounded-full tech-badge text-primary text-sm font-medium mb-6 relative z-10"
-          >
-            <Code className="w-4 h-4 mr-2" />
-            Herramientas
-          </motion.div>
-          
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Tecnologías que utilizo
-          </h2>
+          <BlurText
+            text="Tecnologías que utilizo"
+            as="h2"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-foreground"
+            animateBy="words"
+            delay={80}
+            direction="top"
+            stepDuration={0.35}
+          />
           
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Herramientas y plataformas que utilizo para crear experiencias digitales excepcionales.
@@ -181,10 +180,6 @@ const InfiniteScroller = () => {
               ))}
             </div>
           </div>
-          
-          {/* Gradient overlays for smooth edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
         </div>
 
         {/* Additional Info */}

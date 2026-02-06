@@ -153,6 +153,7 @@ const Contact = () => {
       id="contact"
       ref={ref}
       className="py-20 relative overflow-hidden"
+      style={{ contentVisibility: "auto" }}
     >
       
       <motion.div
@@ -206,9 +207,9 @@ const Contact = () => {
                   animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                   transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
                   whileHover={{ x: 10 }}
-                  className="flex items-center p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-300 group"
+                    className="flex items-center p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-300 group touch-manipulation min-h-[56px]"
                 >
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors">
                     <info.icon className="w-6 h-6 text-primary" />
                   </div>
                   <div>
@@ -238,7 +239,7 @@ const Contact = () => {
                     transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`w-12 h-12 bg-muted rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 ${social.color}`}
+                    className={`w-12 h-12 min-w-[48px] min-h-[48px] bg-muted rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 touch-manipulation ${social.color}`}
                   >
                     <social.icon className="w-5 h-5" />
                   </motion.a>
@@ -248,7 +249,7 @@ const Contact = () => {
           </motion.div>
 
           {/* Contact Form */}
-          <motion.div variants={itemVariants} className="bg-card rounded-xl border border-border p-8">
+          <motion.div variants={itemVariants} className="bg-card rounded-xl border border-border p-4 sm:p-6 lg:p-8">
             <h3 className="text-2xl font-bold mb-6">Envíame un mensaje</h3>
             
             {isSubmitted ? (
@@ -335,7 +336,7 @@ const Contact = () => {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 mb-4"
+                    className="flex items-center p-3 sm:p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300 text-sm mb-4"
                   >
                     <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
                     <span className="text-sm">{submitError}</span>

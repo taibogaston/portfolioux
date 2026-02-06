@@ -127,7 +127,7 @@ const ProjectModal = ({
                   </div>
                   <button
                     onClick={onClose}
-                    className="p-2 sm:p-2.5 hover:bg-white/5 rounded-lg sm:rounded-xl transition-all hover:scale-110 active:scale-95 flex-shrink-0 touch-manipulation"
+                    className="p-2 sm:p-2.5 min-h-[44px] min-w-[44px] hover:bg-white/5 rounded-lg sm:rounded-xl transition-all hover:scale-110 active:scale-95 flex-shrink-0 touch-manipulation flex items-center justify-center"
                     aria-label="Cerrar"
                   >
                     <X className="w-4 h-4 sm:w-5 sm:h-5" />

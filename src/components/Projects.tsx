@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Eye } from "lucide-react";
 import { useState } from "react";
-import ProjectModal from "./ProjectModal";
+import dynamic from "next/dynamic";
+const ProjectModal = dynamic(() => import("./ProjectModal"), { ssr: false });
 
 interface ModalData {
   title: string;
@@ -85,22 +86,32 @@ const Projects = () => {
       githubUrl: "#"
     },
     {
-      id: 2,
-      title: "Mercado Libre Research",
-      description: "Rediseño de la funcionalidad de filtrados de una de las plataformas de e-commerce más grande de Latinoamérica",
-      image: "/mercadolibre.jpeg",
-      category: "Web App",
-      technologies: ["Figma", "Card sorting", "Tree testing", "UX"],
-      liveUrl: "#",
-      githubUrl: "#"
-    },
-    {
       id: 3,
       title: "Alpay",
       description: "Plataforma de administracion inmobiliria, mejoras y diseño de landing page al estilo solicitado",
       image: "/alpayxs.png",
       category: "Mobile App",
       technologies: ["Figma", "UX", "UI"],
+      liveUrl: "#",
+      githubUrl: "#"
+    },
+    {
+      id: 11,
+      title: "Locker App",
+      description: "Aplicación móvil para gestión de lockers y reservas.",
+      image: "/Frame.jpg",
+      category: "Mobile App",
+      technologies: ["Figma", "UX", "UI"],
+      liveUrl: "#",
+      githubUrl: "#"
+    },
+    {
+      id: 2,
+      title: "Mercado Libre Research",
+      description: "Rediseño de la funcionalidad de filtrados de una de las plataformas de e-commerce más grande de Latinoamérica",
+      image: "/mercadolibre.jpeg",
+      category: "Web App",
+      technologies: ["Figma", "Card sorting", "Tree testing", "UX"],
       liveUrl: "#",
       githubUrl: "#"
     },
@@ -159,14 +170,9 @@ const Projects = () => {
     <section
       id="projects"
       ref={ref}
-      className="py-20 relative overflow-hidden"
+      className="py-20 relative overflow-hidden bg-background"
+      style={{ contentVisibility: "auto" }}
     >
-      {/* Fondo */}
-      <div className="absolute inset-0 bg-background/80 dark:bg-black/80 backdrop-blur-2xl z-0" />
-      
-      {/* Difuminado violeta - solo en modo claro */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent blur-3xl z-0 dark:hidden" />
-      
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -195,46 +201,43 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <motion.div 
+        {/* Projects: grid 2 columnas, sin animación */}
+        <motion.div
           variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
         >
           {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className={`group relative rounded-2xl overflow-hidden bg-card dark:bg-white/10 border border-border dark:border-white/30 hover:border-primary/50 dark:hover:border-white/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 dark:hover:shadow-white/20 hover:-translate-y-2 flex flex-col z-10 cursor-pointer`}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && setOpenModalId(project.id)}
+              className="group relative rounded-2xl overflow-hidden bg-card border border-border dark:border-white/30 hover:border-primary/50 dark:hover:border-white/50 transition-all duration-300 hover:shadow-xl flex flex-col cursor-pointer touch-manipulation active:scale-[0.99]"
               onClick={() => setOpenModalId(project.id)}
             >
-              
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-52 sm:h-64 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={project.image}
                   alt={project.title}
                   loading="lazy"
-                  className="w-full h-full transition-transform duration-500 group-hover:scale-110 object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 dark:from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/70 dark:from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-
-              {/* Content */}
-              <div className="p-4 bg-card dark:bg-white/10 flex-1 flex flex-col">
-                <h3 className="text-lg font-bold mb-2 text-card-foreground dark:text-white group-hover:text-card-foreground/80 dark:group-hover:text-white/90 transition-colors">
+              <div className="p-4 sm:p-5 bg-card border-t border-border dark:border-white/20 flex-1 flex flex-col">
+                <h3 className="text-base sm:text-lg font-bold text-foreground dark:text-white mb-1 sm:mb-2">
                   {project.title}
                 </h3>
-                <p className="text-muted-foreground dark:text-white/70 mb-3 leading-relaxed text-sm line-clamp-2">
+                <p className="text-muted-foreground dark:text-white/70 text-xs sm:text-sm line-clamp-2 mb-2 sm:mb-3 flex-1">
                   {project.description}
                 </p>
-                
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-1 mt-auto">
-                  {project.technologies.map((tech) => (
+                <div className="flex flex-wrap gap-1">
+                  {project.technologies.slice(0, 4).map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-white dark:bg-white/20 text-primary dark:text-white text-xs rounded-md border border-primary/20 dark:border-white/20"
+                      className="px-2 py-0.5 bg-muted dark:bg-zinc-700 text-primary dark:text-zinc-100 text-xs rounded-md border border-border dark:border-zinc-600"
                     >
                       {tech}
                     </span>
@@ -250,6 +253,23 @@ const Projects = () => {
       {projects.map((project) => {
         // Datos por defecto para cada proyecto (se pueden editar después)
         const modalData: Record<number, ModalData> = {
+          11: {
+            title: "Locker App",
+            subtitle: "Aplicación móvil para gestión de lockers y reservas.",
+            aboutProject: "",
+            problem: "",
+            userType: "",
+            objectives: [],
+            research: "",
+            designSystem: "",
+            methodology: [],
+            analysis: "",
+            resultado: "",
+            images: [],
+            presentationUrl: "",
+            prototypeUrl: "",
+            mockupImage: project.image,
+          },
           10: {
             title: "Propsail",
             subtitle: "Landing page en integración con IA, enfoque en sector inmobiliario y especial atención al aumento de conversión.",
@@ -338,7 +358,7 @@ const Projects = () => {
             processImages: ["/landing 2.jpeg", "/landing 1.jpeg", "/landing 3.jpeg", "/landing 4.jpeg", "/alpayganancia.png", "/como funciona.png", "/funcionalidades.png", "/footer alpay.png", "/planes alpay.png"],
             presentationUrl: "https://www.figma.com/board/50SwZpDGtqhW1AWZw2Uvyz/UXISTIR----UX-CLUB-PROYECTO?node-id=218-745&t=KKQN2qyx4qXqiT6p-1",
             prototypeUrl: "",
-            mockupImage: project.image,
+            mockupImage: "/mockup ALPAYYY.png",
           },
           4: {
             title: "Desafio Buenbit",
