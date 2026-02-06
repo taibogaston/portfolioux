@@ -95,7 +95,7 @@ export default function LiquidEther({
         data[i * 4 + 2] = Math.round(c.b * 255);
         data[i * 4 + 3] = 255;
       }
-      const tex = new THREE.DataTexture(data, w, 1, RGBAFormat);
+      const tex = new THREE.DataTexture(data, w, 1, RGBAFormat as THREE.PixelFormat);
       tex.magFilter = THREE.LinearFilter;
       tex.minFilter = THREE.LinearFilter;
       tex.wrapS = THREE.ClampToEdgeWrapping;
@@ -162,7 +162,7 @@ export default function LiquidEther({
       coords = new THREE.Vector2();
       coords_old = new THREE.Vector2();
       diff = new THREE.Vector2();
-      timer: ReturnType<typeof setTimeout> | null = null;
+      timer: number | null = null;
       container: HTMLDivElement | null = null;
       docTarget: Document | null = null;
       listenerTarget: Window | null = null;
@@ -610,7 +610,7 @@ export default function LiquidEther({
         this.uniforms = this.props.material?.uniforms;
       }
 
-      init() {
+      init(_opts?: unknown) {
         this.scene = new THREE.Scene();
         this.camera = new THREE.Camera();
         if (this.uniforms && this.props.material) {
@@ -621,7 +621,7 @@ export default function LiquidEther({
         }
       }
 
-      update() {
+      update(_opts?: unknown) {
         if (!Common.renderer || !this.scene || !this.camera) return;
         Common.renderer.setRenderTarget(this.props.output || null);
         Common.renderer.render(this.scene, this.camera);
@@ -680,7 +680,11 @@ export default function LiquidEther({
         this.scene.add(this.line);
       }
 
-      update(opts: { dt: number; isBounce: boolean; BFECC: boolean }) {
+      update(opts?: { dt: number; isBounce: boolean; BFECC: boolean }) {
+        if (!opts) {
+          super.update();
+          return;
+        }
         this.uniforms.dt.value = opts.dt;
         this.line.visible = opts.isBounce;
         this.uniforms.isBFECC.value = opts.BFECC;
@@ -700,13 +704,13 @@ export default function LiquidEther({
         this.init(simProps);
       }
 
-      init(simProps: {
+      init(simProps?: {
         cellScale: THREE.Vector2;
         cursor_size: number;
         dst: THREE.WebGLRenderTarget;
       }) {
         super.init();
-        if (!this.scene) return;
+        if (!simProps || !this.scene) return;
         const mouseG = new THREE.PlaneGeometry(1, 1);
         const mouseM = new THREE.RawShaderMaterial({
           vertexShader: mouse_vert,
@@ -979,7 +983,7 @@ export default function LiquidEther({
 
       createAllFBO() {
         const type = this.getFloatType();
-        const opts: THREE.WebGLRenderTargetOptions = {
+        const opts: THREE.RenderTargetOptions = {
           type: type as THREE.TextureDataType,
           depthBuffer: false,
           stencilBuffer: false,
@@ -1003,18 +1007,18 @@ export default function LiquidEther({
           fboSize: this.fboSize,
           dt: this.options.dt,
           src: this.fbos.vel_0!,
-          dst: this.fbos.vel_1,
+          dst: this.fbos.vel_1!,
         });
         this.externalForce = new ExternalForce({
           cellScale: this.cellScale,
           cursor_size: this.options.cursor_size,
-          dst: this.fbos.vel_1,
+          dst: this.fbos.vel_1!,
         });
         this.viscous = new Viscous({
           cellScale: this.cellScale,
           boundarySpace: this.boundarySpace,
           viscous: this.options.viscous,
-          src: this.fbos.vel_1,
+          src: this.fbos.vel_1!,
           dst: this.fbos.vel_viscous1!,
           dst_: this.fbos.vel_viscous0!,
           dt: this.options.dt,
@@ -1256,7 +1260,7 @@ export default function LiquidEther({
       autoResumeDelay: effectiveResumeDelay,
       autoRampDuration,
     });
-    webglRef.current = webgl;
+    webglRef.current = webgl as unknown as typeof webglRef.current;
 
     const applyOptionsFromProps = () => {
       const sim = webglRef.current?.output?.simulation;

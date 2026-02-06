@@ -124,8 +124,8 @@ const BlurText = ({
           <motion.span
             className="inline-block will-change-[transform,filter,opacity]"
             key={index}
-            initial={fromSnapshot}
-            animate={inView ? animateKeyframes : fromSnapshot}
+            initial={fromSnapshot as { filter?: string; opacity?: number; y?: number }}
+            animate={(inView ? animateKeyframes : fromSnapshot) as { filter?: string; opacity?: number; y?: number } | Record<string, number[] | string[]>}
             transition={{
               duration: totalDuration,
               times,

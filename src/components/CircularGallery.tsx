@@ -1,5 +1,6 @@
 "use client";
 
+import type { OGLRenderingContext } from "ogl";
 import {
   Camera,
   Mesh,
@@ -31,7 +32,7 @@ function autoBind(instance: Record<string, unknown>) {
 }
 
 function createTextTexture(
-  gl: WebGLRenderingContext,
+  gl: OGLRenderingContext,
   text: string,
   font = "bold 30px monospace",
   color = "black"
@@ -57,7 +58,7 @@ function createTextTexture(
 }
 
 interface TitleOptions {
-  gl: WebGLRenderingContext;
+  gl: OGLRenderingContext;
   plane: Mesh;
   renderer: Renderer;
   text: string;
@@ -66,7 +67,7 @@ interface TitleOptions {
 }
 
 class Title {
-  gl: WebGLRenderingContext;
+  gl: OGLRenderingContext;
   plane: Mesh;
   renderer: Renderer;
   text: string;
@@ -139,7 +140,7 @@ class Title {
 
 interface MediaOptions {
   geometry: Plane;
-  gl: WebGLRenderingContext;
+  gl: OGLRenderingContext;
   image: string;
   index: number;
   length: number;
@@ -168,7 +169,7 @@ class Media {
   isBefore = false;
   isAfter = false;
   geometry: Plane;
-  gl: WebGLRenderingContext;
+  gl: OGLRenderingContext;
   image: string;
   index: number;
   length: number;
@@ -363,7 +364,7 @@ interface CircularGalleryItem {
 }
 
 interface AppOptions {
-  items: CircularGalleryItem[];
+  items?: CircularGalleryItem[];
   bend?: number;
   textColor?: string;
   borderRadius?: number;
@@ -376,7 +377,7 @@ class App {
   container: HTMLElement;
   scroll: { ease: number; current: number; target: number; last: number };
   renderer!: Renderer;
-  gl!: WebGLRenderingContext;
+  gl!: OGLRenderingContext;
   camera!: Camera;
   scene!: Transform;
   planeGeometry!: Plane;
@@ -548,7 +549,7 @@ class App {
     if (this.onItemClick) {
       this.boundOnClick = (e: MouseEvent) => {
         const i = this.getItemIndexAt(e.clientX);
-        if (i >= 0) this.onItemClick(i);
+        if (i >= 0) this.onItemClick?.(i);
       };
       this.container.addEventListener("click", this.boundOnClick);
     }
