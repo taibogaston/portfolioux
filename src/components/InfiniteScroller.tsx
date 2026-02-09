@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import BlurText from "./BlurText";
-import Noise from "./Noise";
 
 const InfiniteScroller = () => {
   const [ref, inView] = useInView({
@@ -28,12 +27,8 @@ const InfiniteScroller = () => {
     { 
       name: "Cursor", 
       icon: () => (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 md:w-10 md:h-10">
-          <path fill="#000000" d="M4 8L12 4L20 8L20 16L12 20L4 16L4 8Z"/>
-          <path fill="#666666" d="M12 4L20 8L20 16L12 12L12 4Z"/>
-          <path fill="#00D4AA" d="M8 10L10 8L12 10L10 12L8 10Z"/>
-          <path fill="#00D4AA" d="M14 14L16 12L18 14L16 16L14 14Z"/>
-        </svg>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/cursor.png" alt="Cursor" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
       ), 
       color: "text-[#000000]" 
     },
@@ -49,9 +44,8 @@ const InfiniteScroller = () => {
     { 
       name: "Framer", 
       icon: () => (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 md:w-10 md:h-10">
-          <path fill="#0055FF" d="M12 0L0 12h12V0zm12 0L12 12h12V0zM0 24l12-12v12H0zm24-12L12 24h12V12z"/>
-        </svg>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/Framer.png" alt="Framer" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
       ), 
       color: "text-[#0055FF]" 
     },
@@ -68,33 +62,24 @@ const InfiniteScroller = () => {
     { 
       name: "Trello", 
       icon: () => (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 md:w-10 md:h-10">
-          <path fill="#0079BF" d="M21 0H3C1.343 0 0 1.343 0 3v18c0 1.657 1.343 3 3 3h18c1.657 0 3-1.343 3-3V3c0-1.657-1.343-3-3-3z"/>
-          <path fill="#fff" d="M6 6h4v12H6V6zm8 0h4v12h-4V6z"/>
-        </svg>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/trello.png" alt="Trello" className="w-6 h-6 md:w-8 md:h-8 object-contain" />
       ), 
       color: "text-[#0079BF]" 
     },
     { 
       name: "Optimal Workshop", 
       icon: () => (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 md:w-10 md:h-10">
-          <rect x="2" y="2" width="20" height="20" rx="6" ry="6" fill="#000"/>
-          <path fill="#fff" d="M6 8c0-1.1 0.9-2 2-2h2c1.1 0 2 0.9 2 2v8c0 1.1-0.9 2-2 2H8c-1.1 0-2-0.9-2-2V8z"/>
-          <path fill="#fff" d="M14 6c0-1.1 0.9-2 2-2h2c1.1 0 2 0.9 2 2v10c0 1.1-0.9 2-2 2h-2c-1.1 0-2-0.9-2-2V6z"/>
-          <path fill="#fff" d="M14 12c0-1.1 0.9-2 2-2h2c1.1 0 2 0.9 2 2v4c0 1.1-0.9 2-2 2h-2c-1.1 0-2-0.9-2-2v-4z"/>
-        </svg>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/optimal workshop.png" alt="Optimal Workshop" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
       ), 
       color: "text-[#000]" 
     },
     { 
       name: "UX Tweak", 
       icon: () => (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 md:w-10 md:h-10">
-          <path fill="#FF6B35" d="M12 2L2 7l10 5 10-5-10-5z"/>
-          <path fill="#fff" d="M12 7L2 12l10 5 10-5-10-5z"/>
-          <path fill="#333" d="M8 12l4-4 4 4-4 4-4-4z"/>
-        </svg>
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/ux tweak.png" alt="UX Tweak" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
       ), 
       color: "text-[#FF6B35]" 
     },
@@ -112,6 +97,62 @@ const InfiniteScroller = () => {
       ), 
       color: "text-[#4285F4]" 
     },
+    {
+      name: "Jira",
+      icon: () => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/jira_core.png" alt="Jira" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+      ),
+      color: "text-[#0052CC]",
+    },
+    {
+      name: "UX Pilot",
+      icon: () => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/ux pilot.png" alt="UX Pilot" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+      ),
+      color: "text-[#0052CC]",
+    },
+    {
+      name: "ChatGPT",
+      icon: () => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/chatgpt.png" alt="ChatGPT" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+      ),
+      color: "text-[#10a37f]",
+    },
+    {
+      name: "React Bits",
+      icon: () => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/react bits.png" alt="React Bits" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+      ),
+      color: "text-[#61dafb]",
+    },
+    {
+      name: "Design System",
+      icon: () => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/design system.png" alt="Design System" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+      ),
+      color: "text-[#6366f1]",
+    },
+    {
+      name: "Lucide",
+      icon: () => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/lucide.png" alt="Lucide" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+      ),
+      color: "text-[#000]",
+    },
+    {
+      name: "Material Design",
+      icon: () => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/material design logo.png" alt="Material Design" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+      ),
+      color: "text-[#757575]",
+    },
   ];
 
   // ✅ Reducido para mejor rendimiento en mobile
@@ -122,12 +163,7 @@ const InfiniteScroller = () => {
       id="tools"
       ref={ref}
       className="py-20 relative overflow-hidden tech-section-bg"
-      style={{ contentVisibility: "auto" }}
     >
-      {/* Fondo noise */}
-      <div className="absolute inset-0 z-0">
-        <Noise patternAlpha={12} patternRefreshInterval={3} />
-      </div>
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
@@ -152,7 +188,7 @@ const InfiniteScroller = () => {
           />
           
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Herramientas y plataformas que utilizo para crear experiencias digitales excepcionales.
+            Siempre estoy aprendiendo nuevas tecnologías para mantenerme actualizada.
           </p>
         </motion.div>
 
@@ -166,7 +202,7 @@ const InfiniteScroller = () => {
                   initial={{ opacity: 0 }}
                   animate={inView ? { opacity: 0.7 } : { opacity: 0 }}
                   transition={{ delay: 0.3 + (index % tools.length) * 0.05, duration: 0.3 }}
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
                     transition: { duration: 0.2 }
                   }}
@@ -181,19 +217,6 @@ const InfiniteScroller = () => {
             </div>
           </div>
         </div>
-
-        {/* Additional Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 1, duration: 0.6 }}
-          className="mt-16 text-center"
-        >
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Estas son solo algunas de las herramientas que utilizo en mi flujo de trabajo. 
-            Siempre estoy aprendiendo nuevas tecnologías para mantenerme actualizada.
-          </p>
-        </motion.div>
       </motion.div>
     </section>
   );

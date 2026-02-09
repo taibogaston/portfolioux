@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 import { Briefcase } from "lucide-react";
 import dynamic from "next/dynamic";
 
-const Galaxy = dynamic(() => import("./Galaxy"), { ssr: false });
+const LightRays = dynamic(() => import("./LightRays"), { ssr: false });
 
 const experiences = [
   {
@@ -93,23 +93,28 @@ const Experience = () => {
       id="experience"
       ref={ref}
       className="py-20 relative overflow-hidden"
-      style={{ contentVisibility: "auto" }}
     >
-      {/* Fondo Galaxy: solo montar cuando la sección está en vista (mejor carga inicial) */}
+      {/* Efecto rayos de luz (uno solo, 30fps) */}
       {inView && (
         <div className="absolute inset-0 z-0">
-          <Galaxy
-            density={0.9}
-            hueShift={200}
-            glowIntensity={0.35}
-            twinkleIntensity={0.5}
-            transparent
-            isPaused={false}
+          <LightRays
+            raysOrigin="left"
+            raysColor="#c4a8e0"
+            raysSpeed={1}
+            lightSpread={0.82}
+            rayLength={2.8}
+            pulsating
+            fadeDistance={1.25}
+            saturation={1}
+            followMouse={false}
+            mouseInfluence={0}
+            noiseAmount={0}
+            distortion={0.1}
           />
         </div>
       )}
-      {/* Fondo semitransparente para legibilidad (deja ver el Galaxy) */}
-      <div className="absolute inset-0 bg-background/50 dark:bg-black/50 backdrop-blur-sm z-0" />
+      {/* Overlay suave para legibilidad */}
+      <div className="absolute inset-0 bg-background/35 dark:bg-black/35 z-0" />
       {/* Difuminado violeta - solo en modo claro */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent blur-3xl z-0 dark:hidden" />
       <motion.div

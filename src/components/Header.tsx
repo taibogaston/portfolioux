@@ -29,7 +29,7 @@ const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background/40 dark:bg-black/40 backdrop-blur-md border-b border-border/50 dark:border-white/10 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 bg-background dark:bg-black border-b border-border/50 dark:border-white/10 transition-all duration-300"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center h-16 relative">
@@ -86,7 +86,7 @@ const Header = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden border-t border-border/50 dark:border-white/10 bg-background/40 dark:bg-black/40 backdrop-blur-md"
+              className="md:hidden border-t border-border/50 dark:border-white/10 bg-background dark:bg-black"
             >
               <div className="py-4 space-y-2">
                 {navItems.map((item, index) => (

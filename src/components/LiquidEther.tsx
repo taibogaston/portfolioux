@@ -27,6 +27,8 @@ interface LiquidEtherProps {
   takeoverDuration?: number;
   autoResumeDelay?: number;
   autoRampDuration?: number;
+  /** Cuando true, pausa el render loop (ej. cuando el Hero está fuera de vista) */
+  isPaused?: boolean;
 }
 
 export default function LiquidEther({
@@ -49,6 +51,7 @@ export default function LiquidEther({
   takeoverDuration = 0.25,
   autoResumeDelay = 1000,
   autoRampDuration = 0.6,
+  isPaused = false,
 }: LiquidEtherProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const webglRef = useRef<{
@@ -69,6 +72,13 @@ export default function LiquidEther({
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
   const rafRef = useRef<number | null>(null);
   const resizeRafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const webgl = webglRef.current;
+    if (!webgl) return;
+    if (isPaused) webgl.pause();
+    else webgl.start();
+  }, [isPaused]);
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -1161,6 +1171,7 @@ export default function LiquidEther({
       output!: Output;
       _loop: () => void;
       _resize: () => void;
+      _onVisibilityChange!: () => void;
       running = false;
 
       constructor(props: WebGLManagerProps) {
@@ -1182,15 +1193,13 @@ export default function LiquidEther({
         });
         this._loop = this.loop.bind(this);
         this._resize = this.resize.bind(this);
+        this._onVisibilityChange = () => {
+          if (document.hidden) this.pause();
+          else this.start();
+        };
         this.init();
         window.addEventListener("resize", this._resize);
-        document.addEventListener("visibilitychange", () => {
-          if (document.hidden) {
-            this.pause();
-          } else {
-            this.start();
-          }
-        });
+        document.addEventListener("visibilitychange", this._onVisibilityChange);
       }
 
       init() {
@@ -1234,7 +1243,9 @@ export default function LiquidEther({
       dispose() {
         try {
           window.removeEventListener("resize", this._resize);
-          document.removeEventListener("visibilitychange", () => {});
+          if (this._onVisibilityChange) {
+            document.removeEventListener("visibilitychange", this._onVisibilityChange);
+          }
           Mouse.dispose();
           if (Common.renderer) {
             const canvas = Common.renderer.domElement;
@@ -1284,7 +1295,7 @@ export default function LiquidEther({
     };
     applyOptionsFromProps();
 
-    webgl.start();
+    if (!isPaused) webgl.start();
 
     const ro = new ResizeObserver(() => {
       if (!webglRef.current) return;
@@ -1298,7 +1309,11 @@ export default function LiquidEther({
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+      if (resizeRafRef.current) cancelAnimationFrame(resizeRafRef.current);
+      resizeRafRef.current = null;
       resizeObserverRef.current?.disconnect();
+      resizeObserverRef.current = null;
       webglRef.current?.dispose();
       webglRef.current = null;
     };

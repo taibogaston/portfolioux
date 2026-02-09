@@ -153,7 +153,6 @@ const Contact = () => {
       id="contact"
       ref={ref}
       className="py-20 relative overflow-hidden"
-      style={{ contentVisibility: "auto" }}
     >
       
       <motion.div

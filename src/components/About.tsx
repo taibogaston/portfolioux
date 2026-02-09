@@ -41,7 +41,6 @@ const About = () => {
       id="about"
       ref={ref}
       className="py-20 relative overflow-hidden bg-background"
-      style={{ contentVisibility: "auto" }}
     >
 
       <motion.div

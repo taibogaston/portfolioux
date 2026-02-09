@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ArrowDown, Sparkles } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 import TypewriterText from "./TypewriterText";
 
@@ -25,8 +25,40 @@ const Hero = () => {
   const reducedMotionOrMobile = useReducedMotionOrMobile();
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.05, // Reducido para activar más rápido
+    threshold: 0.05,
   });
+
+  const [heroInView, setHeroInView] = useState(true);
+  const visibilityObserverRef = useRef<IntersectionObserver | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setHeroInView(entry?.isIntersecting ?? false);
+      },
+      { threshold: 0.1, rootMargin: "0px" }
+    );
+    visibilityObserverRef.current = obs;
+    const el = sectionRef.current;
+    if (el) obs.observe(el);
+    return () => {
+      obs.disconnect();
+      visibilityObserverRef.current = null;
+    };
+  }, []);
+
+  const setRefs = useCallback(
+    (el: HTMLElement | null) => {
+      if (typeof ref === "function") ref(el);
+      else if (ref) (ref as React.MutableRefObject<HTMLElement | null>).current = el;
+      sectionRef.current = el;
+      const obs = visibilityObserverRef.current;
+      if (obs && el) obs.observe(el);
+    },
+    [ref]
+  );
 
   const [scrollIndicatorOpacity, setScrollIndicatorOpacity] = useState(1);
 
@@ -85,17 +117,18 @@ const Hero = () => {
   return (
     <section
       id="home"
-      ref={ref}
+      ref={setRefs}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
       style={{ minHeight: "100vh", height: "100vh" }}
     >
-      {/* LiquidEther background: siempre visible, reacciona al cursor */}
+      {/* LiquidEther: se pausa al salir de vista (ej. al bajar a herramientas) y vuelve al subir */}
       <div className="absolute inset-0 z-0 w-full" style={{ minHeight: "100vh" }}>
         <LiquidEther
           className="absolute inset-0 h-full w-full"
           mouseForce={28}
           autoIntensity={2.5}
           resolution={reducedMotionOrMobile ? 0.35 : 0.5}
+          isPaused={!heroInView}
         />
       </div>
 

@@ -101,7 +101,7 @@ const ProjectModal = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-background/80 dark:bg-black/80 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/70 z-50 backdrop-blur-sm"
           />
 
           {/* Modal */}
@@ -113,7 +113,7 @@ const ProjectModal = ({
             className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 pointer-events-none"
           >
             <div
-              className="bg-card dark:bg-[#0a0a0a] border border-border/30 rounded-2xl sm:rounded-3xl shadow-2xl max-w-7xl w-full max-h-[95vh] sm:max-h-[85vh] overflow-hidden pointer-events-auto backdrop-blur-xl"
+              className="bg-card dark:bg-[#0a0a0a] border border-border/30 rounded-2xl sm:rounded-3xl shadow-2xl max-w-7xl w-full max-h-[95vh] sm:max-h-[85vh] overflow-hidden pointer-events-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header del Modal - Moderno e integrado */}
@@ -348,7 +348,7 @@ const ProjectModal = ({
                                             const beforeImagesCount = 3;
                                             setCurrentBeforeImageIndex((prev) => (prev - 1 + beforeImagesCount) % beforeImagesCount);
                                           }}
-                                          className="absolute left-2 sm:left-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
+                                          className="absolute left-2 sm:left-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
                                           aria-label="Imagen anterior"
                                         >
                                           <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -358,7 +358,7 @@ const ProjectModal = ({
                                             const beforeImagesCount = 3;
                                             setCurrentBeforeImageIndex((prev) => (prev + 1) % beforeImagesCount);
                                           }}
-                                          className="absolute right-2 sm:right-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
+                                          className="absolute right-2 sm:right-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
                                           aria-label="Imagen siguiente"
                                         >
                                           <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -432,7 +432,7 @@ const ProjectModal = ({
                                             const afterImages = images.slice(3);
                                             setCurrentAfterImageIndex((prev) => (prev - 1 + afterImages.length) % afterImages.length);
                                           }}
-                                          className="absolute left-2 sm:left-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
+                                          className="absolute left-2 sm:left-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
                                           aria-label="Imagen anterior"
                                         >
                                           <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -442,7 +442,7 @@ const ProjectModal = ({
                                             const afterImages = images.slice(3);
                                             setCurrentAfterImageIndex((prev) => (prev + 1) % afterImages.length);
                                           }}
-                                          className="absolute right-2 sm:right-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
+                                          className="absolute right-2 sm:right-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
                                           aria-label="Imagen siguiente"
                                         >
                                           <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -579,7 +579,7 @@ const ProjectModal = ({
                                 <>
                                   <button
                                     onClick={prevImage}
-                                    className={`absolute left-2 sm:left-4 -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation ${title === "Propsail" ? "top-[350px] sm:top-[400px] md:top-[450px] lg:top-[500px] xl:top-[550px]" : "top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px]"}`}
+                                    className={`absolute left-2 sm:left-4 -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation ${title === "Propsail" ? "top-[350px] sm:top-[400px] md:top-[450px] lg:top-[500px] xl:top-[550px]" : "top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px]"}`}
                                     aria-label="Imagen anterior"
                                   >
                                     <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -587,7 +587,7 @@ const ProjectModal = ({
 
                                   <button
                                     onClick={nextImage}
-                                    className={`absolute right-2 sm:right-4 -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation ${title === "Propsail" ? "top-[350px] sm:top-[400px] md:top-[450px] lg:top-[500px] xl:top-[550px]" : "top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px]"}`}
+                                    className={`absolute right-2 sm:right-4 -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation ${title === "Propsail" ? "top-[350px] sm:top-[400px] md:top-[450px] lg:top-[500px] xl:top-[550px]" : "top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px]"}`}
                                     aria-label="Imagen siguiente"
                                   >
                                     <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -654,7 +654,7 @@ const ProjectModal = ({
                                   onClick={() => {
                                     setCurrentProcessImageIndex((prev) => (prev - 1 + processImages.length) % processImages.length);
                                   }}
-                                  className="absolute left-2 sm:left-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
+                                  className="absolute left-2 sm:left-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
                                   aria-label="Imagen anterior"
                                 >
                                   <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -664,7 +664,7 @@ const ProjectModal = ({
                                   onClick={() => {
                                     setCurrentProcessImageIndex((prev) => (prev + 1) % processImages.length);
                                   }}
-                                  className="absolute right-2 sm:right-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/70 dark:bg-black/70 hover:bg-background/90 dark:hover:bg-black/90 backdrop-blur-sm rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
+                                  className="absolute right-2 sm:right-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10"
                                   aria-label="Imagen siguiente"
                                 >
                                   <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
