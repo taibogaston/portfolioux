@@ -1,9 +1,10 @@
-export interface ModalData { title: string; subtitle: string; aboutProject?: string; problem?: string; objectives?: string[]; research?: string; designSystem?: string; userType?: string; methodology?: string[]; analysis?: string; resultado?: string; images?: string[]; processImages?: string[]; presentationUrl?: string; prototypeUrl?: string; mockupImage?: string; }
+export interface ModalData { title: string; subtitle: string; proximamente?: boolean; aboutProject?: string; problem?: string; objectives?: string[]; research?: string; designSystem?: string; userType?: string; methodology?: string[]; analysis?: string; resultado?: string; impacto?: string; miRol?: string; images?: string[]; processImages?: string[]; presentationUrl?: string; prototypeUrl?: string; mockupImage?: string; }
 
 export const MODAL_DATA: Record<number, ModalData> = {
   11: {
     title: "Locker App",
     subtitle: "Aplicación móvil para gestión de lockers y reservas.",
+    proximamente: true,
     aboutProject: "",
     problem: "",
     userType: "",
@@ -48,6 +49,7 @@ export const MODAL_DATA: Record<number, ModalData> = {
   1: {
     title: "Worldtrip e-commerce",
     subtitle: "Web e-commerce, con orientación en viajes y paquetes. Modelo responsive",
+    proximamente: true,
     aboutProject: "Descripción del proyecto...",
     problem: "",
     userType: "",
@@ -104,7 +106,7 @@ export const MODAL_DATA: Record<number, ModalData> = {
     resultado: "",
     images: [],
     processImages: ["/landing 2.jpeg", "/landing 1.jpeg", "/landing 3.jpeg", "/landing 4.jpeg", "/alpayganancia.png", "/como funciona.png", "/funcionalidades.png", "/footer alpay.png", "/planes alpay.png"],
-    presentationUrl: "https://www.figma.com/board/50SwZpDGtqhW1AWZw2Uvyz/UXISTIR----UX-CLUB-PROYECTO?node-id=218-745&t=KKQN2qyx4qXqiT6p-1",
+    presentationUrl: "",
     prototypeUrl: "",
     mockupImage: "/mockup ALPAYYY.png",
   },
@@ -234,29 +236,17 @@ export const MODAL_DATA: Record<number, ModalData> = {
   9: {
     title: "Start CRM",
     subtitle: "Sistema CRM completo con diseño centrado en la experiencia del usuario y eficiencia operativa",
-    aboutProject: "Start CRM es una plataforma SaaS diseñada para ayudar a equipos a gestionar clientes, conversaciones y tareas en un espacio de trabajo centralizado.\n\nEl proyecto se enfoca en mejorar la usabilidad y la claridad de la información en un entorno complejo y orientado a datos, donde los usuarios necesitan actuar de forma rápida y eficiente.",
-    problem: "Los usuarios suelen tener dificultades con las herramientas CRM debido a la sobrecarga de información, jerarquías poco claras y flujos de trabajo ineficientes.\n\nEn este caso, el principal desafío fue diseñar una interfaz que permita a los usuarios comprender rápidamente su estado actual, priorizar tareas y gestionar conversaciones sin generar sobrecarga cognitiva.",
-    objectives: [
-      "Mejorar la priorización y visibilidad de tareas a lo largo de toda la experiencia del CRM",
-      "Reducir la carga cognitiva en los flujos de trabajo diarios, incluyendo conversaciones, contactos y gestión de tareas",
-      "Diseñar un sistema de UI escalable que soporte múltiples módulos y futuras funcionalidades",
-      "Crear una experiencia CRM clara, consistente e interconectada entre sus distintas secciones"
-    ],
-    research: "A través del análisis heurístico y el benchmarking, identifiqué problemas de usabilidad recurrentes en plataformas CRM, como ruido visual excesivo, jerarquías de tareas poco claras y patrones de navegación ineficientes.\n\nEstos insights guiaron decisiones de diseño enfocadas en la claridad, la priorización y la revelación progresiva de la información.",
-    designSystem: "Se aplicó un enfoque basado en componentes y tokens para garantizar consistencia, escalabilidad y una colaboración más eficiente con desarrollo.\n\nSe utilizaron variables de diseño para gestionar colores, tipografía, espaciados y estados, permitiendo actualizaciones globales más simples y reduciendo inconsistencias visuales en la interfaz.\n\nBotones, cards, elementos de navegación y estados interactivos fueron diseñados como componentes reutilizables para facilitar el crecimiento futuro y el handoff con desarrollo.",
-    userType: "El usuario principal es un profesional que trabaja a diario con múltiples conversaciones, tareas y clientes, y necesita comprender rápidamente las prioridades sin fricción.\n\nLa velocidad, la claridad y la previsibilidad son esenciales para apoyar la toma de decisiones diaria.",
-    methodology: [
-      "Investigación de referencia y benchmarking de CRMs líderes (HubSpot, Pipedrive, Salesforce).",
-      "Creación de componentes reutilizables con diversos comportamientos y de tokens para facilitar la implementación a desarrollo.",
-      "Definición de flujos clave: contactos, dashboard de métricas, calendario de tareas, administración de equipo (only admin), pipeline de ventas, conversaciones y ajustes.",
-      "Diseño de arquitectura de información y jerarquías de contenido.",
-      "Creación de wireframes y prototipos UI orientados a tareas reales de usuarios comerciales.",
-      "Diseño visual, asegurando consistencia entre vistas (tablas, kanban, modales).",
-      "Utilización de inspiración de librería opensource, con componentes personalizados dentro del UI.",
-      "Metodología sprint, organización por épicas, HU, etc mediante Jira.",
-      "Optimización UX enfocada en acciones frecuentes: crear, asignar, filtrar y priorizar."
-    ],
-    resultado: "El diseño final ofrece una experiencia CRM clara, estructurada y escalable, que potencia la productividad del usuario y reduce la carga cognitiva en las operaciones diarias.",
+    aboutProject: "Start CRM es una plataforma SaaS que centraliza la gestión de clientes, conversaciones y tareas en un entorno de trabajo unificado.",
+    problem: "Los CRM tradicionales presentan sobrecarga de información y flujos complejos, lo que reduce la productividad y dificulta la adopción del sistema.",
+    objectives: [],
+    research: "",
+    designSystem: "",
+    userType: "",
+    methodology: [],
+    analysis: "",
+    resultado: "Se diseñó una experiencia clara y orientada a la acción, con jerarquía visual, organización por prioridades y flujos optimizados. El proyecto incluyó arquitectura de información, diseño de interfaz y un sistema de diseño escalable.",
+    impacto: "Mejora la eficiencia operativa, reduce el tiempo en tareas frecuentes y facilita la toma de decisiones, favoreciendo una mayor adopción del producto.",
+    miRol: "UX/UI Designer end-to-end, responsable de la definición del problema, arquitectura de información, diseño de flujos, interfaz visual y construcción del sistema de diseño.",
     images: [
       "/log-in.png",
       "/dashboard-wsp.png",
@@ -274,8 +264,36 @@ export const MODAL_DATA: Record<number, ModalData> = {
       "/Screenshot 2025-12-09 152951.png",
       "/Screenshot 2025-12-09 153902.png"
     ],
-    presentationUrl: "",
+    presentationUrl: "https://www.behance.net/gallery/243928415/Start",
     prototypeUrl: "",
     mockupImage: "/mockup start.png",
+  },
+  12: {
+    title: "Binance",
+    subtitle: "Optimización visual y de flujo para Binance, reduciendo la sobrecarga cognitiva y mejorando la confianza del usuario en la app.",
+    aboutProject: "Binance es una plataforma de trading con múltiples funcionalidades orientadas a distintos niveles de experiencia. El crecimiento del producto generó una interfaz compleja y con alta densidad de información, especialmente desafiante para nuevos usuarios.",
+    problem: "La sobrecarga visual, las jerarquías poco claras y la navegación fragmentada generan fricción en tareas clave como comprar activos, entender el portafolio y tomar decisiones financieras con confianza.",
+    objectives: [],
+    research: "",
+    designSystem: "",
+    userType: "",
+    methodology: [],
+    analysis: "",
+    resultado: "Se rediseñó la experiencia priorizando claridad y simplicidad: reorganización de la información, mejora de la jerarquía visual y optimización de los flujos principales para reducir la carga cognitiva y facilitar la toma de decisiones.",
+    impacto: "Reducción de la carga cognitiva, mayor claridad en la información y una experiencia más confiable que impulsa la adopción y disminuye la fricción en tareas clave.",
+    images: [
+      "/Frame 1.png",
+      "/Frame 2.png",
+      "/Frame 7.png",
+      "/Frame 8.png",
+      "/Frame 9.png",
+      "/Frame 10.png",
+      "/Frame 11.png",
+      "/Frame 12.png",
+    ],
+    processImages: [],
+    presentationUrl: "https://www.behance.net/gallery/241883739/Rediseno-Binance-UXUI",
+    prototypeUrl: "",
+    mockupImage: "/Frame 1.png",
   },
 };

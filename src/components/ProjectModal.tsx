@@ -9,6 +9,7 @@ interface ProjectModalProps {
   onClose: () => void;
   title: string;
   subtitle: string;
+  proximamente?: boolean;
   aboutProject?: string;
   problem?: string;
   objectives?: string[];
@@ -18,6 +19,8 @@ interface ProjectModalProps {
   methodology?: string[];
   analysis?: string;
   resultado?: string;
+  impacto?: string;
+  miRol?: string;
   images?: string[];
   processImages?: string[];
   presentationUrl?: string;
@@ -30,6 +33,7 @@ const ProjectModal = ({
   onClose,
   title,
   subtitle,
+  proximamente = false,
   aboutProject,
   problem,
   objectives,
@@ -39,6 +43,8 @@ const ProjectModal = ({
   methodology,
   analysis,
   resultado,
+  impacto,
+  miRol,
   images = [],
   processImages = [],
   presentationUrl,
@@ -63,6 +69,13 @@ const ProjectModal = ({
     const carouselElement = document.getElementById('project-carousel');
     if (carouselElement) {
       carouselElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const scrollToProcess = () => {
+    const processElement = document.getElementById('project-process');
+    if (processElement) {
+      processElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -139,13 +152,19 @@ const ProjectModal = ({
               {/* Contenido */}
               <div className="overflow-y-auto max-h-[calc(95vh-100px)] sm:max-h-[calc(85vh-140px)] modal-scrollbar">
                 <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-10">
+                  {proximamente ? (
+                    <div className="py-16 sm:py-24 flex items-center justify-center">
+                      <p className="text-xl sm:text-2xl text-muted-foreground">Próximamente..</p>
+                    </div>
+                  ) : (
+                  <>
                   {/* Layout principal: Contenido + Mockup */}
                   <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 mb-8 sm:mb-12">
                       {/* Columna izquierda - Contenido */}
                       <div className="lg:col-span-7 space-y-6 sm:space-y-8">
                       {/* Botones de acción - Arriba */}
-                      {(presentationUrl || prototypeUrl || (title === "Start CRM" && images && images.length > 0) || (title === "Starbucks" && images && images.length > 0) || (title === "Propsail" && images && images.length > 0)) && (
+                      {(presentationUrl || prototypeUrl || (title === "Start CRM" && images && images.length > 0) || (title === "Starbucks" && images && images.length > 0) || (title === "Propsail" && images && images.length > 0) || (title === "Binance" && images && images.length > 0) || (title === "Alpay" && processImages && processImages.length > 0)) && (
                         <div className="flex flex-wrap gap-2 sm:gap-3">
                           {presentationUrl && (
                             <a
@@ -154,8 +173,16 @@ const ProjectModal = ({
                               rel="noopener noreferrer"
                               className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
                             >
-                              {title === "IEB - Proyecto técnico" || title === "Starbucks" ? "Ver investigación" : "Ver presentación"}
+                              {title === "Binance" || title === "Start CRM" ? "Ver en Behance" : title === "IEB - Proyecto técnico" || title === "Starbucks" ? "Ver investigación" : "Ver presentación"}
                             </a>
+                          )}
+                          {title === "Binance" && images && images.length > 0 && (
+                            <button
+                              onClick={scrollToCarousel}
+                              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                            >
+                              Preview
+                            </button>
                           )}
                           {prototypeUrl && (
                             <a
@@ -172,7 +199,7 @@ const ProjectModal = ({
                               onClick={scrollToCarousel}
                               className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
                             >
-                              Ver demostración
+                              Preview
                             </button>
                           )}
                           {title === "Starbucks" && images && images.length > 0 && (
@@ -191,13 +218,21 @@ const ProjectModal = ({
                               Ver demostración
                             </button>
                           )}
+                          {title === "Alpay" && processImages && processImages.length > 0 && (
+                            <button
+                              onClick={scrollToProcess}
+                              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                            >
+                              Preview
+                            </button>
+                          )}
                         </div>
                       )}
 
-                      {/* Sobre el Proyecto */}
+                      {/* Sobre el Proyecto / Producto */}
                       {aboutProject && (
                         <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Contexto</h3>
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" ? "Producto" : "Contexto"}</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{aboutProject}</p>
                         </div>
@@ -280,12 +315,30 @@ const ProjectModal = ({
                         </div>
                       )}
 
-                      {/* Resultado */}
+                      {/* Resultado / Solución */}
                       {resultado && (
                         <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Resultado</h3>
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" ? "Solución" : "Resultado"}</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{resultado}</p>
+                        </div>
+                      )}
+
+                      {/* Impacto potencial / Impacto */}
+                      {impacto && (
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" ? "Impacto" : "Impacto potencial"}</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{impacto}</p>
+                        </div>
+                      )}
+
+                      {/* Mi rol */}
+                      {miRol && (
+                        <div className="space-y-2 sm:space-y-3">
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">Mi rol</h3>
+                          <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
+                          <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{miRol}</p>
                         </div>
                       )}
                     </div>
@@ -693,6 +746,8 @@ const ProjectModal = ({
                     </div>
                   )}
 
+                  </>
+                  )}
                 </div>
               </div>
             </div>

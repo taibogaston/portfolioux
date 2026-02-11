@@ -11,6 +11,7 @@ const ProjectModal = dynamic(() => import("./ProjectModal"), { ssr: false });
 interface ModalData {
   title: string;
   subtitle: string;
+  proximamente?: boolean;
   aboutProject?: string;
   problem?: string;
   objectives?: string[];
@@ -50,7 +51,7 @@ const Projects = () => {
       id: 9,
       title: "Start CRM",
       description: "Sistema CRM completo con diseño centrado en la experiencia del usuario y eficiencia operativa",
-      image: "/jovenes-colegas-concentrados-sentados-en-la-oficina-de-coworking.jpg",
+      image: "/MacBook%20%2313.jpg",
       category: "Web App",
       technologies: ["Figma", "UX", "UI", "CRM", "Design System"],
       liveUrl: "#",
@@ -67,6 +68,16 @@ const Projects = () => {
       githubUrl: "#"
     },
     {
+      id: 12,
+      title: "Binance",
+      description: "Rediseño UX/UI de la app: optimización visual y de flujo para reducir la sobrecarga cognitiva y mejorar la confianza del usuario.",
+      image: "/binance.png",
+      category: "Portfolio",
+      technologies: ["Figma", "UX", "UI"],
+      liveUrl: "#",
+      githubUrl: "#"
+    },
+    {
       id: 7,
       title: "IEB - Proyecto técnico",
       description: "Proyecto técnico realizado en 4 días para IEB (personal), enfocado en diseño de interfaces y experiencia de usuario",
@@ -79,7 +90,7 @@ const Projects = () => {
     {
       id: 1,
       title: "Worldtrip e-commerce",
-      description: "Web e-commerce, con orientación en viajes y paquetes. Modelo responsive",
+      description: "Próximamente..",
       image: "/avion.jpg",
       category: "Mobile App",
       technologies: ["Figma", "Web", "Sitemap", "Card sorting", "Tree testing"],
@@ -99,8 +110,8 @@ const Projects = () => {
     {
       id: 11,
       title: "Locker App",
-      description: "Aplicación móvil para gestión de lockers y reservas.",
-      image: "/Frame.jpg",
+      description: "Próximamente..",
+      image: "/lockerapp.png",
       category: "Mobile App",
       technologies: ["Figma", "UX", "UI"],
       liveUrl: "#",
@@ -278,6 +289,7 @@ const Projects = () => {
             onClose={() => setOpenModalId(null)}
             title={data.title}
             subtitle={data.subtitle}
+            proximamente={data.proximamente}
             aboutProject={data.aboutProject}
             problem={data.problem}
             objectives={data.objectives}
@@ -287,6 +299,8 @@ const Projects = () => {
             methodology={data.methodology}
             analysis={data.analysis}
             resultado={data.resultado}
+            impacto={data.impacto}
+            miRol={data.miRol}
             images={data.images}
             processImages={data.processImages}
             presentationUrl={data.presentationUrl}
