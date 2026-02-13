@@ -19,8 +19,42 @@ function useReducedMotionOrMobile() {
   return reduced;
 }
 
+type PerformanceTier = "low" | "medium" | "high";
+
+function usePerformanceTier(): PerformanceTier {
+  const [tier, setTier] = useState<PerformanceTier>("high");
+
+  useEffect(() => {
+    try {
+      const nav = navigator as Navigator & {
+        hardwareConcurrency?: number;
+        deviceMemory?: number;
+      };
+      const cores = nav.hardwareConcurrency ?? 4;
+      const memory = (nav as any).deviceMemory ?? 4;
+      const ua = nav.userAgent || "";
+      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        ua
+      );
+
+      if (isMobileUA || cores <= 4 || memory <= 4) {
+        setTier("low");
+      } else if (cores <= 8 || memory <= 8) {
+        setTier("medium");
+      } else {
+        setTier("high");
+      }
+    } catch {
+      setTier("medium");
+    }
+  }, []);
+
+  return tier;
+}
+
 const Hero = () => {
   const reducedMotionOrMobile = useReducedMotionOrMobile();
+  const perfTier = usePerformanceTier();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.05,
@@ -77,6 +111,38 @@ const Hero = () => {
     },
   };
 
+  // Ajuste adaptativo del efecto LiquidEther según capacidades del dispositivo
+  const etherConfig =
+    perfTier === "low"
+      ? {
+          resolution: reducedMotionOrMobile ? 0.2 : 0.25,
+          iterationsPoisson: 16,
+          iterationsViscous: 12,
+          isViscous: false,
+          BFECC: false,
+          dt: 0.018,
+          autoDemo: false,
+        }
+      : perfTier === "medium"
+      ? {
+          resolution: reducedMotionOrMobile ? 0.3 : 0.4,
+          iterationsPoisson: 24,
+          iterationsViscous: 20,
+          isViscous: true,
+          BFECC: true,
+          dt: 0.016,
+          autoDemo: true,
+        }
+      : {
+          resolution: reducedMotionOrMobile ? 0.35 : 0.5,
+          iterationsPoisson: 32,
+          iterationsViscous: 32,
+          isViscous: true,
+          BFECC: true,
+          dt: 0.014,
+          autoDemo: true,
+        };
+
   return (
     <section
       id="home"
@@ -90,7 +156,13 @@ const Hero = () => {
           className="absolute inset-0 h-full w-full"
           mouseForce={28}
           autoIntensity={2.5}
-          resolution={reducedMotionOrMobile ? 0.35 : 0.5}
+          resolution={etherConfig.resolution}
+          iterationsPoisson={etherConfig.iterationsPoisson}
+          iterationsViscous={etherConfig.iterationsViscous}
+          isViscous={etherConfig.isViscous}
+          BFECC={etherConfig.BFECC}
+          dt={etherConfig.dt}
+          autoDemo={etherConfig.autoDemo}
           isPaused={!heroInView}
         />
       </div>

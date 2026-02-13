@@ -194,10 +194,24 @@ const ProjectModal = ({
                               rel="noopener noreferrer"
                               className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
                             >
-                              {title === "Binance" || title === "Start CRM" ? "Ver en Behance" : title === "IEB - Proyecto técnico" || title === "Starbucks" ? "Ver investigación" : "Ver presentación"}
+                              {title === "Binance" || title === "Start CRM" || title === "Blog MindDev Perú"
+                                ? "Ver en Behance"
+                                : title === "Starbucks"
+                                ? "Contenido teórico"
+                                : title === "IEB - Proyecto técnico"
+                                ? "Ver investigación"
+                                : "Ver presentación"}
                             </a>
                           )}
                           {title === "Binance" && images && images.length > 0 && (
+                            <button
+                              onClick={scrollToCarousel}
+                              className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                            >
+                              Preview
+                            </button>
+                          )}
+                          {title === "Blog MindDev Perú" && images && images.length > 0 && (
                             <button
                               onClick={scrollToCarousel}
                               className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
@@ -253,7 +267,7 @@ const ProjectModal = ({
                       {/* Sobre el Proyecto / Producto */}
                       {aboutProject && (
                         <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" ? "Producto" : "Contexto"}</h3>
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" || title === "Starbucks" ? "Producto" : "Contexto"}</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{aboutProject}</p>
                         </div>
@@ -339,7 +353,7 @@ const ProjectModal = ({
                       {/* Resultado / Solución */}
                       {resultado && (
                         <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" ? "Solución" : "Resultado"}</h3>
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" || title === "Starbucks" ? "Solución" : "Resultado"}</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{resultado}</p>
                         </div>
@@ -348,7 +362,7 @@ const ProjectModal = ({
                       {/* Impacto potencial / Impacto */}
                       {impacto && (
                         <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" ? "Impacto" : "Impacto potencial"}</h3>
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" || title === "Starbucks" ? "Impacto" : "Impacto potencial"}</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{impacto}</p>
                         </div>
@@ -563,65 +577,66 @@ initial={{ opacity: 1 }}
                           </div>
                         </div>
                       ) : title === "Blog MindDev Perú" ? (
-                        // Selector Desktop/Mobile para MindDev
-                        <div className="max-w-6xl mx-auto">
-                          <div className="mb-8 text-center">
-                            <h3 className="text-2xl font-bold mb-2">Demostración del proyecto</h3>
-                            <div className="h-1 w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
+                        // Carrusel para MindDev
+                        <div className="max-w-5xl mx-auto">
+                          <div className="mb-4 sm:mb-6 text-center">
+                            <h3 className="text-xl sm:text-2xl font-bold mb-2">Demostración del proyecto</h3>
+                            <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                           </div>
                           <div className="bg-card/90 dark:bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
-                            {/* Selector de tabs */}
-                            <div className="flex justify-center gap-2 sm:gap-4 mb-4 sm:mb-8">
-                              <button
-                                onClick={() => setSelectedView('desktop')}
-                                className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold transition-all ${
-                                  selectedView === 'desktop'
-                                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
-                                    : 'bg-white/10 text-muted-foreground hover:bg-white/20'
-                                }`}
-                              >
-                                Desktop
-                              </button>
-                              <button
-                                onClick={() => setSelectedView('mobile')}
-                                className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold transition-all ${
-                                  selectedView === 'mobile'
-                                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
-                                    : 'bg-white/10 text-muted-foreground hover:bg-white/20'
-                                }`}
-                              >
-                                Mobile
-                              </button>
-                            </div>
-                            
-                            {/* Imagen según selección: en mobile permite scroll horizontal para ver la imagen completa */}
-                            <div className="relative w-full min-h-[400px] max-h-[90vh] overflow-x-auto overflow-y-hidden flex items-center justify-center bg-muted/50 dark:bg-black/50 mx-auto">
-                              <AnimatePresence mode="wait">
-                                {selectedView === 'desktop' && images[0] && (
+                            <div className="relative">
+                              {/* Imagen actual */}
+                              <div className="relative w-full overflow-hidden rounded-xl flex items-center justify-center h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px]">
+                                <AnimatePresence mode="wait">
                                   <motion.img
-                                    key="desktop"
-                                    src={images[0]}
-                                    alt={`${title} - Desktop`}
+                                    key={currentImageIndex}
+                                    src={images[currentImageIndex]}
+                                    alt={`${title} ${currentImageIndex + 1}`}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.15 }}
-                                    className="max-w-none min-h-[400px] max-h-[90vh] w-auto object-contain object-center"
+                                    className="w-full h-full object-contain object-center"
                                   />
-                                )}
-                                {selectedView === 'mobile' && images[1] && (
-                                  <motion.img
-                                    key="mobile"
-                                    src={images[1]}
-                                    alt={`${title} - Mobile`}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.15 }}
-                                    className="max-w-none min-h-[400px] max-h-[90vh] w-auto object-contain object-center"
-                                  />
-                                )}
-                              </AnimatePresence>
+                                </AnimatePresence>
+                              </div>
+
+                              {/* Botones de navegación */}
+                              {images.length > 1 && (
+                                <>
+                                  <button
+                                    onClick={prevImage}
+                                    className="absolute left-2 sm:left-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation"
+                                    aria-label="Imagen anterior"
+                                  >
+                                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                                  </button>
+
+                                  <button
+                                    onClick={nextImage}
+                                    className="absolute right-2 sm:right-4 top-[200px] sm:top-[225px] md:top-[250px] lg:top-[275px] -translate-y-1/2 p-2.5 sm:p-3 bg-background/90 dark:bg-black/90 hover:bg-background dark:hover:bg-black rounded-full text-foreground dark:text-white transition-all hover:scale-110 active:scale-95 z-10 border border-border/50 dark:border-white/10 touch-manipulation"
+                                    aria-label="Imagen siguiente"
+                                  >
+                                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                                  </button>
+
+                                  {/* Indicadores */}
+                                  <div className="flex justify-center gap-2.5 mt-6">
+                                    {images.map((_, index) => (
+                                      <button
+                                        key={index}
+                                        onClick={() => setCurrentImageIndex(index)}
+                                        className={`h-2 rounded-full transition-all duration-300 ${
+                                          index === currentImageIndex
+                                            ? "bg-primary w-10 shadow-lg shadow-primary/50"
+                                            : "bg-white/30 hover:bg-white/50 w-2"
+                                        }`}
+                                        aria-label={`Ir a imagen ${index + 1}`}
+                                      />
+                                    ))}
+                                  </div>
+                                </>
+                              )}
                             </div>
                           </div>
                         </div>
