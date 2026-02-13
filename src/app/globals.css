@@ -253,9 +253,15 @@ html {
     hsl(var(--primary) / 0.05) 100%);
 }
 
-/* Technologies section: mismo fondo que la sección de arriba (Proyectos) */
+/* Technologies section: el color distinto queda entre título y carousel; se funde arriba con About y abajo con Proyectos */
 .tech-section-bg {
-  background: hsl(var(--background));
+  background-color: hsl(var(--background));
+  background-image:
+    linear-gradient(180deg, hsl(var(--primary) / 0.03) 0%, hsl(var(--primary) / 0.05) 20%, hsl(var(--primary) / 0.07) 50%, hsl(var(--primary) / 0.04) 75%, transparent 100%),
+    linear-gradient(90deg, hsl(var(--border) / 0.15) 1px, transparent 1px),
+    linear-gradient(hsl(var(--border) / 0.15) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+  background-position: 0 0, 0 0, 0 0;
 }
 
 /* Tech gradient text (cyan → violet → fuchsia) */
@@ -312,13 +318,13 @@ html {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* 🔥 Infinite scroll animation (loop perfecto) */
+/* 🔥 Infinite scroll animation (loop perfecto, translateZ(0) evita que se tilde) */
 @keyframes infiniteScroll {
   from {
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
   }
   to {
-    transform: translateX(-50%); /* se mueve exactamente una copia */
+    transform: translateX(-50%) translateZ(0);
   }
 }
 
@@ -327,6 +333,7 @@ html {
   width: max-content;
   animation: infiniteScroll 40s linear infinite;
   will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* Tech Badge Effect */

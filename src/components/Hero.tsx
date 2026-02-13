@@ -5,8 +5,6 @@ import { useInView } from "react-intersection-observer";
 import { ArrowDown, Sparkles } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
-import TypewriterText from "./TypewriterText";
-
 const LiquidEther = dynamic(() => import("./LiquidEther"), { ssr: false });
 
 function useReducedMotionOrMobile() {
@@ -60,31 +58,6 @@ const Hero = () => {
     [ref]
   );
 
-  const [scrollIndicatorOpacity, setScrollIndicatorOpacity] = useState(1);
-
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        const maxScroll = 80;
-        if (scrollY <= 0) {
-          setScrollIndicatorOpacity(1);
-        } else if (scrollY >= maxScroll) {
-          setScrollIndicatorOpacity(0);
-        } else {
-          setScrollIndicatorOpacity(1 - scrollY / maxScroll);
-        }
-        ticking = false;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -101,16 +74,6 @@ const Hero = () => {
     visible: {
       opacity: 1,
       y: 0,
-    },
-  };
-
-  const floatingVariants = {
-    animate: {
-      y: [-10, 10, -10],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-      },
     },
   };
 
@@ -131,19 +94,6 @@ const Hero = () => {
           isPaused={!heroInView}
         />
       </div>
-
-      {/* Floating Elements */}
-      <motion.div
-        variants={floatingVariants}
-        animate="animate"
-        className="absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl"
-      />
-      <motion.div
-        variants={floatingVariants}
-        animate="animate"
-        className="absolute bottom-20 right-10 w-32 h-32 bg-accent/10 rounded-full blur-xl"
-        style={{ animationDelay: "2s" }}
-      />
 
       <motion.div
         variants={containerVariants}
@@ -172,14 +122,7 @@ const Hero = () => {
           <span className="block">Creo experiencias</span>
           <span className="block gradient-text">digitales únicas</span>
           <span className="block text-2xl sm:text-3xl lg:text-4xl font-normal text-muted-foreground mt-4">
-            <TypewriterText 
-              text="que conectan con las personas" 
-              speed={80} 
-              eraseSpeed={50}
-              delay={1000}
-              pauseTime={2000}
-              className="text-muted-foreground"
-            />
+            que conectan con las personas
           </span>
         </motion.h1>
 
@@ -199,40 +142,29 @@ const Hero = () => {
           variants={itemVariants}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(59, 130, 246, 0.3)" }}
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-6 py-3 min-w-[180px] bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 transition-all duration-300 glow"
+            className="px-6 py-3 min-w-[180px] bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 active:scale-95 transition-all duration-200 glow"
           >
             Ver mis proyectos
-          </motion.button>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          </button>
+          <button
             onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-6 py-3 min-w-[180px] border border-border text-foreground rounded-full font-semibold text-lg hover:bg-accent transition-all duration-300"
+            className="px-6 py-3 min-w-[180px] border border-border text-foreground rounded-full font-semibold text-lg hover:bg-accent active:scale-95 transition-all duration-200"
           >
             Contactar
-          </motion.button>
+          </button>
         </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: scrollIndicatorOpacity, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 1.5, duration: 0.6 }}
-          className="mt-20"
+          className="mt-20 flex flex-col items-center text-muted-foreground animate-bounce"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center text-muted-foreground"
-          >
-            <span className="text-sm mb-2">Desplázate</span>
-            <ArrowDown className="w-5 h-5" />
-          </motion.div>
+          <span className="text-sm mb-2">Desplázate</span>
+          <ArrowDown className="w-5 h-5" />
         </motion.div>
       </motion.div>
     </section>

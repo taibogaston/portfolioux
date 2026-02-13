@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 
 const TrueFocus = ({
   sentence = "True Focus",
@@ -28,7 +27,7 @@ const TrueFocus = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [lastActiveIndex, setLastActiveIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const wordRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [focusRect, setFocusRect] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
   useEffect(() => {
@@ -45,19 +44,27 @@ const TrueFocus = ({
 
   useEffect(() => {
     if (currentIndex === null || currentIndex === -1) return;
-    const el = wordRefs.current[currentIndex];
-    if (!el || !containerRef.current) return;
 
-    const parentRect = containerRef.current.getBoundingClientRect();
-    const activeRect = el.getBoundingClientRect();
-    const padding = 8;
+    const measure = () => {
+      const containerEl = containerRefs.current[currentIndex];
+      const parent = containerRef.current;
+      if (!containerEl || !parent) return;
 
-    setFocusRect({
-      x: activeRect.left - parentRect.left - padding,
-      y: activeRect.top - parentRect.top - padding,
-      width: activeRect.width + padding * 2,
-      height: activeRect.height + padding * 2,
+      const parentRect = parent.getBoundingClientRect();
+      const containerRect = containerEl.getBoundingClientRect();
+      setFocusRect({
+        x: containerRect.left - parentRect.left,
+        y: containerRect.top - parentRect.top,
+        width: containerRect.width,
+        height: containerRect.height,
+      });
+    };
+
+    // Medir después del layout (importante en móvil)
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(measure);
     });
+    return () => cancelAnimationFrame(id);
   }, [currentIndex, words.length]);
 
   const handleMouseEnter = (index: number) => {
@@ -81,40 +88,39 @@ const TrueFocus = ({
       {words.map((word, index) => {
         const isActive = index === currentIndex;
         return (
-          <span
+          <div
             key={`${word}-${index}`}
             ref={(el) => {
-              wordRefs.current[index] = el;
+              containerRefs.current[index] = el;
             }}
-            className={`inline-block whitespace-nowrap transition-all duration-300 ${
+            className={`inline-block shrink-0 whitespace-nowrap px-2 py-1 transition-colors duration-300 ${
               manualMode ? "cursor-default" : ""
             }`}
-            style={{
-              filter: isActive ? "blur(0px)" : `blur(${blurAmount}px)`,
-              transitionDuration: `${animationDuration}s`,
-            }}
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
           >
-            {word}
-          </span>
+            <span
+              className="block transition-all duration-300"
+              style={{
+                filter: isActive ? "blur(0px)" : `blur(${blurAmount}px)`,
+                transitionDuration: `${animationDuration}s`,
+              }}
+            >
+              {word}
+            </span>
+          </div>
         );
       })}
 
-      <motion.div
+      <div
         className="absolute pointer-events-none box-border"
-        animate={{
-          x: focusRect.x,
-          y: focusRect.y,
+        style={{
+          left: focusRect.x,
+          top: focusRect.y,
           width: focusRect.width,
           height: focusRect.height,
           opacity: currentIndex >= 0 ? 1 : 0,
-        }}
-        transition={{
-          duration: animationDuration,
-          ease: "easeInOut",
-        }}
-        style={{
+          transition: `left ${animationDuration}s ease-in-out, top ${animationDuration}s ease-in-out, width ${animationDuration}s ease-in-out, height ${animationDuration}s ease-in-out, opacity ${animationDuration}s ease-in-out`,
           boxShadow: `0 0 14px ${glowColor}`,
         }}
       >
@@ -134,7 +140,7 @@ const TrueFocus = ({
           className="absolute bottom-0 right-0 w-3 h-3 border-r-2 border-b-2"
           style={{ borderColor }}
         />
-      </motion.div>
+      </div>
     </div>
   );
 };

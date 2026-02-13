@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import BlurText from "./BlurText";
 
 const InfiniteScroller = () => {
   const [ref, inView] = useInView({
@@ -162,8 +161,18 @@ const InfiniteScroller = () => {
     <section
       id="tools"
       ref={ref}
-      className="py-20 relative overflow-hidden tech-section-bg"
+      className="pt-16 pb-24 sm:pt-20 sm:pb-28 relative overflow-hidden tech-section-bg"
     >
+      {/* Degradado arriba: se funde con About; más bajo para que el título tenga color */}
+      <div
+        className="absolute inset-x-0 top-0 h-1/4 pointer-events-none z-[1] bg-gradient-to-b from-background to-transparent"
+        aria-hidden
+      />
+      {/* Degradado abajo: se funde con la sección Proyectos */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-2/5 pointer-events-none z-[1] bg-gradient-to-t from-background to-transparent"
+        aria-hidden
+      />
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
@@ -175,17 +184,11 @@ const InfiniteScroller = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
-          <BlurText
-            text="Tecnologías que utilizo"
-            as="h2"
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-foreground"
-            animateBy="words"
-            delay={80}
-            direction="top"
-            stepDuration={0.35}
-          />
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+            Tecnologías que utilizo
+          </h2>
           
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Siempre estoy aprendiendo nuevas tecnologías para mantenerme actualizada.
@@ -197,22 +200,15 @@ const InfiniteScroller = () => {
           <div className="overflow-hidden py-4">
             <div className="flex space-x-16 md:space-x-20 animate-infinite-scroll">
               {duplicatedTools.map((tool, index) => (
-                <motion.div
+                <div
                   key={`${tool.name}-${index}`}
-                  initial={{ opacity: 0 }}
-                  animate={inView ? { opacity: 0.7 } : { opacity: 0 }}
-                  transition={{ delay: 0.3 + (index % tools.length) * 0.05, duration: 0.3 }}
-                  whileHover={{
-                    scale: 1.05,
-                    transition: { duration: 0.2 }
-                  }}
-                  className="flex-shrink-0 flex flex-col items-center justify-center cursor-pointer relative z-20"
+                  className="flex-shrink-0 flex flex-col items-center justify-center cursor-pointer relative z-20 opacity-90 hover:opacity-100 transition-opacity duration-200"
                 >
                   <tool.icon />
                   <span className="mt-2 text-xs font-medium text-muted-foreground text-center">
                     {tool.name}
                   </span>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

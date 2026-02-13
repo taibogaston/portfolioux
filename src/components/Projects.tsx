@@ -6,27 +6,10 @@ import { Eye } from "lucide-react";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { MODAL_DATA } from "@/data/projectModalsData";
-const ProjectModal = dynamic(() => import("./ProjectModal"), { ssr: false });
-
-interface ModalData {
-  title: string;
-  subtitle: string;
-  proximamente?: boolean;
-  aboutProject?: string;
-  problem?: string;
-  objectives?: string[];
-  research?: string;
-  designSystem?: string;
-  userType?: string;
-  methodology?: string[];
-  analysis?: string;
-  resultado?: string;
-  images?: string[];
-  processImages?: string[];
-  presentationUrl?: string;
-  prototypeUrl?: string;
-  mockupImage?: string;
-}
+const ProjectModal = dynamic(() => import("./ProjectModal"), {
+    ssr: false,
+    loading: () => null,
+  });
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -61,7 +44,7 @@ const Projects = () => {
       id: 8,
       title: "Blog MindDev Perú",
       description: "Diseño y desarrollo de blog para MindDev Perú, enfocado en contenido técnico y experiencias de usuario",
-      image: "/mockup minddev.jpeg",
+      image: "/card%20minddev.jpg",
       category: "Web Design",
       technologies: ["Figma", "UX", "UI", "Web Design"],
       liveUrl: "#",
@@ -164,17 +147,18 @@ const Projects = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.06,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 12 },
     visible: {
       opacity: 1,
       y: 0,
+      transition: { duration: 0.25 },
     },
   };
 
@@ -233,7 +217,7 @@ const Projects = () => {
                   src={project.image}
                   alt={project.title}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${project.id === 8 ? "object-[50%_25%]" : ""}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/70 dark:from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>

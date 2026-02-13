@@ -40,7 +40,7 @@ const About = () => {
     <section
       id="about"
       ref={ref}
-      className="py-20 relative overflow-hidden bg-background"
+      className="pt-20 pb-12 relative overflow-hidden bg-background"
     >
 
       <motion.div
@@ -78,7 +78,7 @@ const About = () => {
                 blurAmount={5}
                 animationDuration={0.6}
                 pauseBetweenAnimations={1.5}
-                className="text-inherit w-full inline-flex flex-nowrap justify-center lg:justify-start gap-x-4 sm:gap-x-6"
+                className="text-inherit w-full inline-flex flex-wrap sm:flex-nowrap justify-center lg:justify-start gap-x-4 sm:gap-x-6 gap-y-2"
               />
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl lg:max-w-none mx-auto lg:mx-0">

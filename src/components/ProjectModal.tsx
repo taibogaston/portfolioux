@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -56,6 +56,7 @@ const ProjectModal = ({
   const [currentAfterImageIndex, setCurrentAfterImageIndex] = useState(0);
   const [currentBeforeImageIndex, setCurrentBeforeImageIndex] = useState(0);
   const [currentProcessImageIndex, setCurrentProcessImageIndex] = useState(0);
+  const scrollYRef = useRef(0);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -81,25 +82,48 @@ const ProjectModal = ({
 
   useEffect(() => {
     if (isOpen) {
+      scrollYRef.current = window.scrollY ?? window.pageYOffset;
       const originalOverflow = document.body.style.overflow;
       const originalPaddingRight = document.body.style.paddingRight;
-      
+      const originalPosition = document.body.style.position;
+      const originalTop = document.body.style.top;
+      const originalLeft = document.body.style.left;
+      const originalRight = document.body.style.right;
+      const originalWidth = document.body.style.width;
+      const html = document.documentElement;
+      const originalHtmlOverflow = html.style.overflow;
+
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      
-      document.body.style.overflow = 'hidden';
-      if (scrollbarWidth > 0) {
-        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = scrollbarWidth > 0 ? `${scrollbarWidth}px` : "";
+      if (isMobile) {
+        html.style.overflow = "hidden";
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${scrollYRef.current}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+        document.body.style.width = "100%";
       }
-      
-      // Resetear índices cuando se abre el modal
+
       setCurrentImageIndex(0);
       setCurrentAfterImageIndex(0);
       setCurrentBeforeImageIndex(0);
       setCurrentProcessImageIndex(0);
-      
+
       return () => {
         document.body.style.overflow = originalOverflow;
         document.body.style.paddingRight = originalPaddingRight;
+        document.body.style.position = originalPosition;
+        document.body.style.top = originalTop;
+        document.body.style.left = originalLeft;
+        document.body.style.right = originalRight;
+        document.body.style.width = originalWidth;
+        html.style.overflow = originalHtmlOverflow;
+        if (isMobile) {
+          window.scrollTo(0, scrollYRef.current);
+        }
       };
     }
   }, [isOpen]);
@@ -108,34 +132,30 @@ const ProjectModal = ({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/70 z-50 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/70 z-50 touch-none md:touch-auto"
+            style={{ touchAction: "none" }}
+            aria-hidden
           />
-
-          {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", duration: 0.4, bounce: 0.1 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 pointer-events-none"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 pointer-events-none overflow-hidden"
           >
             <div
-              className="bg-card dark:bg-[#0a0a0a] border border-border/30 rounded-2xl sm:rounded-3xl shadow-2xl max-w-7xl w-full max-h-[95vh] sm:max-h-[85vh] overflow-hidden pointer-events-auto"
+              className="bg-card dark:bg-[#0a0a0a] border border-border/30 rounded-2xl sm:rounded-3xl shadow-2xl max-w-7xl w-full max-h-[95dvh] sm:max-h-[85vh] overflow-hidden pointer-events-auto flex flex-col min-h-0"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header del Modal - Moderno e integrado */}
               <div className="px-4 sm:px-6 lg:px-10 pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 relative">
                 <div className="flex items-start justify-between gap-2 sm:gap-4">
                   <div className="flex-1 min-w-0 space-y-1 sm:space-y-2">
-                    <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tight">
-                      {title}
-                    </h2>
+                    <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tight">{title}</h2>
                     <p className="text-muted-foreground text-sm sm:text-base font-light">{subtitle}</p>
                   </div>
                   <button
@@ -146,11 +166,12 @@ const ProjectModal = ({
                     <X className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
-                <div className="absolute bottom-0 left-8 lg:left-10 right-8 lg:right-10 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent"></div>
+                <div className="absolute bottom-0 left-8 lg:left-10 right-8 lg:right-10 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
               </div>
-
-              {/* Contenido */}
-              <div className="overflow-y-auto max-h-[calc(95vh-100px)] sm:max-h-[calc(85vh-140px)] modal-scrollbar">
+              <div
+                className="overflow-y-auto overflow-x-hidden flex-1 min-h-0 modal-scrollbar max-h-[calc(95dvh-100px)] sm:max-h-[calc(85vh-140px)]"
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
                 <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-10">
                   {proximamente ? (
                     <div className="py-16 sm:py-24 flex items-center justify-center">
@@ -232,7 +253,7 @@ const ProjectModal = ({
                       {/* Sobre el Proyecto / Producto */}
                       {aboutProject && (
                         <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" ? "Producto" : "Contexto"}</h3>
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" ? "Producto" : "Contexto"}</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{aboutProject}</p>
                         </div>
@@ -318,7 +339,7 @@ const ProjectModal = ({
                       {/* Resultado / Solución */}
                       {resultado && (
                         <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" ? "Solución" : "Resultado"}</h3>
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" ? "Solución" : "Resultado"}</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{resultado}</p>
                         </div>
@@ -327,7 +348,7 @@ const ProjectModal = ({
                       {/* Impacto potencial / Impacto */}
                       {impacto && (
                         <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" ? "Impacto" : "Impacto potencial"}</h3>
+                          <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" ? "Impacto" : "Impacto potencial"}</h3>
                           <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
                           <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{impacto}</p>
                         </div>
@@ -351,6 +372,8 @@ const ProjectModal = ({
                           <img
                             src={mockupImage}
                             alt={title}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-auto object-contain drop-shadow-2xl"
                             key={mockupImage}
                           />
@@ -386,10 +409,10 @@ const ProjectModal = ({
                                         key={currentBeforeImageIndex}
                                         src={images[currentBeforeImageIndex] || images[0]}
                                         alt={`${title} - Antes ${currentBeforeImageIndex + 1}`}
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.95 }}
-                                        transition={{ duration: 0.4 }}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.15 }}
                                         className="w-full h-full object-contain object-center"
                                       />
                                     </AnimatePresence>
@@ -443,13 +466,13 @@ const ProjectModal = ({
                                     <motion.img
                                       src={images[0]}
                                       alt={`${title} - Antes`}
-                                      initial={{ opacity: 0, scale: 0.95 }}
-                                      animate={{ opacity: 1, scale: 1 }}
-                                      transition={{ duration: 0.4 }}
-                                      className="w-full h-full object-contain object-center"
-                                    />
-                                  ) : (
-                                    <div className="text-muted-foreground text-center p-8">
+initial={{ opacity: 1 }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ duration: 0.15 }}
+                                  className="w-full h-full object-contain object-center"
+                                />
+                              ) : (
+                                <div className="text-muted-foreground text-center p-8">
                                       <p className="text-sm">Imagen no disponible</p>
                                     </div>
                                   )}
@@ -469,12 +492,12 @@ const ProjectModal = ({
                                     <AnimatePresence mode="wait">
                                       <motion.img
                                         key={`${currentAfterImageIndex}-${images.slice(3)[currentAfterImageIndex]}`}
-                                        src={`${images.slice(3)[currentAfterImageIndex] || images[images.length - 1]}?v=${Date.now()}`}
+                                        src={images.slice(3)[currentAfterImageIndex] || images[images.length - 1]}
                                         alt={`${title} - Después ${currentAfterImageIndex + 1}`}
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.95 }}
-                                        transition={{ duration: 0.4 }}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.15 }}
                                         className="w-full h-full object-contain object-center"
                                       />
                                     </AnimatePresence>
@@ -527,9 +550,9 @@ const ProjectModal = ({
                                     <motion.img
                                       src={images[images.length - 1]}
                                       alt={`${title} - Después`}
-                                      initial={{ opacity: 0, scale: 0.95 }}
-                                      animate={{ opacity: 1, scale: 1 }}
-                                      transition={{ duration: 0.4, delay: 0.1 }}
+                                      initial={{ opacity: 1 }}
+                                      animate={{ opacity: 1 }}
+                                      transition={{ duration: 0.15 }}
                                       className="w-full h-full object-contain object-center"
                                     />
                                   )}
@@ -571,19 +594,19 @@ const ProjectModal = ({
                               </button>
                             </div>
                             
-                            {/* Imagen según selección */}
-                            <div className="relative w-full h-[1500px] sm:h-[1800px] md:h-[2200px] lg:h-[2600px] xl:h-[3000px] overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50 mx-auto">
+                            {/* Imagen según selección: en mobile permite scroll horizontal para ver la imagen completa */}
+                            <div className="relative w-full min-h-[400px] max-h-[90vh] overflow-x-auto overflow-y-hidden flex items-center justify-center bg-muted/50 dark:bg-black/50 mx-auto">
                               <AnimatePresence mode="wait">
                                 {selectedView === 'desktop' && images[0] && (
                                   <motion.img
                                     key="desktop"
                                     src={images[0]}
                                     alt={`${title} - Desktop`}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.4 }}
-                                    className="w-full h-full object-contain object-center"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.15 }}
+                                    className="max-w-none min-h-[400px] max-h-[90vh] w-auto object-contain object-center"
                                   />
                                 )}
                                 {selectedView === 'mobile' && images[1] && (
@@ -591,11 +614,11 @@ const ProjectModal = ({
                                     key="mobile"
                                     src={images[1]}
                                     alt={`${title} - Mobile`}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.4 }}
-                                    className="w-full h-full object-contain object-center"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.15 }}
+                                    className="max-w-none min-h-[400px] max-h-[90vh] w-auto object-contain object-center"
                                   />
                                 )}
                               </AnimatePresence>
@@ -618,10 +641,10 @@ const ProjectModal = ({
                                     key={currentImageIndex}
                                     src={images[currentImageIndex]}
                                     alt={`${title} ${currentImageIndex + 1}`}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.4 }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.15 }}
                                     className={`w-full h-full ${title === "Propsail" ? "object-contain" : "object-contain object-center"}`}
                                   />
                                 </AnimatePresence>
@@ -691,10 +714,10 @@ const ProjectModal = ({
                                   key={currentProcessImageIndex}
                                   src={processImages[currentProcessImageIndex]}
                                   alt={`${title} - Proceso ${currentProcessImageIndex + 1}`}
-                                  initial={{ opacity: 0, scale: 0.95 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  exit={{ opacity: 0, scale: 0.95 }}
-                                  transition={{ duration: 0.4 }}
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  exit={{ opacity: 0 }}
+                                  transition={{ duration: 0.15 }}
                                   className="w-full h-full object-contain object-center"
                                 />
                               </AnimatePresence>
