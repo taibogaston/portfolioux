@@ -419,16 +419,18 @@ const ProjectModal = ({
                                   // Carrusel para Starbucks en la sección "Antes"
                                   <div className="relative w-full h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px] overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50">
                                     <AnimatePresence mode="wait">
-                                      <motion.img
-                                        key={currentBeforeImageIndex}
-                                        src={images[currentBeforeImageIndex] || images[0]}
-                                        alt={`${title} - Antes ${currentBeforeImageIndex + 1}`}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.15 }}
-                                        className="w-full h-full object-contain object-center"
-                                      />
+                                  <motion.img
+                                    key={currentBeforeImageIndex}
+                                    src={images[currentBeforeImageIndex] || images[0]}
+                                    alt={`${title} - Antes ${currentBeforeImageIndex + 1}`}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.15 }}
+                                    loading="lazy"
+                                    decoding="async"
+                                    className="w-full h-full object-contain object-center"
+                                  />
                                     </AnimatePresence>
                                     {images.length > 1 && (
                                       <>
@@ -480,12 +482,14 @@ const ProjectModal = ({
                                     <motion.img
                                       src={images[0]}
                                       alt={`${title} - Antes`}
-initial={{ opacity: 1 }}
-                                  animate={{ opacity: 1 }}
-                                  transition={{ duration: 0.15 }}
-                                  className="w-full h-full object-contain object-center"
-                                />
-                              ) : (
+                                      initial={{ opacity: 1 }}
+                                      animate={{ opacity: 1 }}
+                                      transition={{ duration: 0.15 }}
+                                      loading="lazy"
+                                      decoding="async"
+                                      className="w-full h-full object-contain object-center"
+                                    />
+                                  ) : (
                                 <div className="text-muted-foreground text-center p-8">
                                       <p className="text-sm">Imagen no disponible</p>
                                     </div>
@@ -504,16 +508,18 @@ initial={{ opacity: 1 }}
                                   // Carrusel para Starbucks en la sección "Después" (imágenes desde índice 3)
                                   <div className="relative w-full h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px] overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50">
                                     <AnimatePresence mode="wait">
-                                      <motion.img
-                                        key={`${currentAfterImageIndex}-${images.slice(3)[currentAfterImageIndex]}`}
-                                        src={images.slice(3)[currentAfterImageIndex] || images[images.length - 1]}
-                                        alt={`${title} - Después ${currentAfterImageIndex + 1}`}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.15 }}
-                                        className="w-full h-full object-contain object-center"
-                                      />
+                                  <motion.img
+                                    key={`${currentAfterImageIndex}-${images.slice(3)[currentAfterImageIndex]}`}
+                                    src={images.slice(3)[currentAfterImageIndex] || images[images.length - 1]}
+                                    alt={`${title} - Después ${currentAfterImageIndex + 1}`}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.15 }}
+                                    loading="lazy"
+                                    decoding="async"
+                                    className="w-full h-full object-contain object-center"
+                                  />
                                     </AnimatePresence>
                                     {images.length > 4 && (
                                       <>
@@ -567,6 +573,8 @@ initial={{ opacity: 1 }}
                                       initial={{ opacity: 1 }}
                                       animate={{ opacity: 1 }}
                                       transition={{ duration: 0.15 }}
+                                      loading="lazy"
+                                      decoding="async"
                                       className="w-full h-full object-contain object-center"
                                     />
                                   )}
@@ -596,6 +604,8 @@ initial={{ opacity: 1 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.15 }}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-contain object-center"
                                   />
                                 </AnimatePresence>
@@ -660,6 +670,8 @@ initial={{ opacity: 1 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.15 }}
+                                    loading="lazy"
+                                    decoding="async"
                                     className={`w-full h-full ${title === "Propsail" ? "object-contain" : "object-contain object-center"}`}
                                   />
                                 </AnimatePresence>
@@ -733,6 +745,8 @@ initial={{ opacity: 1 }}
                                   animate={{ opacity: 1 }}
                                   exit={{ opacity: 0 }}
                                   transition={{ duration: 0.15 }}
+                                  loading="lazy"
+                                  decoding="async"
                                   className="w-full h-full object-contain object-center"
                                 />
                               </AnimatePresence>

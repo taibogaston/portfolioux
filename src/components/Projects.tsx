@@ -24,7 +24,7 @@ const Projects = () => {
       id: 10,
       title: "Propsail",
       description: "Landing page en integración con IA, enfoque en sector inmobiliario y especial atención al aumento de conversión.",
-      image: "/Frame.jpg",
+      image: "/propsail card.png",
       category: "Web App",
       technologies: ["Figma", "UX", "UI", "Design System"],
       liveUrl: "#",
@@ -81,20 +81,30 @@ const Projects = () => {
       githubUrl: "#"
     },
     {
-      id: 3,
-      title: "Alpay",
-      description: "Plataforma de administracion inmobiliria, mejoras y diseño de landing page al estilo solicitado",
-      image: "/alpayxs.png",
+      id: 11,
+      title: "Locker App",
+      description: "Próximamente..",
+      image: "/lockerapp.png",
       category: "Mobile App",
       technologies: ["Figma", "UX", "UI"],
       liveUrl: "#",
       githubUrl: "#"
     },
     {
-      id: 11,
-      title: "Locker App",
-      description: "Próximamente..",
-      image: "/lockerapp.png",
+      id: 5,
+      title: "Starbucks",
+      description: "Rediseño de la web Starbucks Argentina. Enfocado en landing page para descarga de su app",
+      image: "/starbucks.jpeg",
+      category: "Mobile App",
+      technologies: ["Figma", "Responsive", "Research", "UI"],
+      liveUrl: "#",
+      githubUrl: "#"
+    },
+    {
+      id: 3,
+      title: "Alpay",
+      description: "Plataforma de administracion inmobiliria, mejoras y diseño de landing page al estilo solicitado",
+      image: "/card alpay.png",
       category: "Mobile App",
       technologies: ["Figma", "UX", "UI"],
       liveUrl: "#",
@@ -117,16 +127,6 @@ const Projects = () => {
       image: "/foto buenbit.png",
       category: "Mobile App",
       technologies: ["Figma", "UX Design", "Mobile UI"],
-      liveUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      id: 5,
-      title: "Starbucks",
-      description: "Rediseño de la web Starbucks Argentina. Enfocado en landing page para descarga de su app",
-      image: "/starbucks.jpeg",
-      category: "Mobile App",
-      technologies: ["Figma", "Responsive", "Research", "UI"],
       liveUrl: "#",
       githubUrl: "#"
     },
@@ -217,7 +217,8 @@ const Projects = () => {
                   src={project.image}
                   alt={project.title}
                   loading="lazy"
-                  className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${project.id === 8 ? "object-[50%_25%]" : ""}`}
+                  decoding="async"
+                  className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${project.id === 8 ? "object-[50%_25%]" : project.id === 3 ? "object-[50%_30%]" : project.id === 10 ? "object-[50%_25%]" : ""}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/70 dark:from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
