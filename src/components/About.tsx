@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Code2, Palette, Box } from "lucide-react";
+import Image from "next/image";
 import TrueFocus from "./TrueFocus";
 
 const About = () => {
@@ -57,12 +58,14 @@ const About = () => {
             className="lg:col-span-5 flex justify-center"
           >
             <div className="relative w-full max-w-[150px] sm:max-w-[190px]">
-              <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-border dark:border-white/20 bg-card shadow-2xl shadow-primary/5">
-                <img
-                  src="/WhatsApp%20Image%202026-01-19%20at%2013.26.32.jpeg"
+              <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-border dark:border-white/20 bg-card shadow-2xl shadow-primary/5 relative">
+                <Image
+                  src="/WhatsApp Image 2026-01-19 at 13.26.32.jpeg"
                   alt="Maitena - UX UI & Product Designer"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-top"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 640px) 150px, 190px"
+                  priority={false}
                 />
               </div>
               <div className="absolute -z-10 inset-0 translate-x-2 translate-y-2 rounded-2xl bg-primary/20 dark:bg-primary/10" />

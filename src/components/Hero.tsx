@@ -97,17 +97,18 @@ const Hero = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.1,
+        delayChildren: 0,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
+      transition: { duration: 0.4, ease: "easeOut" as const },
     },
   };
 
@@ -115,17 +116,17 @@ const Hero = () => {
   const etherConfig =
     perfTier === "low"
       ? {
-          resolution: reducedMotionOrMobile ? 0.2 : 0.25,
-          iterationsPoisson: 16,
-          iterationsViscous: 12,
-          isViscous: false,
-          BFECC: false,
-          dt: 0.018,
-          autoDemo: false,
-        }
+        resolution: reducedMotionOrMobile ? 0.35 : 0.25,
+        iterationsPoisson: 16,
+        iterationsViscous: 12,
+        isViscous: false,
+        BFECC: false,
+        dt: 0.018,
+        autoDemo: true,
+      }
       : perfTier === "medium"
-      ? {
-          resolution: reducedMotionOrMobile ? 0.3 : 0.4,
+        ? {
+          resolution: reducedMotionOrMobile ? 0.35 : 0.4,
           iterationsPoisson: 24,
           iterationsViscous: 20,
           isViscous: true,
@@ -133,8 +134,8 @@ const Hero = () => {
           dt: 0.016,
           autoDemo: true,
         }
-      : {
-          resolution: reducedMotionOrMobile ? 0.35 : 0.5,
+        : {
+          resolution: reducedMotionOrMobile ? 0.4 : 0.5,
           iterationsPoisson: 32,
           iterationsViscous: 32,
           isViscous: true,
@@ -154,8 +155,8 @@ const Hero = () => {
       <div className="absolute inset-0 z-0 w-full" style={{ minHeight: "100vh" }}>
         <LiquidEther
           className="absolute inset-0 h-full w-full"
-          mouseForce={28}
-          autoIntensity={2.5}
+          mouseForce={reducedMotionOrMobile ? 15 : 28}
+          autoIntensity={reducedMotionOrMobile ? 1.8 : 2.5}
           resolution={etherConfig.resolution}
           iterationsPoisson={etherConfig.iterationsPoisson}
           iterationsViscous={etherConfig.iterationsViscous}
@@ -163,6 +164,7 @@ const Hero = () => {
           BFECC={etherConfig.BFECC}
           dt={etherConfig.dt}
           autoDemo={etherConfig.autoDemo}
+          disableTouch={reducedMotionOrMobile}
           isPaused={!heroInView}
         />
       </div>
@@ -174,11 +176,12 @@ const Hero = () => {
         className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-8"
       >
         {/* Greeting */}
-        <motion.div variants={itemVariants} className="mb-6">
+        <motion.div variants={itemVariants}
+          className="mb-6">
           <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            transition={{ delay: 0.1, duration: 0.4 }}
             className="inline-flex items-center px-4 py-2 rounded-full tech-badge text-primary text-sm font-medium mb-4 relative z-10"
           >
             <Sparkles className="w-4 h-4 mr-2" />
@@ -232,7 +235,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 1.5, duration: 0.6 }}
+          transition={{ delay: 1.0, duration: 0.6 }}
           className="mt-20 flex flex-col items-center text-muted-foreground animate-bounce"
         >
           <span className="text-sm mb-2">Desplázate</span>

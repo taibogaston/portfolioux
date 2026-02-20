@@ -74,6 +74,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Visitar perfil de ${social.name}`}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -81,7 +82,7 @@ const Footer = () => {
                   whileTap={{ scale: 0.9 }}
                   className={`w-10 h-10 min-w-[44px] min-h-[44px] bg-muted rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 touch-manipulation ${social.color}`}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-5 h-5" aria-hidden="true" />
                 </motion.a>
               ))}
             </div>

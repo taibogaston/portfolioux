@@ -1,30 +1,35 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+const satoshi = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Satoshi-Variable.woff2",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Satoshi-VariableItalic.woff2",
+      style: "italic",
+    },
+  ],
+  variable: "--font-satoshi",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0a0a0a",
+};
 
 export const metadata: Metadata = {
   title: "Maitena - UX/UI Designer Portfolio",
   description: "Professional UX/UI Designer specializing in modern, tech-focused design solutions",
   keywords: ["UX Design", "UI Design", "Portfolio", "Designer", "Tech"],
   authors: [{ name: "Maitena" }],
-  viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
-    { media: "(prefers-color-scheme: light)", color: "#f5f5f4" },
-  ],
 };
 
 export default function RootLayout({
@@ -33,9 +38,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" className="dark" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground overflow-x-hidden`}
+        className={`${satoshi.variable} ${satoshi.className} antialiased bg-background text-foreground overflow-x-hidden`}
         suppressHydrationWarning
       >
         <ThemeProvider

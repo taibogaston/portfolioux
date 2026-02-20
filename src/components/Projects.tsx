@@ -5,11 +5,12 @@ import { useInView } from "react-intersection-observer";
 import { Eye } from "lucide-react";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { MODAL_DATA } from "@/data/projectModalsData";
 const ProjectModal = dynamic(() => import("./ProjectModal"), {
-    ssr: false,
-    loading: () => null,
-  });
+  ssr: false,
+  loading: () => null,
+});
 
 const Projects = () => {
   const [ref, inView] = useInView({
@@ -185,11 +186,11 @@ const Projects = () => {
             <Eye className="w-4 h-4 mr-2" />
             Proyectos
           </motion.div>
-          
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
             Proyectos realizados
           </h2>
-          
+
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Una selección de proyectos que demuestran mi enfoque en el diseño
             centrado en el usuario y la creación de experiencias digitales excepcionales.
@@ -199,7 +200,7 @@ const Projects = () => {
         {/* Projects: grid 2 columnas, sin animación */}
         <motion.div
           variants={containerVariants}
-          className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
+          className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12"
         >
           {projects.map((project) => (
             <motion.div
@@ -208,21 +209,21 @@ const Projects = () => {
               role="button"
               tabIndex={0}
               onKeyDown={(e) => e.key === "Enter" && setOpenModalId(project.id)}
-              className="group relative rounded-2xl overflow-hidden bg-card border border-border dark:border-white/30 hover:border-primary/50 dark:hover:border-white/50 transition-all duration-300 hover:shadow-xl flex flex-col cursor-pointer touch-manipulation active:scale-[0.99]"
+              className="group relative overflow-hidden transition-all duration-300 flex flex-col cursor-pointer touch-manipulation active:scale-[0.99]"
               onClick={() => setOpenModalId(project.id)}
             >
-              <div className="relative h-52 sm:h-64 overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="relative h-52 sm:h-64 overflow-hidden rounded-xl border border-border/50">
+                <Image
                   src={project.image}
                   alt={project.title}
+                  fill
+                  className={`object-cover transition-transform duration-500 group-hover:scale-105 ${project.id === 8 ? "object-[50%_25%]" : project.id === 3 ? "object-[50%_30%]" : project.id === 10 ? "object-[50%_25%]" : ""}`}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   loading="lazy"
-                  decoding="async"
-                  className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${project.id === 8 ? "object-[50%_25%]" : project.id === 3 ? "object-[50%_30%]" : project.id === 10 ? "object-[50%_25%]" : ""}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/70 dark:from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <div className="p-4 sm:p-5 bg-card border-t border-border dark:border-white/20 flex-1 flex flex-col">
+              <div className="p-2 sm:p-3 pt-3 sm:pt-4 flex-1 flex flex-col">
                 <h3 className="text-base sm:text-lg font-bold text-foreground dark:text-white mb-1 sm:mb-2">
                   {project.title}
                 </h3>
@@ -253,20 +254,20 @@ const Projects = () => {
         const data = raw
           ? { ...raw, mockupImage: raw.mockupImage || selectedProject.image }
           : {
-              title: selectedProject.title,
-              subtitle: selectedProject.description,
-              aboutProject: "",
-              methodology: [],
-              analysis: "",
-              resultado: "",
-              research: "",
-              designSystem: "",
-              images: [],
-              processImages: [],
-              presentationUrl: "",
-              prototypeUrl: "",
-              mockupImage: selectedProject.image,
-            };
+            title: selectedProject.title,
+            subtitle: selectedProject.description,
+            aboutProject: "",
+            methodology: [],
+            analysis: "",
+            resultado: "",
+            research: "",
+            designSystem: "",
+            images: [],
+            processImages: [],
+            presentationUrl: "",
+            prototypeUrl: "",
+            mockupImage: selectedProject.image,
+          };
         return (
           <ProjectModal
             key={openModalId}

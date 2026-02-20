@@ -29,6 +29,8 @@ interface LiquidEtherProps {
   autoRampDuration?: number;
   /** Cuando true, pausa el render loop (ej. cuando el Hero está fuera de vista) */
   isPaused?: boolean;
+  /** Cuando true, deshabilita la interacción táctil (mobile) manteniendo autoDemo */
+  disableTouch?: boolean;
 }
 
 export default function LiquidEther({
@@ -52,6 +54,7 @@ export default function LiquidEther({
   autoResumeDelay = 1000,
   autoRampDuration = 0.6,
   isPaused = false,
+  disableTouch = false,
 }: LiquidEtherProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const webglRef = useRef<{
@@ -202,9 +205,11 @@ export default function LiquidEther({
         if (!defaultView) return;
         this.listenerTarget = defaultView;
         this.listenerTarget.addEventListener("mousemove", this._onMouseMove);
-        this.listenerTarget.addEventListener("touchstart", this._onTouchStart, { passive: true });
-        this.listenerTarget.addEventListener("touchmove", this._onTouchMove, { passive: true });
-        this.listenerTarget.addEventListener("touchend", this._onTouchEnd);
+        if (!disableTouch) {
+          this.listenerTarget.addEventListener("touchstart", this._onTouchStart, { passive: true });
+          this.listenerTarget.addEventListener("touchmove", this._onTouchMove, { passive: true });
+          this.listenerTarget.addEventListener("touchend", this._onTouchEnd);
+        }
         if (this.docTarget) {
           this.docTarget.addEventListener("mouseleave", this._onDocumentLeave);
         }
@@ -1354,8 +1359,8 @@ export default function LiquidEther({
       resolution,
       isBounce,
     });
-      const effectiveResumeDelay = 0;
-      if (webgl.autoDriver) {
+    const effectiveResumeDelay = 0;
+    if (webgl.autoDriver) {
       webgl.autoDriver.enabled = autoDemo;
       webgl.autoDriver.speed = autoSpeed;
       webgl.autoDriver.resumeDelay = effectiveResumeDelay;
