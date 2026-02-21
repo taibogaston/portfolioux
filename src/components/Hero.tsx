@@ -149,7 +149,7 @@ const Hero = () => {
       id="home"
       ref={setRefs}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
-      style={{ minHeight: "100vh", height: "100vh" }}
+      style={{ minHeight: "100vh", height: "100vh", backgroundColor: "#0d0d0d" }}
     >
       {/* LiquidEther: se pausa al salir de vista (ej. al bajar a herramientas) y vuelve al subir */}
       <div className="absolute inset-0 z-0 w-full" style={{ minHeight: "100vh" }}>
