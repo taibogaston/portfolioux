@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Send, 
-  CheckCircle, 
-  Instagram, 
-  Linkedin, 
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle,
+  Instagram,
+  Linkedin,
   MessageCircle,
   AlertCircle
 } from "lucide-react";
@@ -74,11 +74,11 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError(null);
-    
+
     try {
       // Cargar EmailJS dinámicamente si no está cargado
       const { sendEmail } = await import('../lib/emailjs');
-      
+
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
@@ -87,7 +87,7 @@ const Contact = () => {
       };
 
       const result = await sendEmail(templateParams);
-      
+
       if (result.success) {
         setIsSubmitted(true);
         // Reset form after 3 seconds
@@ -154,7 +154,7 @@ const Contact = () => {
       ref={ref}
       className="py-20 relative overflow-hidden"
     >
-      
+
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -172,11 +172,11 @@ const Contact = () => {
             <MessageCircle className="w-4 h-4 mr-2" />
             Contacto
           </motion.div>
-          
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
             ¡Trabajemos juntos!
           </h2>
-          
+
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             ¿Tienes un proyecto en mente? Me encantaría conocer más sobre tu idea
             y cómo puedo ayudarte a hacerla realidad.
@@ -206,7 +206,7 @@ const Contact = () => {
                   animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                   transition={{ delay: 0.4 + index * 0.1, duration: 0.6 }}
                   whileHover={{ x: 10 }}
-                    className="flex items-center p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-300 group touch-manipulation min-h-[56px]"
+                  className="flex items-center p-4 rounded-lg hover:bg-card/50 transition-all duration-300 group touch-manipulation min-h-[56px]"
                 >
                   <div className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors">
                     <info.icon className="w-6 h-6 text-primary" />
@@ -233,6 +233,7 @@ const Contact = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Visitar perfil de ${social.name}`}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                     transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
@@ -240,7 +241,7 @@ const Contact = () => {
                     whileTap={{ scale: 0.9 }}
                     className={`w-12 h-12 min-w-[48px] min-h-[48px] bg-muted rounded-lg flex items-center justify-center text-muted-foreground transition-all duration-300 touch-manipulation ${social.color}`}
                   >
-                    <social.icon className="w-5 h-5" />
+                    <social.icon className="w-5 h-5" aria-hidden="true" />
                   </motion.a>
                 ))}
               </div>
@@ -248,9 +249,9 @@ const Contact = () => {
           </motion.div>
 
           {/* Contact Form */}
-          <motion.div variants={itemVariants} className="bg-card rounded-xl border border-border p-4 sm:p-6 lg:p-8">
+          <motion.div variants={itemVariants}>
             <h3 className="text-2xl font-bold mb-6">Envíame un mensaje</h3>
-            
+
             {isSubmitted ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -347,7 +348,7 @@ const Contact = () => {
                   disabled={isSubmitting}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-8 py-4 bg-gradient-to-r from-primary via-blue-500 to-purple-600 text-white rounded-lg font-semibold text-lg hover:from-blue-500 hover:via-purple-600 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 relative"
+                  className="w-full px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-95 relative"
                 >
                   <div className="relative z-10 flex items-center justify-center">
                     {isSubmitting ? (
