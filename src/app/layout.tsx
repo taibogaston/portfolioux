@@ -38,16 +38,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark" suppressHydrationWarning>
+    <html lang="es" className="dark" style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <body
         className={`${satoshi.variable} ${satoshi.className} antialiased bg-background text-foreground overflow-x-hidden`}
+        style={{ backgroundColor: '#0d0d0d' }}
         suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
           forcedTheme="dark"
           enableSystem={false}
-          disableTransitionOnChange={false}
+          disableTransitionOnChange={true}
         >
           {children}
         </ThemeProvider>
