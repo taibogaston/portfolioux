@@ -32,7 +32,6 @@ const Footer = () => {
     { name: "Sobre mí", href: "#about" },
     { name: "Herramientas", href: "#tools" },
     { name: "Proyectos", href: "#projects" },
-    { name: "Experiencia", href: "#experience" },
     { name: "Contacto", href: "#contact" },
   ];
 

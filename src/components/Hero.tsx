@@ -228,7 +228,7 @@ const Hero = () => {
           </button>
           <button
             onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-6 py-3 min-w-[180px] border border-border text-foreground rounded-full font-semibold text-lg hover:bg-accent active:scale-95 transition-all duration-200"
+            className="px-6 py-3 min-w-[180px] border border-border text-foreground rounded-full font-semibold text-lg hover:bg-accent/15 active:scale-95 transition-all duration-200"
           >
             Contactar
           </button>
