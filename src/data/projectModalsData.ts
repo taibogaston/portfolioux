@@ -22,25 +22,21 @@ export const MODAL_DATA: Record<number, ModalData> = {
   10: {
     title: "Propsail",
     subtitle: "Landing page en integración con IA, enfoque en sector inmobiliario y especial atención al aumento de conversión.",
-    aboutProject: "PropSail es una plataforma SaaS para ventas inmobiliarias que integra experiencia digital, recorridos virtuales inteligentes y una capa operativa de CRM en un único flujo. El producto acompaña al comprador desde el descubrimiento hasta la entrega de señales de intención al equipo comercial.",
-    problem: "La experiencia digital inmobiliaria suele estar fragmentada: el comprador navega sin guía y los equipos comerciales reciben leads sin contexto ni señales claras. Esta desconexión genera fricción, trabajo manual innecesario y pérdida de oportunidades reales de venta.",
-    userType: "PropSail está diseñado para tres actores: compradores que necesitan claridad para evaluar proyectos, equipos comerciales que requieren señales accionables para priorizar, y empresas que buscan operar sus ventas digitales de forma más eficiente y trazable.",
-    objectives: [
-      "Guiar al comprador durante el proceso de evaluación de proyectos",
-      "Capturar intención real en el momento correcto",
-      "Reducir fricción y tareas manuales en ventas",
-      "Conectar experiencia digital y operación comercial en un flujo continuo y escalable"
-    ],
-    research: "El análisis del mercado evidenció que las soluciones existentes resuelven partes aisladas del problema (tours, chatbots o CRMs), pero no integran experiencia, contexto e intención. Estos insights orientaron el diseño hacia un flujo guiado y accionable.",
-    designSystem: "El producto fue diseñado como un sistema modular, utilizando componentes reutilizables y tokens de diseño para asegurar consistencia, escalabilidad y fácil adaptación a distintos clientes y proyectos.",
-    methodology: [
-      "Análisis del flujo completo de venta inmobiliaria",
-      "Definición de arquitectura de producto (experiencia, recorrido y CRM)",
-      "Diseño de flujos guiados orientados a intención",
-      "Creación de componentes reutilizables y variables de diseño"
-    ],
-    analysis: "",
-    resultado: "El diseño final transforma una experiencia pasiva en un flujo guiado que captura intención real, reduce fricción operativa y mejora la eficiencia comercial, posicionando a PropSail como una solución escalable y orientada a resultados.",
+    aboutProject:
+      "Propsail funciona como una capa inteligente de conversión para inmobiliarias\n\nIntegra:\n• Un asistente IA que interpreta la intención del usuario\n• Contenido dinámico y personalizado en tiempo real\n• Recorridos virtuales interactivos de propiedades (existentes o en desarrollo)\n\nEsto permite ofrecer una experiencia más clara, inmersiva y orientada a la decisión",
+    problem:
+      "La experiencia inmobiliaria digital no guía al usuario en su proceso de decisión\n\n• Usuarios navegan sin dirección clara\n• Información genérica, desorganizada o repetida\n• Leads sin contexto para el equipo comercial\n\nEsto genera fricción y pérdida de oportunidades de venta",
+    analysis:
+      "El problema no es la falta de información, sino la falta de relevancia en el momento correcto\n\nCuando el contenido se adapta a la intención del usuario, la decisión se acelera y la conversión mejora",
+    resultado:
+      "Diseñé una landing inteligente integrable en sitios inmobiliarios\n\n• El usuario interactúa mediante inputs simples tipo chat\n• Se detecta su intención (compra, inversión, exploración)\n• Se prioriza contenido relevante y personalizado\n• Acceso a recorridos virtuales en tiempo real\n• Generación de leads calificados con contexto",
+    impacto:
+      "• ↑ tasa de conversión\n• ↑ calidad de leads\n• ↓ fricción en el proceso de decisión\n• ↑ eficiencia del equipo comercial",
+    userType: "",
+    objectives: [],
+    research: "",
+    designSystem: "",
+    methodology: [],
     images: ["/home.jpg", "/Demo.png", "/Contacto.png", "/Screenshot 2026-01-19 101626.png"],
     presentationUrl: "",
     prototypeUrl: "",
@@ -135,15 +131,20 @@ export const MODAL_DATA: Record<number, ModalData> = {
   5: {
     title: "Starbucks",
     subtitle: "Rediseño de la web Starbucks Argentina. Enfocado en landing page para descarga de su app",
-    aboutProject: "Landing page de Starbucks Argentina diseñada para impulsar la descarga de la aplicación y optimizar el primer punto de contacto digital con la marca.",
-    problem: "La página existente no comunicaba con claridad la propuesta de valor de la app, presentaba una jerarquía visual poco efectiva y generaba fricción en el recorrido, lo que limitaba su capacidad de conversión.",
+    aboutProject:
+      "Rediseño enfocado en claridad, jerarquía y conversión\n\n• Comunicación directa del beneficio\n• Estructura orientada a la acción\n• CTAs visibles y estratégicos\n• Recorrido simple y escaneable",
+    problem:
+      "La landing de Starbucks Argentina no comunicaba con claridad el valor de su aplicación\n\n• Propuesta de valor poco visible\n• Jerarquía visual confusa\n• Recorrido poco orientado a la acción\n\n→ Resultado: baja conversión a descarga",
     userType: "",
     objectives: [],
     research: "",
     designSystem: "",
     methodology: [],
-    analysis: "",
-    resultado: "Se rediseñó la experiencia con foco en conversión, priorizando una propuesta de valor clara desde el primer impacto, una arquitectura de información optimizada y CTAs visibles y estratégicos. El proyecto incluyó análisis heurístico, research de patrones, benchmarking, validación con usuarios y diseño en alta fidelidad.",
+    analysis:
+      "En una landing de adquisición, el usuario necesita entender rápidamente qué gana y qué hacer\n\nCuando la propuesta de valor es clara y el camino está guiado, la conversión aumenta",
+    resultado:
+      "Diseñé una nueva experiencia enfocada en la descarga de la app\n\n• Hero con propuesta clara + CTA\n• Reorganización de secciones\n• Mejora en jerarquía visual\n• Optimización del flujo\n• Diseño responsive",
+    impacto: "• ↑ descargas\n• ↑ claridad\n• ↓ fricción\n• ↑ engagement",
     images: [
       "/Screenshot 2025-04-15 185713.png",
       "/Screenshot 2025-04-14 184050.png",
@@ -164,7 +165,7 @@ export const MODAL_DATA: Record<number, ModalData> = {
       "/Screenshot 2025-12-09 171609.png",
       "/Screenshot 2025-12-09 172248.png"
     ],
-    presentationUrl: "https://docs.google.com/presentation/d/1fW38yWg2vbLmB5iAepUND4t2Y8Tic-kCasi4RrXOac0/edit?usp=sharing",
+    presentationUrl: "https://www.behance.net/gallery/244442345/Starbucks-Argentina",
     prototypeUrl: "",
     mockupImage: "",
   },
@@ -195,15 +196,21 @@ export const MODAL_DATA: Record<number, ModalData> = {
   7: {
     title: "IEB - Proyecto técnico",
     subtitle: "Proyecto técnico realizado para IEB (personal), enfocado en diseño de interfaces y experiencia de usuario",
-    aboutProject: "Este proyecto técnico personal para IEB consistió en el diseño completo de una plataforma digital enfocada en mejorar la experiencia del usuario a través de interfaces intuitivas y un sistema de diseño consistente. Realizado en un período limitado de tiempo de 4 días, el objetivo principal fue desarrollar una solución que combinara funcionalidad, estética y usabilidad, aplicando metodologías de diseño centrado en el usuario y principios de diseño de interfaces modernas.",
-    problem: "",
+    aboutProject:
+      "Rediseño de la landing enfocado en claridad, confianza y conversión\n\n• Comunicación directa del valor\n• Jerarquía visual clara\n• Secciones orientadas a la decisión\n• Refuerzo de confianza",
+    problem:
+      "La landing de IEB no lograba guiar al usuario hacia la acción principal\n\n• Propuesta de valor poco clara en el primer impacto\n• Recorrido informativo pero no orientado a conversión\n• Falta de jerarquía visual\n• Baja conexión entre contenido y objetivos del negocio\n\n→ Resultado: dificultad para generar confianza y captar usuarios",
     userType: "",
     objectives: [],
     research: "",
     designSystem: "",
-    methodology: ["Investigación UX", "Evaluación de principios de heurística (Nielsen)", "Benchmarking, POV, User Persona, How Might We (Cómo podríamos), Matriz de necesidades, Sitemap e Investigación de mercado", "Diseño responsive", "Utilización de tokens"],
-    analysis: "Durante la etapa de research se identificaron problemas críticos en la landing actual de IEB+: no lograba guiar al usuario hacia la acción principal (descarga de la app o uso del broker), presentaba un recorrido informativo sin fomentar confianza, y carecía de una estructura clara que conectara los intereses del usuario con los objetivos del negocio. La solución propuesta fue una reestructuración estratégica del sitemap orientada a captar potenciales clientes. Puedes ver la investigación completa dentro de la presentación.",
-    resultado: "",
+    methodology: [],
+    analysis:
+      "En productos financieros, la claridad y la confianza son más importantes que la cantidad de información\n\nCuando el usuario entiende rápidamente qué puede hacer y por qué confiar, la conversión mejora",
+    resultado:
+      "Diseñé una nueva estructura de landing centrada en el usuario\n\n• Hero claro con CTA visible\n• Secciones organizadas por intención\n• Mejora en escaneabilidad\n• Optimización del flujo hacia conversión\n• Diseño responsive",
+    impacto:
+      "• ↑ claridad en la propuesta de valor\n• ↑ confianza del usuario\n• ↑ conversión\n• ↓ fricción en el recorrido",
     images: ["/antes.jpg", "/despues.jpg"],
     presentationUrl: "https://www.figma.com/design/OjA0deYtUo5wZD0TglwJwt/IEB----Proyecto-t%C3%A9cnico?node-id=0-1&t=xhLJ0Sof33eiefkA-1",
     prototypeUrl: "https://www.figma.com/proto/OjA0deYtUo5wZD0TglwJwt/IEB----Proyecto-t%C3%A9cnico?page-id=1%3A3&node-id=60-512&viewport=659%2C668%2C0.09&t=NUn7MGpGF8j75zHB-1&scaling=min-zoom&content-scaling=fixed",
@@ -212,17 +219,22 @@ export const MODAL_DATA: Record<number, ModalData> = {
   8: {
     title: "Blog MindDev Perú",
     subtitle: "Diseño y desarrollo de blog para MindDev Perú, enfocado en contenido técnico y experiencias de usuario",
-    aboutProject: "El Blog de MindDev es una plataforma de contenido creada desde cero para centralizar artículos técnicos y educativos, con el objetivo de comunicar conocimiento y fortalecer la presencia digital de la marca.",
-    problem: "MindDev no contaba con un espacio estructurado para publicar contenido, lo que limitaba la visibilidad y la organización de la información para los usuarios.",
+    aboutProject:
+      "Blog centrado en claridad, legibilidad y organización\n\n• Estructura clara\n• Jerarquía tipográfica consistente\n• Experiencia de lectura optimizada\n• Escalabilidad",
+    problem:
+      "MindDev no contaba con una estructura clara para organizar su contenido\n\n• Información no centralizada\n• Falta de jerarquía\n• Baja claridad en la lectura\n\n→ Resultado: dificultad para acceder y comprender el contenido",
     userType: "",
     objectives: [],
     research: "",
     designSystem: "",
     methodology: [],
-    analysis: "",
-    resultado: "Se diseñó la estructura y la interfaz del blog desde cero, definiendo la arquitectura de información, jerarquía tipográfica, componentes de contenido y un diseño responsive enfocado en la legibilidad, la claridad y la escalabilidad.",
-    impacto: "La solución establece una base sólida para la publicación y crecimiento del contenido, mejora la experiencia de lectura y permite a la marca comunicar su conocimiento de forma clara y consistente.",
-    miRol: "UX/UI Designer, responsable de la definición de la estructura visual del producto y diseño de interfaz responsive. El proyecto fue realizado en base a indicaciones de documentación específicas y con un especial pedido de erradicación de imágenes.",
+    analysis:
+      "El contenido técnico debe ser fácil de leer, entender y recorrer\n\nCuando la información está bien estructurada, el usuario puede enfocarse en el contenido sin fricción",
+    resultado:
+      "Diseñé la arquitectura y la interfaz del blog desde cero\n\n• Estructura de contenido\n• Sistema tipográfico\n• Componentes reutilizables\n• Diseño responsive\n• Navegación clara",
+    impacto:
+      "• ↑ claridad en la lectura\n• ↑ tiempo de permanencia\n• ↑ comprensión\n• ↑ escalabilidad",
+    miRol: "",
     images: ["/mockup mindev.png", "/mockup 2 mindev.png"],
     presentationUrl: "https://www.behance.net/gallery/244093137/Blog-MindDev",
     prototypeUrl: "",
@@ -231,17 +243,22 @@ export const MODAL_DATA: Record<number, ModalData> = {
   9: {
     title: "Start CRM",
     subtitle: "Sistema CRM completo con diseño centrado en la experiencia del usuario y eficiencia operativa",
-    aboutProject: "Start CRM es una plataforma SaaS que centraliza la gestión de clientes, conversaciones y tareas en un entorno de trabajo unificado.",
-    problem: "Los CRM tradicionales presentan sobrecarga de información y flujos complejos, lo que reduce la productividad y dificulta la adopción del sistema.",
+    aboutProject:
+      "Un CRM centrado en conversaciones reales\n\nIntegra:\n• WhatsApp y mail en un solo flujo\n• Gestión de contactos y pipeline\n• Trabajo colaborativo",
+    problem:
+      "Los CRM tradicionales no reflejan cómo los equipos realmente gestionan sus ventas\n\n• La comunicación ocurre fuera del sistema (WhatsApp, mail)\n• La información se fragmenta entre herramientas\n• El seguimiento pierde contexto\n\n→ Resultado: desorganización y pérdida de oportunidades",
     objectives: [],
     research: "",
     designSystem: "",
     userType: "",
     methodology: [],
-    analysis: "",
-    resultado: "Se diseñó una experiencia clara y orientada a la acción, con jerarquía visual, organización por prioridades y flujos optimizados. El proyecto incluyó arquitectura de información, diseño de interfaz y un sistema de diseño escalable.",
-    impacto: "Mejora la eficiencia operativa, reduce el tiempo en tareas frecuentes y facilita la toma de decisiones, favoreciendo una mayor adopción del producto.",
-    miRol: "UX/UI Designer end-to-end, responsable de la definición del problema, arquitectura de información, diseño de flujos, interfaz visual y construcción del sistema de diseño.",
+    analysis:
+      "Los equipos comerciales trabajan desde la conversación, pero gestionan desde sistemas que no la incluyen.",
+    resultado:
+      "Diseñé un CRM que centraliza la comunicación y simplifica la gestión\n\n• Dashboard con métricas clave\n• Bandeja de conversaciones integrada\n• Pipeline visual\n• Gestión de tareas y equipo",
+    impacto:
+      "• ↑ adopción del sistema\n• ↑ organización comercial\n• ↑ conversión\n• ↓ pérdida de información",
+    miRol: "",
     images: [
       "/log-in.png",
       "/dashboard-wsp.png",

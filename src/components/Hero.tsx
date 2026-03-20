@@ -148,8 +148,8 @@ const Hero = () => {
     <section
       id="home"
       ref={setRefs}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
-      style={{ minHeight: "100vh", height: "100vh", backgroundColor: "#0d0d0d" }}
+      className="relative min-h-screen flex items-start justify-center overflow-x-hidden pt-16"
+      style={{ minHeight: "100vh", backgroundColor: "#0d0d0d" }}
     >
       {/* LiquidEther: se pausa al salir de vista (ej. al bajar a herramientas) y vuelve al subir */}
       <div className="absolute inset-0 z-0 w-full" style={{ minHeight: "100vh" }}>
@@ -194,11 +194,8 @@ const Hero = () => {
           variants={itemVariants}
           className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6"
         >
-          <span className="block">Creo experiencias</span>
-          <span className="block gradient-text">digitales únicas</span>
-          <span className="block text-2xl sm:text-3xl lg:text-4xl font-normal text-muted-foreground mt-4">
-            que conectan con las personas
-          </span>
+          <span className="block">Diseño productos digitales</span>
+          <span className="block gradient-text">con estructura y coherencia.</span>
         </motion.h1>
 
         {/* Description */}
@@ -206,9 +203,9 @@ const Hero = () => {
           variants={itemVariants}
           className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed"
         >
-          Diseñadora UX/UI enfocada en crear interfaces intuitivas, responsivas y accesibles.
+          Creo interfaces intuitivas, responsivas, estéticas y accesibles.
           <br />
-          Mi pasión nace en entender a los usuarios, y poder mejorar su experiencia.
+          Mi pasion es entender usuarios y generar experiencias.
         </motion.p>
 
 

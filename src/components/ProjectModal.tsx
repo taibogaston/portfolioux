@@ -59,6 +59,19 @@ const ProjectModal = ({
   const [currentProcessImageIndex, setCurrentProcessImageIndex] = useState(0);
   const scrollYRef = useRef(0);
 
+  // Copia para los modales donde el usuario pidió reemplazar estructura textual
+  const titlesWithNewCopy = [
+    "Propsail",
+    "Start CRM",
+    "Starbucks",
+    "IEB - Proyecto técnico",
+    "Blog MindDev Perú",
+  ];
+  const showPropuestaDeValor = titlesWithNewCopy.includes(title);
+  const showInsight = titlesWithNewCopy.includes(title);
+  const showSolucion = titlesWithNewCopy.includes(title);
+  const showImpacto = titlesWithNewCopy.includes(title);
+
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
@@ -198,7 +211,7 @@ const ProjectModal = ({
                                     {title === "Binance" || title === "Start CRM" || title === "Blog MindDev Perú"
                                       ? "Ver en Behance"
                                       : title === "Starbucks"
-                                        ? "Contenido teórico"
+                                        ? "Ver Behance"
                                         : title === "IEB - Proyecto técnico"
                                           ? "Ver investigación"
                                           : "Ver presentación"}
@@ -268,9 +281,13 @@ const ProjectModal = ({
                             {/* Sobre el Proyecto / Producto */}
                             {aboutProject && (
                               <div className="space-y-2 sm:space-y-3">
-                                <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" || title === "Starbucks" ? "Producto" : "Contexto"}</h3>
+                                <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                                  {showPropuestaDeValor ? "Propuesta de valor" : "Contexto"}
+                                </h3>
                                 <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{aboutProject}</p>
+                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px] whitespace-pre-line">
+                                  {aboutProject}
+                                </p>
                               </div>
                             )}
 
@@ -279,7 +296,9 @@ const ProjectModal = ({
                               <div className="space-y-2 sm:space-y-3">
                                 <h3 className="text-lg sm:text-xl font-bold text-foreground">Problema</h3>
                                 <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{problem}</p>
+                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px] whitespace-pre-line">
+                                  {problem}
+                                </p>
                               </div>
                             )}
 
@@ -313,7 +332,9 @@ const ProjectModal = ({
                               <div className="space-y-2 sm:space-y-3">
                                 <h3 className="text-lg sm:text-xl font-bold text-foreground">Research</h3>
                                 <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{research}</p>
+                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px] whitespace-pre-line">
+                                  {research}
+                                </p>
                               </div>
                             )}
 
@@ -322,7 +343,9 @@ const ProjectModal = ({
                               <div className="space-y-2 sm:space-y-3">
                                 <h3 className="text-lg sm:text-xl font-bold text-foreground">Design system, componentes y tokens</h3>
                                 <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{designSystem}</p>
+                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px] whitespace-pre-line">
+                                  {designSystem}
+                                </p>
                               </div>
                             )}
 
@@ -345,27 +368,39 @@ const ProjectModal = ({
                             {/* Análisis */}
                             {analysis && (
                               <div className="space-y-2 sm:space-y-3">
-                                <h3 className="text-lg sm:text-xl font-bold text-foreground">Análisis</h3>
+                                <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                                  {showInsight ? "Insight" : "Análisis"}
+                                </h3>
                                 <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{analysis}</p>
+                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px] whitespace-pre-line">
+                                  {analysis}
+                                </p>
                               </div>
                             )}
 
                             {/* Resultado / Solución */}
                             {resultado && (
                               <div className="space-y-2 sm:space-y-3">
-                                <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" || title === "Starbucks" ? "Solución" : "Resultado"}</h3>
+                                <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                                  {showSolucion ? "Solución" : "Resultado"}
+                                </h3>
                                 <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{resultado}</p>
+                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px] whitespace-pre-line">
+                                  {resultado}
+                                </p>
                               </div>
                             )}
 
                             {/* Impacto potencial / Impacto */}
                             {impacto && (
                               <div className="space-y-2 sm:space-y-3">
-                                <h3 className="text-lg sm:text-xl font-bold text-foreground">{title === "Start CRM" || title === "Blog MindDev Perú" || title === "Starbucks" ? "Impacto" : "Impacto potencial"}</h3>
+                                <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                                  {showImpacto ? "Impacto" : "Impacto potencial"}
+                                </h3>
                                 <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{impacto}</p>
+                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px] whitespace-pre-line">
+                                  {impacto}
+                                </p>
                               </div>
                             )}
 
@@ -374,7 +409,9 @@ const ProjectModal = ({
                               <div className="space-y-2 sm:space-y-3">
                                 <h3 className="text-lg sm:text-xl font-bold text-foreground">Mi rol</h3>
                                 <div className="h-1 w-12 sm:w-16 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
-                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px]">{miRol}</p>
+                                <p className="text-muted-foreground leading-relaxed text-sm sm:text-[15px] whitespace-pre-line">
+                                  {miRol}
+                                </p>
                               </div>
                             )}
                           </div>

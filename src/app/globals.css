@@ -7,19 +7,19 @@
   --card-foreground: 0 0% 95%;
   --popover: 0 0% 12%;
   --popover-foreground: 0 0% 95%;
-  --primary: 270 100% 70%;
+  --primary: 335 90% 68%;
   --primary-foreground: 0 0% 8%;
   --secondary: 0 0% 18%;
   --secondary-foreground: 0 0% 95%;
   --muted: 0 0% 18%;
   --muted-foreground: 0 0% 65%;
-  --accent: 270 50% 25%;
+  --accent: 45 95% 55%;
   --accent-foreground: 0 0% 95%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 95%;
   --border: 0 0% 25%;
   --input: 0 0% 25%;
-  --ring: 270 100% 70%;
+  --ring: 335 90% 68%;
   --radius: 0.5rem;
 }
 
@@ -31,19 +31,19 @@
   --card-foreground: 0 0% 98%;
   --popover: 0 0% 8%;
   --popover-foreground: 0 0% 98%;
-  --primary: 270 100% 75%;
+  --primary: 335 95% 72%;
   --primary-foreground: 0 0% 5%;
   --secondary: 0 0% 15%;
   --secondary-foreground: 0 0% 98%;
   --muted: 0 0% 15%;
   --muted-foreground: 0 0% 70%;
-  --accent: 270 60% 20%;
+  --accent: 45 95% 58%;
   --accent-foreground: 0 0% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
   --border: 0 0% 20%;
   --input: 0 0% 20%;
-  --ring: 270 100% 75%;
+  --ring: 335 95% 72%;
 }
 
 @theme inline {
@@ -89,9 +89,9 @@ html {
 .gradient-bg {
   background: linear-gradient(135deg,
       hsl(0 0% 3%) 0%,
-      hsl(270 50% 8%) 25%,
+      hsl(335 55% 10%) 25%,
       hsl(0 0% 5%) 50%,
-      hsl(270 30% 6%) 75%,
+      hsl(45 70% 8%) 75%,
       hsl(0 0% 3%) 100%);
   background-size: 400% 400%;
   animation: gradientShift 20s ease infinite;
@@ -101,9 +101,9 @@ html {
 .dark .gradient-bg {
   background: linear-gradient(135deg,
       hsl(0 0% 2%) 0%,
-      hsl(270 60% 6%) 25%,
+      hsl(335 60% 7%) 25%,
       hsl(0 0% 4%) 50%,
-      hsl(270 40% 5%) 75%,
+      hsl(45 75% 7%) 75%,
       hsl(0 0% 2%) 100%);
   background-size: 400% 400%;
   animation: gradientShift 20s ease infinite;
@@ -141,7 +141,7 @@ html {
   background: hsl(var(--primary));
 }
 
-/* Modal scrollbar - siempre lila */
+/* Modal scrollbar - color principal */
 .modal-scrollbar::-webkit-scrollbar {
   width: 8px;
 }
@@ -180,9 +180,9 @@ html {
 /* Gradient text */
 .gradient-text {
   background: linear-gradient(135deg,
-      hsl(270 100% 70%),
-      hsl(270 100% 85%),
-      hsl(280 100% 75%));
+      hsl(335 92% 70%),
+      hsl(330 95% 78%),
+      hsl(45 96% 64%));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -191,16 +191,16 @@ html {
 /* Tech grid pattern */
 .tech-grid {
   background-image:
-    linear-gradient(rgba(139, 69, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 69, 255, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(255, 80, 150, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 80, 150, 0.12) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
 
 .dark .tech-grid {
   background-image:
-    linear-gradient(rgba(139, 69, 255, 0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 69, 255, 0.15) 1px, transparent 1px);
+    linear-gradient(rgba(255, 80, 150, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 80, 150, 0.18) 1px, transparent 1px);
 }
 
 /* Tech glow effects */
@@ -230,13 +230,13 @@ html {
   background-position: 0 0, 0 0, 0 0;
 }
 
-/* Tech gradient text (cyan → violet → fuchsia) */
+/* Tech gradient text (rosa → durazno → amarillo) */
 .tech-gradient-text {
   background: linear-gradient(120deg,
-      #22d3ee 0%,
-      #a78bfa 40%,
-      #c084fc 60%,
-      #e879f9 100%);
+      #ff4f9a 0%,
+      #ff7ab6 35%,
+      #ffb36b 65%,
+      #ffd34d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -332,12 +332,12 @@ html {
 /* Tech Badge Effect */
 .tech-badge {
   background: linear-gradient(135deg,
-      rgba(139, 69, 255, 0.1) 0%,
+      rgba(255, 80, 150, 0.12) 0%,
       rgba(0, 0, 0, 0.2) 50%,
-      rgba(139, 69, 255, 0.1) 100%);
-  border: 1px solid rgba(139, 69, 255, 0.3);
+      rgba(255, 211, 77, 0.12) 100%);
+  border: 1px solid rgba(255, 120, 170, 0.35);
   box-shadow:
-    0 0 20px rgba(139, 69, 255, 0.2),
+    0 0 20px rgba(255, 120, 170, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
@@ -365,8 +365,8 @@ html {
   right: 0;
   bottom: 0;
   background:
-    linear-gradient(45deg, transparent 48%, rgba(139, 69, 255, 0.1) 49%, rgba(139, 69, 255, 0.1) 51%, transparent 52%),
-    linear-gradient(-45deg, transparent 48%, rgba(139, 69, 255, 0.1) 49%, rgba(139, 69, 255, 0.1) 51%, transparent 52%);
+    linear-gradient(45deg, transparent 48%, rgba(255, 120, 170, 0.12) 49%, rgba(255, 120, 170, 0.12) 51%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(255, 211, 77, 0.12) 49%, rgba(255, 211, 77, 0.12) 51%, transparent 52%);
   background-size: 8px 8px;
   opacity: 0.3;
   pointer-events: none;

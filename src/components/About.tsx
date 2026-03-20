@@ -85,7 +85,15 @@ const About = () => {
               />
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl lg:max-w-none mx-auto lg:mx-0">
-              Conecto investigación, diseño y estrategia de producto para crear experiencias digitales claras, usables y orientadas a resultados. Trabajo con equipos en metodologías ágiles, design systems y mejora continua.
+              Soy creadora de experiencias dentro de pantallas ❤️
+              <br />
+              <br />
+              Diseño productos digitales conectando negocio y usuario.
+              <br />
+              Trabajo desde la investigación, los flujos y la interfaz para crear experiencias claras, usables y orientadas a resultados. Transformo ideas en soluciones efectivas.
+              <br />
+              <br />
+              ¡Potenciemos el futuro juntos!
             </p>
             <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
               {skills.map((s) => (
