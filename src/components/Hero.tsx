@@ -194,8 +194,12 @@ const Hero = () => {
           variants={itemVariants}
           className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6"
         >
-          <span className="block">Diseño productos digitales</span>
-          <span className="block gradient-text">con estructura y coherencia.</span>
+          <span className="block">
+            Diseño productos{" "}
+            <span className="gradient-text sm:hidden">digitales</span>
+            <span className="hidden sm:inline text-foreground">digitales</span>
+          </span>
+          <span className="hidden sm:block gradient-text">con estructura y coherencia.</span>
         </motion.h1>
 
         {/* Description */}
@@ -203,8 +207,10 @@ const Hero = () => {
           variants={itemVariants}
           className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed"
         >
-          Creo interfaces intuitivas, responsivas, estéticas y accesibles.
-          <br />
+          <span className="hidden sm:inline">
+            Creo interfaces intuitivas, responsivas, estéticas y accesibles.
+            <br />
+          </span>
           Mi pasion es entender usuarios y generar experiencias.
         </motion.p>
 
