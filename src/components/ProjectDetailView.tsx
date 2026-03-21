@@ -1,15 +1,16 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
+import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-interface ProjectModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface ProjectDetailViewProps {
   title: string;
   subtitle: string;
+  /** Si true, no repite el título en la cabecera (p. ej. ya está en ProjectNavCarousel) */
+  hideTitle?: boolean;
   proximamente?: boolean;
   aboutProject?: string;
   problem?: string;
@@ -29,11 +30,10 @@ interface ProjectModalProps {
   mockupImage?: string;
 }
 
-const ProjectModal = ({
-  isOpen,
-  onClose,
+const ProjectDetailView = ({
   title,
   subtitle,
+  hideTitle = false,
   proximamente = false,
   aboutProject,
   problem,
@@ -51,26 +51,31 @@ const ProjectModal = ({
   presentationUrl,
   prototypeUrl,
   mockupImage,
-}: ProjectModalProps) => {
+}: ProjectDetailViewProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [selectedView, setSelectedView] = useState<'desktop' | 'mobile'>('desktop');
   const [currentAfterImageIndex, setCurrentAfterImageIndex] = useState(0);
   const [currentBeforeImageIndex, setCurrentBeforeImageIndex] = useState(0);
   const [currentProcessImageIndex, setCurrentProcessImageIndex] = useState(0);
-  const scrollYRef = useRef(0);
 
-  // Copia para los modales donde el usuario pidió reemplazar estructura textual
   const titlesWithNewCopy = [
     "Propsail",
     "Start CRM",
     "Starbucks",
-    "IEB - Proyecto técnico",
-    "Blog MindDev Perú",
+    "IEB+",
+    "MindDev",
   ];
   const showPropuestaDeValor = titlesWithNewCopy.includes(title);
   const showInsight = titlesWithNewCopy.includes(title);
   const showSolucion = titlesWithNewCopy.includes(title);
   const showImpacto = titlesWithNewCopy.includes(title);
+
+  const showProjectActions = Boolean(presentationUrl || prototypeUrl);
+  const hasImageDemo = images && images.length > 0;
+  const hasProcessDemo =
+    (title === "Starbucks" || title === "Buenbit" || title === "Alpay") &&
+    processImages &&
+    processImages.length > 0;
+  const hasAnyDemo = hasImageDemo || hasProcessDemo;
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -80,204 +85,44 @@ const ProjectModal = ({
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  const scrollToCarousel = () => {
-    const carouselElement = document.getElementById('project-carousel');
-    if (carouselElement) {
-      carouselElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  const scrollToProcess = () => {
-    const processElement = document.getElementById('project-process');
-    if (processElement) {
-      processElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      scrollYRef.current = window.scrollY ?? window.pageYOffset;
-      const originalOverflow = document.body.style.overflow;
-      const originalPaddingRight = document.body.style.paddingRight;
-      const originalPosition = document.body.style.position;
-      const originalTop = document.body.style.top;
-      const originalLeft = document.body.style.left;
-      const originalRight = document.body.style.right;
-      const originalWidth = document.body.style.width;
-      const html = document.documentElement;
-      const originalHtmlOverflow = html.style.overflow;
-
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
-
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = scrollbarWidth > 0 ? `${scrollbarWidth}px` : "";
-      if (isMobile) {
-        html.style.overflow = "hidden";
-        document.body.style.position = "fixed";
-        document.body.style.top = `-${scrollYRef.current}px`;
-        document.body.style.left = "0";
-        document.body.style.right = "0";
-        document.body.style.width = "100%";
-      }
-
-      setCurrentImageIndex(0);
-      setCurrentAfterImageIndex(0);
-      setCurrentBeforeImageIndex(0);
-      setCurrentProcessImageIndex(0);
-
-      return () => {
-        document.body.style.overflow = originalOverflow;
-        document.body.style.paddingRight = originalPaddingRight;
-        document.body.style.position = originalPosition;
-        document.body.style.top = originalTop;
-        document.body.style.left = originalLeft;
-        document.body.style.right = originalRight;
-        document.body.style.width = originalWidth;
-        html.style.overflow = originalHtmlOverflow;
-        if (isMobile) {
-          window.scrollTo(0, scrollYRef.current);
-        }
-      };
-    }
-  }, [isOpen]);
-
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/70 z-50 touch-none md:touch-auto"
-            style={{ touchAction: "none" }}
-            aria-hidden
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 pointer-events-none overflow-hidden"
-          >
-            <div
-              className="bg-card dark:bg-[#0a0a0a] border border-border/30 rounded-2xl sm:rounded-3xl shadow-2xl max-w-7xl w-full max-h-[95dvh] sm:max-h-[85vh] overflow-hidden pointer-events-auto flex flex-col min-h-0"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="px-4 sm:px-6 lg:px-10 pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 relative">
-                <div className="flex items-start justify-between gap-2 sm:gap-4">
-                  <div className="flex-1 min-w-0 space-y-1 sm:space-y-2">
-                    <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tight">{title}</h2>
-                    <p className="text-muted-foreground text-sm sm:text-base font-light">{subtitle}</p>
-                  </div>
-                  <button
-                    onClick={onClose}
-                    className="p-2 sm:p-2.5 min-h-[44px] min-w-[44px] hover:bg-white/5 rounded-lg sm:rounded-xl transition-all hover:scale-110 active:scale-95 flex-shrink-0 touch-manipulation flex items-center justify-center"
-                    aria-label="Cerrar"
-                  >
-                    <X className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
-                </div>
-                <div className="absolute bottom-0 left-8 lg:left-10 right-8 lg:right-10 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
-              </div>
-              <div
-                className="overflow-y-auto overflow-x-hidden flex-1 min-h-0 modal-scrollbar max-h-[calc(95dvh-100px)] sm:max-h-[calc(85vh-140px)]"
-                style={{ WebkitOverflowScrolling: "touch" }}
+    <div className="w-full pb-8 sm:pb-12">
+        {!hideTitle && (
+          <div className="relative px-0 pb-6 pt-2 sm:pb-8 sm:pt-4">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <Link
+                href="/#projects"
+                className="mt-0.5 flex min-h-[44px] min-w-[44px] flex-shrink-0 touch-manipulation items-center justify-center rounded-lg p-2 hover:bg-white/5 sm:rounded-xl sm:p-2.5"
+                aria-label="Volver a proyectos"
               >
-                <div className="px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-10">
-                  {proximamente ? (
+                <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+              </Link>
+              <div className="min-w-0 flex-1 space-y-1 sm:space-y-2">
+                <h1 className="text-xl font-bold tracking-tight sm:text-2xl lg:text-4xl">{title}</h1>
+                <p className="text-sm font-light text-muted-foreground sm:text-base">{subtitle}</p>
+              </div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/30 to-transparent" />
+          </div>
+        )}
+        <div
+          className={`w-full px-0 ${
+            hideTitle
+              ? "pt-2 pb-6 sm:pt-3 sm:pb-8 lg:pb-10"
+              : "py-6 sm:py-8 lg:py-10"
+          }`}
+        >
+          {proximamente ? (
                     <div className="py-16 sm:py-24 flex items-center justify-center">
                       <p className="text-xl sm:text-2xl text-muted-foreground">Próximamente..</p>
                     </div>
                   ) : (
                     <>
-                      {/* Layout principal: Contenido + Mockup */}
-                      <div className="max-w-7xl mx-auto">
+                      {/* Layout principal: Contenido + Mockup (ancho = grilla del contenedor) */}
+                      <div className="w-full">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 mb-8 sm:mb-12">
                           {/* Columna izquierda - Contenido */}
                           <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-                            {/* Botones de acción - Arriba */}
-                            {(presentationUrl || prototypeUrl || (title === "Start CRM" && images && images.length > 0) || (title === "Starbucks" && images && images.length > 0) || (title === "Propsail" && images && images.length > 0) || (title === "Binance" && images && images.length > 0) || (title === "Alpay" && processImages && processImages.length > 0)) && (
-                              <div className="flex flex-wrap gap-2 sm:gap-3">
-                                {presentationUrl && (
-                                  <a
-                                    href={presentationUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
-                                  >
-                                    {title === "Binance" || title === "Start CRM" || title === "Blog MindDev Perú"
-                                      ? "Ver en Behance"
-                                      : title === "Starbucks"
-                                        ? "Ver Behance"
-                                        : title === "IEB - Proyecto técnico"
-                                          ? "Ver investigación"
-                                          : "Ver presentación"}
-                                  </a>
-                                )}
-                                {title === "Binance" && images && images.length > 0 && (
-                                  <button
-                                    onClick={scrollToCarousel}
-                                    className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
-                                  >
-                                    Preview
-                                  </button>
-                                )}
-                                {title === "Blog MindDev Perú" && images && images.length > 0 && (
-                                  <button
-                                    onClick={scrollToCarousel}
-                                    className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
-                                  >
-                                    Preview
-                                  </button>
-                                )}
-                                {prototypeUrl && (
-                                  <a
-                                    href={prototypeUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
-                                  >
-                                    {title === "Dogwalk App" ? "Ver Figma" : "Probar prototipo"}
-                                  </a>
-                                )}
-                                {title === "Start CRM" && images && images.length > 0 && (
-                                  <button
-                                    onClick={scrollToCarousel}
-                                    className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
-                                  >
-                                    Preview
-                                  </button>
-                                )}
-                                {title === "Starbucks" && images && images.length > 0 && (
-                                  <button
-                                    onClick={scrollToCarousel}
-                                    className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
-                                  >
-                                    Ver demostración
-                                  </button>
-                                )}
-                                {title === "Propsail" && images && images.length > 0 && (
-                                  <button
-                                    onClick={scrollToCarousel}
-                                    className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
-                                  >
-                                    Ver demostración
-                                  </button>
-                                )}
-                                {title === "Alpay" && processImages && processImages.length > 0 && (
-                                  <button
-                                    onClick={scrollToProcess}
-                                    className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
-                                  >
-                                    Preview
-                                  </button>
-                                )}
-                              </div>
-                            )}
-
                             {/* Sobre el Proyecto / Producto */}
                             {aboutProject && (
                               <div className="space-y-2 sm:space-y-3">
@@ -418,7 +263,7 @@ const ProjectModal = ({
 
                           {/* Columna derecha - Mockup */}
                           {mockupImage && (
-                            <div className="lg:col-span-5 lg:sticky lg:top-0 lg:self-start lg:h-[calc(85vh-140px)] flex items-start justify-center">
+                            <div className="lg:col-span-5 lg:sticky lg:top-24 lg:self-start lg:max-h-[min(85vh,920px)] flex items-start justify-center">
                               <div className="w-full max-w-4xl sm:max-w-5xl md:max-w-6xl lg:max-w-7xl h-full overflow-hidden relative">
                                 <Image
                                   src={mockupImage}
@@ -435,17 +280,59 @@ const ProjectModal = ({
                         </div>
                       </div>
 
+                      {showProjectActions && (
+                        <div
+                          className={`w-full ${hasAnyDemo ? "mt-8 pt-8 border-t border-border/50" : "mt-8 pt-2"}`}
+                        >
+                          <div className="flex flex-wrap gap-2 sm:gap-3">
+                            {presentationUrl && (
+                              <a
+                                href={presentationUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                              >
+                                {title === "Binance" || title === "Start CRM" || title === "MindDev"
+                                  ? "Ver en Behance"
+                                  : title === "Starbucks"
+                                    ? "Ver Behance"
+                                    : title === "IEB+"
+                                      ? "Ver investigación"
+                                      : "Ver presentación"}
+                              </a>
+                            )}
+                            {prototypeUrl && (
+                              <a
+                                href={prototypeUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-primary text-primary-foreground rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+                              >
+                                {title === "Dogwalk App" ? "Ver Figma" : "Probar prototipo"}
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
                       {/* Antes y Después para IEB y Starbucks, Layout lado a lado para MindDev, Carrusel para otros proyectos */}
                       {images && images.length > 0 && (
-                        <div id="project-carousel" className="mt-8 pt-8 border-t border-border/50">
-                          {title === "IEB - Proyecto técnico" || title === "Starbucks" || title === "Desafio Buenbit" ? (
+                        <div
+                          id="project-carousel"
+                          className={
+                            showProjectActions
+                              ? "mt-6 pt-6 border-t border-border/50"
+                              : "mt-8 pt-8 border-t border-border/50"
+                          }
+                        >
+                          {title === "IEB+" || title === "Starbucks" || title === "Buenbit" ? (
                             // Layout Antes y Después para IEB
-                            <div className="max-w-6xl mx-auto">
+                            <div className="w-full">
                               <div className="mb-4 sm:mb-6 text-center">
                                 <h3 className="text-xl sm:text-2xl font-bold mb-2">Demostración del proyecto</h3>
                                 <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                               </div>
-                              <div className="bg-card/90 dark:bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
+                              <div className="w-full">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-2">
                                   {/* Antes */}
                                   <div className="space-y-3 sm:space-y-4">
@@ -515,7 +402,7 @@ const ProjectModal = ({
                                         )}
                                       </div>
                                     ) : (
-                                      <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50 ${title === "Desafio Buenbit"
+                                      <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50 ${title === "Buenbit"
                                           ? "h-[300px] sm:h-[350px] md:h-[400px]"
                                           : "min-h-[300px] sm:min-h-[400px] md:min-h-[500px]"
                                         }`}>
@@ -606,7 +493,7 @@ const ProjectModal = ({
                                         )}
                                       </div>
                                     ) : (
-                                      <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50 ${title === "Desafio Buenbit"
+                                      <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center bg-muted/50 dark:bg-black/50 ${title === "Buenbit"
                                           ? "h-[300px] sm:h-[350px] md:h-[400px]"
                                           : "min-h-[300px] sm:min-h-[400px] md:min-h-[500px]"
                                         }`}>
@@ -628,14 +515,14 @@ const ProjectModal = ({
                                 </div>
                               </div>
                             </div>
-                          ) : title === "Blog MindDev Perú" ? (
+                          ) : title === "MindDev" ? (
                             // Carrusel para MindDev
-                            <div className="max-w-5xl mx-auto">
+                            <div className="w-full">
                               <div className="mb-4 sm:mb-6 text-center">
                                 <h3 className="text-xl sm:text-2xl font-bold mb-2">Demostración del proyecto</h3>
                                 <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                               </div>
-                              <div className="bg-card/90 dark:bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
+                              <div className="w-full">
                                 <div className="relative">
                                   {/* Imagen actual */}
                                   <div className="relative w-full overflow-hidden rounded-xl flex items-center justify-center h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px]">
@@ -700,12 +587,12 @@ const ProjectModal = ({
                             </div>
                           ) : (
                             // Carrusel para otros proyectos
-                            <div className={`mx-auto ${title === "Propsail" ? "max-w-7xl" : "max-w-5xl"}`}>
+                            <div className="w-full">
                               <div className="mb-4 sm:mb-6 text-center">
                                 <h3 className="text-xl sm:text-2xl font-bold mb-2">{title === "Start CRM" || title === "Alpay" || title === "Propsail" ? "Demostración del proyecto" : "Capturas del Proyecto"}</h3>
                                 <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                               </div>
-                              <div className="bg-card/90 dark:bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
+                              <div className="w-full">
                                 <div className="relative">
                                   {/* Imagen actual */}
                                   <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center ${title === "Propsail" ? "h-[700px] sm:h-[800px] md:h-[900px] lg:h-[1000px] xl:h-[1100px]" : "h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px]"}`}>
@@ -773,17 +660,26 @@ const ProjectModal = ({
                       )}
 
                       {/* Carrusel de Proceso para Starbucks, Variantes para Buenbit y Demostración para Alpay */}
-                      {(title === "Starbucks" || title === "Desafio Buenbit" || title === "Alpay") && processImages && processImages.length > 0 && (
-                        <div id="project-process" className="mt-8 pt-8 border-t border-border/50">
-                          <div className="max-w-6xl mx-auto">
+                      {(title === "Starbucks" || title === "Buenbit" || title === "Alpay") && processImages && processImages.length > 0 && (
+                        <div
+                          id="project-process"
+                          className={
+                            hasImageDemo
+                              ? "mt-8 pt-8 border-t border-border/50"
+                              : showProjectActions
+                                ? "mt-6 pt-6 border-t border-border/50"
+                                : "mt-8 pt-8 border-t border-border/50"
+                          }
+                        >
+                          <div className="w-full">
                             <div className="mb-4 sm:mb-6 text-center">
-                              <h3 className="text-xl sm:text-2xl font-bold mb-2">{title === "Desafio Buenbit" ? "Otras variantes" : title === "Alpay" ? "Demostración del proyecto" : "Proceso"}</h3>
+                              <h3 className="text-xl sm:text-2xl font-bold mb-2">{title === "Buenbit" ? "Otras variantes" : title === "Alpay" ? "Demostración del proyecto" : "Proceso"}</h3>
                               <div className="h-1 w-16 sm:w-20 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full mx-auto"></div>
                             </div>
-                            <div className="bg-card/90 dark:bg-black/90 rounded-2xl p-4 sm:p-6 lg:p-8 border border-border/20">
+                            <div className="w-full">
                               <div className="relative">
                                 {/* Imagen actual */}
-                                <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center ${title === "Desafio Buenbit" || title === "Alpay"
+                                <div className={`relative w-full overflow-hidden rounded-xl flex items-center justify-center ${title === "Buenbit" || title === "Alpay"
                                     ? "h-[300px] sm:h-[350px] md:h-[400px]"
                                     : "h-[400px] sm:h-[450px] md:h-[500px] lg:h-[550px]"
                                   }`}>
@@ -853,16 +749,25 @@ const ProjectModal = ({
                         </div>
                       )}
 
+                      <div className="mt-10 pt-8 border-t border-border/50 flex justify-center sm:mt-12 sm:pt-10">
+                        <button
+                          type="button"
+                          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                          className="group inline-flex min-h-[44px] items-center gap-2 rounded-xl border border-border/60 bg-background/80 px-5 py-2.5 text-sm font-medium text-foreground shadow-sm backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-primary/5 hover:shadow-md active:scale-[0.98]"
+                          aria-label="Volver arriba del proyecto"
+                        >
+                          <ChevronUp
+                            className="h-5 w-5 transition-transform group-hover:-translate-y-0.5"
+                            aria-hidden
+                          />
+                          <span>Volver arriba</span>
+                        </button>
+                      </div>
                     </>
                   )}
                 </div>
-              </div>
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+    </div>
   );
 };
 
-export default ProjectModal;
+export default ProjectDetailView;

@@ -121,7 +121,7 @@ const Experience = () => {
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+        className="container mx-auto px-6 sm:px-[var(--site-gutter-x)] relative z-10"
       >
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">

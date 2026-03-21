@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Code, Heart, Instagram, Linkedin, Mail } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
+  const router = useRouter();
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -35,19 +38,23 @@ const Footer = () => {
     { name: "Contacto", href: "#contact" },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: href === "#about" || href === "#tools" ? "center" : "start",
-      });
+  const goToSection = (href: string) => {
+    if (pathname === "/") {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: href === "#about" || href === "#tools" ? "center" : "start",
+        });
+      }
+    } else {
+      router.push("/" + href);
     }
   };
 
   return (
     <footer className="bg-muted/50 border-t border-border">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container mx-auto px-6 sm:px-[var(--site-gutter-x)] py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <motion.div
@@ -103,7 +110,7 @@ const Footer = () => {
                   transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
                 >
                   <button
-                    onClick={() => scrollToSection(link.href)}
+                    onClick={() => goToSection(link.href)}
                     className="text-muted-foreground hover:text-primary transition-colors duration-200 text-left py-2 min-h-[44px] flex items-center touch-manipulation"
                   >
                     {link.name}

@@ -155,8 +155,8 @@ const Hero = () => {
       <div className="absolute inset-0 z-0 w-full" style={{ minHeight: "100vh" }}>
         <LiquidEther
           className="absolute inset-0 h-full w-full"
-          mouseForce={reducedMotionOrMobile ? 15 : 28}
-          autoIntensity={reducedMotionOrMobile ? 1.8 : 2.5}
+          mouseForce={reducedMotionOrMobile ? 12 : 20}
+          autoIntensity={reducedMotionOrMobile ? 1.35 : 1.75}
           resolution={etherConfig.resolution}
           iterationsPoisson={etherConfig.iterationsPoisson}
           iterationsViscous={etherConfig.iterationsViscous}
@@ -173,7 +173,7 @@ const Hero = () => {
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-8"
+        className="container mx-auto px-6 sm:px-[var(--site-gutter-x)] text-center relative z-10 py-8"
       >
         {/* Greeting */}
         <motion.div variants={itemVariants}

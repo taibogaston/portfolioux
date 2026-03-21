@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Code2, Palette, Box } from "lucide-react";
 import Image from "next/image";
-import TrueFocus from "./TrueFocus";
+import dynamic from "next/dynamic";
 
-const About = () => {
-  const [ref, inView] = useInView({
+const TrueFocus = dynamic(() => import("./TrueFocus"), { ssr: false });
+
+export default function About() {
+  const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.05,
   });
@@ -48,7 +50,7 @@ const About = () => {
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+        className="container mx-auto px-6 sm:px-[var(--site-gutter-x)] relative z-10"
       >
         {/* Bento: foto + bloque de texto - centrado */}
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16">
@@ -96,21 +98,22 @@ const About = () => {
               ¡Potenciemos el futuro juntos!
             </p>
             <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-              {skills.map((s) => (
-                <span
-                  key={s.label}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card dark:bg-white/10 border border-border dark:border-white/20 text-foreground text-sm font-medium"
-                >
-                  <s.icon className="w-4 h-4 text-primary" />
-                  {s.label}
-                </span>
-              ))}
+              {skills.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <span
+                    key={s.label}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card dark:bg-white/10 border border-border dark:border-white/20 text-foreground text-sm font-medium"
+                  >
+                    <Icon className="w-4 h-4 text-primary" />
+                    {s.label}
+                  </span>
+                );
+              })}
             </div>
           </motion.div>
         </div>
       </motion.div>
     </section>
   );
-};
-
-export default About;
+}

@@ -43,7 +43,7 @@ export const MODAL_DATA: Record<number, ModalData> = {
     mockupImage: "/Mockup-1.png",
   },
   1: {
-    title: "Worldtrip e-commerce",
+    title: "WorldTrip",
     subtitle: "Web e-commerce, con orientación en viajes y paquetes. Modelo responsive",
     proximamente: true,
     aboutProject: "Descripción del proyecto...",
@@ -61,7 +61,7 @@ export const MODAL_DATA: Record<number, ModalData> = {
     mockupImage: "",
   },
   2: {
-    title: "Mercado Libre Research",
+    title: "Mercado Libre",
     subtitle: "Rediseño de la funcionalidad de filtrados",
     aboutProject: "Este proyecto consistió en el rediseño de la funcionalidad de filtrados de MercadoLibre, una de las plataformas de e-commerce más grandes de Latinoamérica. El objetivo fue mejorar la experiencia del usuario al buscar y filtrar productos, haciendo el proceso más intuitivo y eficiente.",
     problem: "",
@@ -107,7 +107,7 @@ export const MODAL_DATA: Record<number, ModalData> = {
     mockupImage: "/mockup ALPAYYY.png",
   },
   4: {
-    title: "Desafio Buenbit",
+    title: "Buenbit",
     subtitle: "Desafio basado en el re-diseño del Home de la app Buenbit",
     aboutProject: "Rediseño y reestructuración mobile de la app Buenbit, siguiendo su design system y alineando el diseño al contexto funcional financiero",
     problem: "",
@@ -194,7 +194,7 @@ export const MODAL_DATA: Record<number, ModalData> = {
     mockupImage: "/dogwalk.png",
   },
   7: {
-    title: "IEB - Proyecto técnico",
+    title: "IEB+",
     subtitle: "Proyecto técnico realizado para IEB (personal), enfocado en diseño de interfaces y experiencia de usuario",
     aboutProject:
       "Rediseño de la landing enfocado en claridad, confianza y conversión\n\n• Comunicación directa del valor\n• Jerarquía visual clara\n• Secciones orientadas a la decisión\n• Refuerzo de confianza",
@@ -217,7 +217,7 @@ export const MODAL_DATA: Record<number, ModalData> = {
     mockupImage: "/iebfinal.png",
   },
   8: {
-    title: "Blog MindDev Perú",
+    title: "MindDev",
     subtitle: "Diseño y desarrollo de blog para MindDev Perú, enfocado en contenido técnico y experiencias de usuario",
     aboutProject:
       "Blog centrado en claridad, legibilidad y organización\n\n• Estructura clara\n• Jerarquía tipográfica consistente\n• Experiencia de lectura optimizada\n• Escalabilidad",

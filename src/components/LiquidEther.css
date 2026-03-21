@@ -10,4 +10,6 @@
   display: block;
   width: 100% !important;
   height: 100% !important;
+  /* Baja la intensidad del rosa para mejorar legibilidad del texto encima */
+  opacity: 0.72;
 }

@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import HashScrollHandler from "@/components/HashScrollHandler";
 import "./globals.css";
 
 const satoshi = localFont({
@@ -50,7 +53,14 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange={true}
         >
-          {children}
+          <div className="min-h-screen text-foreground relative">
+            <div className="relative z-10 flex min-h-screen flex-col">
+              <HashScrollHandler />
+              <Header />
+              <div className="flex flex-1 flex-col w-full min-w-0">{children}</div>
+              <Footer />
+            </div>
+          </div>
         </ThemeProvider>
       </body>
     </html>

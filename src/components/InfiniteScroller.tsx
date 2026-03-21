@@ -163,21 +163,11 @@ const InfiniteScroller = () => {
       ref={ref}
       className="pt-16 pb-24 sm:pt-20 sm:pb-28 relative overflow-hidden tech-section-bg"
     >
-      {/* Degradado arriba: se funde con About; más bajo para que el título tenga color */}
-      <div
-        className="absolute inset-x-0 top-0 h-1/4 pointer-events-none z-[1] bg-gradient-to-b from-background to-transparent"
-        aria-hidden
-      />
-      {/* Degradado abajo: se funde con la sección Proyectos */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-2/5 pointer-events-none z-[1] bg-gradient-to-t from-background to-transparent"
-        aria-hidden
-      />
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6 }}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+        className="container mx-auto px-6 sm:px-[var(--site-gutter-x)] relative z-10"
       >
         {/* Section Header */}
         <motion.div 
