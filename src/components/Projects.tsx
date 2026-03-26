@@ -83,7 +83,7 @@ const Projects = () => {
                     src={project.image}
                     alt={project.title}
                     fill
-                    className={`object-cover transition-transform duration-500 group-hover:scale-105 ${project.id === 8 ? "object-[50%_25%]" : project.id === 3 ? "object-[50%_30%]" : project.id === 10 ? "object-[50%_25%]" : ""}`}
+                    className={`object-cover transition-transform duration-500 group-hover:scale-105 ${project.id === 8 ? "object-[50%_25%]" : project.id === 3 ? "object-[50%_30%]" : project.id === 10 ? "object-[50%_25%]" : project.id === 13 ? "object-[50%_38%]" : ""}`}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     loading="lazy"
                   />

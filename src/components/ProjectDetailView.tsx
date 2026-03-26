@@ -269,7 +269,7 @@ const ProjectDetailView = ({
                                   src={mockupImage}
                                   alt={title}
                                   fill
-                                  className="object-contain drop-shadow-2xl"
+                                  className={`object-contain drop-shadow-2xl ${title === "Chichilo" ? "object-[50%_40%]" : ""}`}
                                   sizes="(max-width: 1024px) 100vw, 40vw"
                                   loading="lazy"
                                   key={mockupImage}

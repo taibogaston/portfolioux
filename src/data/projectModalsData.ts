@@ -1,9 +1,9 @@
 export interface ModalData { title: string; subtitle: string; proximamente?: boolean; aboutProject?: string; problem?: string; objectives?: string[]; research?: string; designSystem?: string; userType?: string; methodology?: string[]; analysis?: string; resultado?: string; impacto?: string; miRol?: string; images?: string[]; processImages?: string[]; presentationUrl?: string; prototypeUrl?: string; mockupImage?: string; }
 
 export const MODAL_DATA: Record<number, ModalData> = {
-  11: {
-    title: "Locker App",
-    subtitle: "Aplicación móvil para gestión de lockers y reservas.",
+  13: {
+    title: "Chichilo",
+    subtitle: "Próximamente.",
     proximamente: true,
     aboutProject: "",
     problem: "",
@@ -17,7 +17,7 @@ export const MODAL_DATA: Record<number, ModalData> = {
     images: [],
     presentationUrl: "",
     prototypeUrl: "",
-    mockupImage: "",
+    mockupImage: "/mockup-chichilo.png",
   },
   10: {
     title: "Propsail",
