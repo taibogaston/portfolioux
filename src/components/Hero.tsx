@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ArrowDown, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 const LiquidEther = dynamic(() => import("./LiquidEther"), { ssr: false });
@@ -148,8 +148,8 @@ const Hero = () => {
     <section
       id="home"
       ref={setRefs}
-      className="relative min-h-screen flex items-start justify-center overflow-x-hidden pt-16"
-      style={{ minHeight: "100vh", backgroundColor: "#0d0d0d" }}
+      className="relative flex min-h-screen flex-col overflow-x-hidden pt-16"
+      style={{ backgroundColor: "#0d0d0d" }}
     >
       {/* LiquidEther: se pausa al salir de vista (ej. al bajar a herramientas) y vuelve al subir */}
       <div className="absolute inset-0 z-0 w-full" style={{ minHeight: "100vh" }}>
@@ -173,7 +173,7 @@ const Hero = () => {
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="container mx-auto px-6 sm:px-[var(--site-gutter-x)] text-center relative z-10 py-8"
+        className="container relative z-10 mx-auto flex flex-1 flex-col justify-center px-6 py-8 text-center sm:px-[var(--site-gutter-x)]"
       >
         {/* Greeting */}
         <motion.div variants={itemVariants}
@@ -232,17 +232,6 @@ const Hero = () => {
           >
             Contactar
           </button>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 1.0, duration: 0.6 }}
-          className="mt-20 flex flex-col items-center text-muted-foreground animate-bounce"
-        >
-          <span className="text-sm mb-2">Desplázate</span>
-          <ArrowDown className="w-5 h-5" />
         </motion.div>
       </motion.div>
     </section>

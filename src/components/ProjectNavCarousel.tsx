@@ -33,8 +33,8 @@ export default function ProjectNavCarousel({ currentSlug }: ProjectNavCarouselPr
   return (
     <div className="mb-3 w-full sm:mb-5">
       {/* Una sola fila en móvil: título (flex-1) + siguiente (shrink-0). Pantallas muy angostas: solo flecha. */}
-      <div className="flex w-full min-w-0 flex-row flex-nowrap items-baseline justify-between gap-3 sm:gap-6">
-        <div className="min-w-0 flex-1">
+      <div className="flex w-full min-w-0 flex-row flex-nowrap items-center justify-between gap-3 sm:gap-6">
+        <div className="min-w-0 flex-1 self-center">
           <motion.div
             key={current.slug}
             initial={{ opacity: 0, y: 6 }}
@@ -43,19 +43,19 @@ export default function ProjectNavCarousel({ currentSlug }: ProjectNavCarouselPr
             className="min-w-0 pb-3 sm:pb-4"
           >
             {immediatePrev ? (
-              <div className="relative w-full max-w-[min(100%,28rem)]">
+              <div className="flex w-full min-w-0 items-center gap-2 sm:gap-3">
                 <Link
                   href={`/projects/${immediatePrev.slug}`}
-                  className="absolute right-full top-1/2 mr-1 flex -translate-y-1/2 items-center rounded-lg p-1.5 text-muted-foreground transition-colors hover:text-primary sm:p-2 touch-manipulation"
+                  className="flex h-11 min-h-[44px] min-w-[44px] shrink-0 touch-manipulation items-center justify-start self-center rounded-lg py-0 pl-0 pr-2 text-muted-foreground transition-colors hover:text-primary sm:pr-2.5"
                   aria-label={`Proyecto anterior: ${immediatePrev.title}`}
                 >
                   <ChevronLeft
-                    className="h-5 w-5 shrink-0 sm:h-6 sm:w-6"
+                    className="h-5 w-5 shrink-0 -translate-x-px sm:h-6 sm:w-6"
                     strokeWidth={2}
                     aria-hidden
                   />
                 </Link>
-                <div className="project-nav-title-glow project-nav-title-glow--start max-w-[min(100%,28rem)]">
+                <div className="project-nav-title-glow project-nav-title-glow--start min-w-0 w-fit max-w-[min(100%,28rem)]">
                   <h1 className="hyphens-auto break-words text-left text-lg font-bold leading-tight tracking-tight text-foreground text-balance sm:text-2xl md:text-3xl lg:text-4xl">
                     {current.title}
                   </h1>
@@ -72,11 +72,11 @@ export default function ProjectNavCarousel({ currentSlug }: ProjectNavCarouselPr
         </div>
 
         {immediateNext ? (
-          <div className="shrink-0">
+          <div className="flex shrink-0 flex-col justify-center self-center pb-3 sm:pb-4">
             <div className="max-w-[min(46vw,13rem)] min-w-0 sm:max-w-[13rem]">
               <Link
                 href={`/projects/${immediateNext.slug}`}
-                className="flex flex-nowrap items-center justify-end gap-1.5 rounded-lg p-1.5 text-muted-foreground transition-colors hover:text-primary sm:gap-2 sm:p-2 touch-manipulation"
+                className="flex min-h-[44px] min-w-0 flex-nowrap items-center justify-end gap-1.5 rounded-lg p-1.5 text-muted-foreground transition-colors hover:text-primary sm:gap-2 sm:p-2 touch-manipulation"
                 aria-label={`Siguiente proyecto: ${immediateNext.title}`}
                 title={immediateNext.title}
               >

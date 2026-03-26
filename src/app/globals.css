@@ -292,12 +292,12 @@ html {
   max-width: min(100%, 28rem);
 }
 
-/* Halo con el mismo ancho que el bloque del título (la palabra) */
+/* Halo: ancho = del título (inicio–fin del texto), sin tope fijo */
 .project-nav-title-glow--start::after {
   left: 0;
   transform: none;
   width: 100%;
-  max-width: 20rem;
+  max-width: none;
 }
 
 /* Glow effects */
